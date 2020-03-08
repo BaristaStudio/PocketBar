@@ -1,5 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="PocketBar.App">
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
+             mc:Ignorable="d" 
+             x:Class="PocketBar.App">
     <Application.Resources>
+        <ResourceDictionary>
+            <OnPlatform x:TypeArguments="x:String" 
+                        x:Key="FontAwesomeSolid"
+                        Android="fa-solid-900.ttf#Regular"
+                        iOS="FontAwesome5Free-Solid"
+                      />
+            <OnPlatform x:TypeArguments="x:String" 
+                        x:Key="FontAwesomeRegular"
+                        Android="fa-regular-400.ttf#FontAwesome5Free"
+                        iOS="FontAwesome5Free-Regular"
+                      />
+            <OnPlatform x:TypeArguments="x:String" 
+                        x:Key="FontAwesomeBrands"
+                        Android="fa-brands-400.ttf#Regular"
+                        iOS="FontAwesome5Brands-Regular"
+                      />
+            <Color x:Key="Default">#707070</Color>
+            <Color x:Key="LightOrange">#EEB14F</Color>
+            <Color x:Key="DarkOrange">#b39056</Color>
+            <Color x:Key="LightBlue">#0099ff</Color>
+            <Color x:Key="DarkBlue">#6998B8</Color>
+        </ResourceDictionary>
     </Application.Resources>
-</Application>
+</prism:PrismApplication>
