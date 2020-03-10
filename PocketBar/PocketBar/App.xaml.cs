@@ -1,4 +1,5 @@
 ﻿using PocketBar.Constants;
+using PocketBar.ViewModels;
 using PocketBar.Views;
 using Prism;
 using Prism.Ioc;
@@ -19,6 +20,14 @@ namespace PocketBar
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterForNavigation<IngredientListPage, IngredientListViewModel>();
+            containerRegistry.RegisterForNavigation<GlassesListPage, GlassesListViewModel>();
+            containerRegistry.RegisterForNavigation<CocktailsListPage, CocktailsListViewModel>();
+            containerRegistry.RegisterForNavigation<CategoriesPage, CategoriesViewModel>();
+            containerRegistry.RegisterForNavigation<CocktailDetailsPage, CocktailDetailsViewModel>();
+            containerRegistry.RegisterForNavigation<IngredientDetailsPage, IngredientDetailsViewModel>();
+            containerRegistry.RegisterForNavigation<SurpriseMePage, SurpriseMeViewModel>();
+
             containerRegistry.RegisterForNavigation<PlaygroundPage>();
         }
         protected override void OnStart()
