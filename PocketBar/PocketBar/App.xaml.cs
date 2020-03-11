@@ -27,6 +27,7 @@ namespace PocketBar
             containerRegistry.RegisterForNavigation<CocktailDetailsPage, CocktailDetailsViewModel>();
             containerRegistry.RegisterForNavigation<IngredientDetailsPage, IngredientDetailsViewModel>();
             containerRegistry.RegisterForNavigation<SurpriseMePage, SurpriseMeViewModel>();
+            containerRegistry.RegisterForNavigation<MyFavoritesPage, MyFavoritesViewModel>();
 
             containerRegistry.RegisterForNavigation<PlaygroundPage>();
         }
