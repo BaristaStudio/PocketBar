@@ -6,11 +6,11 @@ using System.Text;
 
 namespace PocketBar.Models
 {
-    public class GlassDetail : INotifyPropertyChanged
+    public class Glass : INotifyPropertyChanged
     {
 
         [JsonProperty("strGlass")]
-        public string Glass { get; set; }
+        public string GlassName { get; set; }
 
         [JsonProperty("strCategory")]
         public string Category { get; set; }
@@ -23,10 +23,10 @@ namespace PocketBar.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
     }
-    public class Glass : INotifyPropertyChanged
+    public class GlassList : INotifyPropertyChanged
     {
         [JsonProperty("drinks")]
-        public IList<Drink> Drinks { get; set; }
+        public IList<Glass> Drinks { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }
