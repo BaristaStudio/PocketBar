@@ -10,16 +10,16 @@ namespace PocketBar.Managers
 {
 	public class IngredientsManager
 	{
-		private ICocktailAPIService _apiService;
+		private CocktailService cocktailService;
 
-		public IngredientsManager(ICocktailAPIService service)
+		public IngredientsManager(CocktailService service)
 		{
-			this._apiService = service;
+			this.cocktailService = service;
 		}
 
 		public async Task<List<Ingredient>> GetIngredients()
 		{
-			var response = await _apiService.GetAllIngredientsAsync();
+			var response = await cocktailService.ApiService.GetAllIngredientsAsync();
 			return response.Ingredients.ToList();
 		}
 	}

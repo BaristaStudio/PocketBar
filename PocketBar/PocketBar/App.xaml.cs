@@ -1,10 +1,12 @@
 ﻿using PocketBar.Constants;
+using PocketBar.Managers;
 using PocketBar.Services;
 using PocketBar.ViewModels;
 using PocketBar.Views;
 using Prism;
 using Prism.Ioc;
 using Prism.Unity;
+using Refit;
 using System;
 
 namespace PocketBar
@@ -31,6 +33,9 @@ namespace PocketBar
             containerRegistry.RegisterForNavigation<SurpriseMePage, SurpriseMePageViewModel>();
             containerRegistry.RegisterForNavigation<MyFavoritesPage, MyFavoritesPageViewModel>();
             containerRegistry.RegisterForNavigation<PlaygroundPage>();
+
+            containerRegistry.Register<CocktailService>();
+            containerRegistry.RegisterSingleton<IngredientsManager>();
         }
         protected override void OnStart()
         {

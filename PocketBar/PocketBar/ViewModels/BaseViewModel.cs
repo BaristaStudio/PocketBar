@@ -10,17 +10,10 @@ using Xamarin.Essentials;
 
 namespace PocketBar.ViewModels
 {
-    class BaseViewModel
+    public abstract class BaseViewModel
     {
         INavigationService NavigationService { get; set; }
         IPageDialogService PageDialogService { get; set; }
-
-        public ICocktailAPIService _apiService;
-
-        public BaseViewModel()
-        {
-            _apiService = RestService.For<ICocktailAPIService>(Config.CocktailAPIURL);
-        }
 
         public Task<bool> HasInternetConnection()
         {
