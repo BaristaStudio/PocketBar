@@ -21,9 +21,9 @@ namespace PocketBar.ViewModels
 
 		private IngredientsManager ingredientsManager;
 
-		public IngredientListPageViewModel() : base()
+		public IngredientListPageViewModel(IngredientsManager ingredientsManager) : base()
 		{
-			this.ingredientsManager = new IngredientsManager(this._apiService);
+			this.ingredientsManager = ingredientsManager;
 		}
 		public async void GetIngredients()
 		{
