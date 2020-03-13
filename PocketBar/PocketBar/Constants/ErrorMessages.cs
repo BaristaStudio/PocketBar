@@ -6,5 +6,7 @@ namespace PocketBar.Constants
 {
 	class ErrorMessages
 	{
+		public const string ErrorOccured = "Error Occured";
+		public const string Ok = "Ok";
 	}
 }
