@@ -7,5 +7,6 @@ namespace PocketBar.Constants
 	public static class NavConstants
 	{
 		public const string PlaygroundPage = "PlaygroundPage";
+		public const string MainTabbedPage = "MainTabbedPage";
 	}
 }

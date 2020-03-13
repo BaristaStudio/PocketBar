@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PocketBar.ViewModels
 {
-    class CocktailDetailsViewModel: BaseViewModel
+    class CategoriesPageViewModel: BaseViewModel
     {
     }
 }

@@ -1,4 +1,5 @@
 ﻿using PocketBar.Constants;
+using PocketBar.Services;
 using PocketBar.ViewModels;
 using PocketBar.Views;
 using Prism;
@@ -15,20 +16,20 @@ namespace PocketBar
         protected override void OnInitialized()
         {
             InitializeComponent();
-            NavigationService.NavigateAsync(NavConstants.PlaygroundPage);
+            NavigationService.NavigateAsync(NavConstants.MainTabbedPage);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<IngredientListPage, IngredientListViewModel>();
-            containerRegistry.RegisterForNavigation<GlassesListPage, GlassesListViewModel>();
-            containerRegistry.RegisterForNavigation<CocktailsListPage, CocktailsListViewModel>();
-            containerRegistry.RegisterForNavigation<CategoriesPage, CategoriesViewModel>();
-            containerRegistry.RegisterForNavigation<CocktailDetailsPage, CocktailDetailsViewModel>();
-            containerRegistry.RegisterForNavigation<IngredientDetailsPage, IngredientDetailsViewModel>();
-            containerRegistry.RegisterForNavigation<SurpriseMePage, SurpriseMeViewModel>();
-            containerRegistry.RegisterForNavigation<MyFavoritesPage, MyFavoritesViewModel>();
-
+            containerRegistry.RegisterForNavigation<MainTabbedPage>();
+            containerRegistry.RegisterForNavigation<IngredientListPage, IngredientListPageViewModel>();
+            containerRegistry.RegisterForNavigation<GlassesListPage, GlassesListPageViewModel>();
+            containerRegistry.RegisterForNavigation<CocktailsListPage, CocktailsListPageViewModel>();
+            containerRegistry.RegisterForNavigation<CategoriesPage, CategoriesPageViewModel>();
+            containerRegistry.RegisterForNavigation<CocktailDetailsPage, CocktailDetailsPageViewModel>();
+            containerRegistry.RegisterForNavigation<IngredientDetailsPage, IngredientDetailsPageViewModel>();
+            containerRegistry.RegisterForNavigation<SurpriseMePage, SurpriseMePageViewModel>();
+            containerRegistry.RegisterForNavigation<MyFavoritesPage, MyFavoritesPageViewModel>();
             containerRegistry.RegisterForNavigation<PlaygroundPage>();
         }
         protected override void OnStart()

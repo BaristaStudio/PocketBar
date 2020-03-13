@@ -1,5 +1,7 @@
-﻿using Prism.Navigation;
+﻿using PocketBar.Services;
+using Prism.Navigation;
 using Prism.Services;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +15,13 @@ namespace PocketBar.ViewModels
         INavigationService NavigationService { get; set; }
         IPageDialogService PageDialogService { get; set; }
 
+        public ICocktailAPIService _apiService;
+
+        public BaseViewModel()
+        {
+            _apiService = RestService.For<ICocktailAPIService>(Config.CocktailAPIURL);
+        }
+
         public Task<bool> HasInternetConnection()
         {
             if(Connectivity.NetworkAccess == NetworkAccess.Internet)
@@ -25,9 +34,9 @@ namespace PocketBar.ViewModels
             }
         }
 
-        public Task ShowMessage(string message)
+        public Task ShowMessage(string title, string message, string cancel, string accept = null)
         {
-           return PageDialogService.DisplayAlertAsync("Error", "Please try again", "Ok");
+           return PageDialogService.DisplayAlertAsync(title, message, accept, cancel);
         }
     }
 }
