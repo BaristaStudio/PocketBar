@@ -36,6 +36,9 @@ namespace PocketBar
 
             containerRegistry.Register<CocktailService>();
             containerRegistry.RegisterSingleton<IngredientsManager>();
+            containerRegistry.RegisterSingleton<GlassesManager>();
+            containerRegistry.RegisterSingleton<CocktailsManager>();
+            containerRegistry.RegisterSingleton<CategoriesManager>();
         }
         protected override void OnStart()
         {

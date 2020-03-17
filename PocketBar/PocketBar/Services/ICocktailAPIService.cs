@@ -10,22 +10,22 @@ namespace PocketBar.Services
     public interface ICocktailAPIService
     {
          [Get("/filter.php?g={glass}")]
-         Task<Cocktail> GetCocktailsByGlassAsync(string glass);
+         Task<CocktailList> GetCocktailsByGlassAsync(string glass);
 
          [Get("/filter.php?c={category}")]
-         Task<Cocktail> GetCocktailsByCategoryAsync(string category);
+         Task<CocktailList> GetCocktailsByCategoryAsync(string category);
 
          [Get("/filter.php?a={alcoholic}")]
-         Task<Cocktail> GetCocktailsByAlcoholicAsync(string alcoholic);
+         Task<CocktailList> GetCocktailsByAlcoholicAsync(string alcoholic);
 
          [Get("/filter.php?i={ingredient}")]
-         Task<Cocktail> GetCocktailsByIngredientAsync(string ingredient);
+         Task<CocktailList> GetCocktailsByIngredientAsync(string ingredient);
 
          [Get("/lookup.php?iid={ingredientId}")]
-         Task<IngredientList> GetIngredientByIdAsync(string ingredientId);
+         Task<Ingredient> GetIngredientByIdAsync(int ingredientId);
 
          [Get("/lookup.php?i={drinkId}")]
-         Task<Cocktail> GetCocktailByIdAsync(string drinkId);
+         Task<Cocktail> GetCocktailByIdAsync(int drinkId);
 
         [Get("/random.php")]
         Task<Cocktail> GetRandomCocktailAsync();
@@ -37,10 +37,7 @@ namespace PocketBar.Services
         Task<IngredientList> GetAllIngredientsAsync();
 
         [Get("/list.php?c=list")]
-        Task<GlassList> GetAllCategoriesAsync();
-
-        [Get("/list.php?a=list")]
-        Task<GlassList> GetAllAlcoholicFiltersAsync();
+        Task<CategoryList> GetAllCategoriesAsync();
 
     }
 }
