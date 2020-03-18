@@ -4,12 +4,103 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="PocketBar.Views.SurpriseMePage">
+             x:Class="PocketBar.Views.SurpriseMePage"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <AbsoluteLayout>
+            <StackLayout Margin="0"
+                         Padding="0"
+                         AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <Label Text="Surprise Me"
+                   Style="{StaticResource TitleStyle}"/>
+                <Label Text="Show me an:"
+                   Style="{StaticResource SubTitleStyle}"/>
+                <Label Text="Peep this drink:"
+                   Style="{StaticResource SubTitleStyle}"/>
+                <Label Text="Show me a cocktail with:"
+                   Style="{StaticResource SubTitleStyle}"/>
+                <StackLayout Orientation="Horizontal" 
+                                         Spacing="0"
+                                         HeightRequest="80"
+                                         Margin="20,0,20,14">
+                    <yummy:PancakeView
+                                       BackgroundColor="{StaticResource LightOrange}"
+                                       Padding="5"
+                                       CornerRadius="5,0,5,0"
+                                       Margin="0"
+                                       HasShadow="False">
+                        <Image Source="{Binding RandomIngredient.IngredientName, StringFormat='https://www.thecocktaildb.com/images/ingredients/{0:F0}-Small.png'}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           WidthRequest="50"/>
+                    </yummy:PancakeView>
+                    <Frame
+                                       BackgroundColor="{StaticResource DarkOrange}"
+                                       Margin="0"
+                                       Padding="0"
+                                       VerticalOptions="FillAndExpand"
+                                       HorizontalOptions="FillAndExpand"
+                                       CornerRadius="0"
+                                       HasShadow="False">
+                        <Label             Text="{Binding RandomIngredient.IngredientName}"
+                                        TextColor="White"
+                                        FontSize="19"
+                                        FontAttributes="Bold"
+                                        FontFamily="Poppins"
+                                        HorizontalOptions="StartAndExpand"
+                                        VerticalOptions="CenterAndExpand"
+                                        Margin="15"/>
+
+                    </Frame>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" 
+                                         Spacing="0"
+                                         HeightRequest="80"
+                                         Margin="20,0,20,14">
+                    <yummy:PancakeView
+                                       BackgroundColor="{StaticResource LightBlue}"
+                                       Padding="5"
+                                       CornerRadius="5,0,5,0"
+                                       Margin="0"
+                                       HasShadow="False">
+                        <Image Source="{Binding RandomIngredient.IngredientName, StringFormat='https://www.thecocktaildb.com/images/ingredients/{0:F0}-Small.png'}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           WidthRequest="50"/>
+                    </yummy:PancakeView>
+                    <Frame
+                                       BackgroundColor="{StaticResource DarkBlue}"
+                                       Margin="0"
+                                       Padding="0"
+                                       VerticalOptions="FillAndExpand"
+                                       HorizontalOptions="FillAndExpand"
+                                       CornerRadius="0"
+                                       HasShadow="False">
+                        <Label             Text="{Binding RandomGlass.GlassName}"
+                                        TextColor="White"
+                                        FontSize="19"
+                                        FontAttributes="Bold"
+                                        FontFamily="Poppins"
+                                        HorizontalOptions="StartAndExpand"
+                                        VerticalOptions="CenterAndExpand"
+                                        Margin="15"/>
+
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
+            <ContentView BackgroundColor="#222222" Opacity="0.5"
+                         AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         IsVisible="{Binding IsLoading}">
+            </ContentView>
+            <ActivityIndicator  IsRunning="{Binding IsLoading}"
+                                IsVisible="{Binding IsLoading}"
+                                Color="AliceBlue"
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
+                                AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"/>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

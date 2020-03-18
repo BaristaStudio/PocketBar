@@ -15,13 +15,9 @@
                          AbsoluteLayout.LayoutFlags="All"
                          AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <Label Text="Ingredients"
-                   FontFamily="Poppins"
-                   FontAttributes="Bold"
-                   TextColor="#707070"
-                   VerticalOptions="StartAndExpand" 
-                   HorizontalOptions="StartAndExpand"
+                   Style="{StaticResource TitleStyle}"
                    Margin="16,36,0,0"
-                   FontSize="32"/>
+                   VerticalOptions="StartAndExpand"/>
                 <ListView ItemsSource="{Binding Ingredients}"
                       HasUnevenRows="True"
                       SeparatorVisibility="None"
@@ -35,7 +31,7 @@
                                          HeightRequest="80"
                                          Margin="0,20,0,0">
                                     <yummy:PancakeView
-                                       BackgroundColor="#EEB14F"
+                                       BackgroundColor="{StaticResource LightBlue}"
                                        Padding="5"
                                        CornerRadius="5,0,5,0"
                                        Margin="0"
@@ -46,7 +42,7 @@
                                            WidthRequest="50"/>
                                     </yummy:PancakeView>
                                     <Frame
-                                       BackgroundColor="#b39056"
+                                       BackgroundColor="{StaticResource DarkBlue}"
                                        Margin="0"
                                        Padding="0"
                                        VerticalOptions="FillAndExpand"

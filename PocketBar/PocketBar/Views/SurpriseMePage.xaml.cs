@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PocketBar.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,10 @@ namespace PocketBar.Views
         public SurpriseMePage()
         {
             InitializeComponent();
+        }
+        protected override async void OnAppearing()
+        {
+            ((SurpriseMePageViewModel)this.BindingContext).GetData();
         }
     }
 }

@@ -85,7 +85,7 @@ namespace PocketBar.Managers
 
 		public async Task<Cocktail> GetRandomCocktail()
 		{
-			return await cocktailService.ApiService.GetRandomCocktailAsync();
+			return (await cocktailService.ApiService.GetRandomCocktailAsync()).Drinks.FirstOrDefault();
 		}
 		public async Task<Cocktail> GetRandomAlcoholicCocktail()
 		{
