@@ -15,18 +15,29 @@ namespace PocketBar.Managers
 		private List<Cocktail> alcoholicCocktails;
 		private List<Cocktail> nonAlcoholicCocktails;
 
-		private const string AlcoholicFilter = "Alcoholic";
-		private const string NonAlcoholicFilter = "Non alcoholic";
+		private const string AlcoholicFilter = "alcoholic";
+		private const string NonAlcoholicFilter = "non_alcoholic";
+		private const string OptionalAlcoholFilter = "optional_alcohol";
 
 		public CocktailsManager(CocktailService service)
 		{
 			this.cocktailService = service;
+			this.cocktails = new List<Cocktail>();
+			this.alcoholicCocktails = new List<Cocktail>();
+			this.nonAlcoholicCocktails = new List<Cocktail>();
 		}
 
 		public async Task<List<Cocktail>> GetCocktails()
 		{
 			if (cocktails == null || cocktails.Count == 0)
 			{
+				var tasks = new[]
+				{
+				GetAlcoholicCocktails(),
+				GetNonAlcoholicCocktails(),
+				FillCocktailsWithOptionalAlcoholCocktails()
+				};
+				await Task.WhenAll(tasks);
 			}
 			return cocktails;
 		}
@@ -45,6 +56,7 @@ namespace PocketBar.Managers
 			{
 				var response =  await cocktailService.ApiService.GetCocktailsByAlcoholicAsync(AlcoholicFilter);
 				alcoholicCocktails = response.Drinks.ToList();
+				cocktails.AddRange(alcoholicCocktails);
 			}
 			return 0;
 		}
@@ -55,6 +67,18 @@ namespace PocketBar.Managers
 			{
 				var response = await cocktailService.ApiService.GetCocktailsByAlcoholicAsync(NonAlcoholicFilter);
 				nonAlcoholicCocktails = response.Drinks.ToList();
+				cocktails.AddRange(nonAlcoholicCocktails);
+			}
+			return 0;
+		}
+
+		public async Task<int> FillCocktailsWithOptionalAlcoholCocktails()
+		{
+			if (cocktails == null || cocktails.Count == 0)
+			{
+				var response = await cocktailService.ApiService.GetCocktailsByAlcoholicAsync(OptionalAlcoholFilter);
+				cocktails.AddRange(response.Drinks.ToList());
+				cocktails.OrderBy(c => c.DrinkName);
 			}
 			return 0;
 		}
