@@ -12,12 +12,9 @@ using System.Text;
 
 namespace PocketBar.ViewModels
 {
-    class IngredientListPageViewModel: BaseViewModel, INotifyPropertyChanged
+    class IngredientListPageViewModel: BaseViewModel
 	{
-
-		public event PropertyChangedEventHandler PropertyChanged;
 		public ObservableCollection<Ingredient> Ingredients { get; set; }
-		public bool IsLoading { get; set; }
 
 		private IngredientsManager ingredientsManager;
 

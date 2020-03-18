@@ -28,6 +28,22 @@
             <Color x:Key="DarkOrange">#b39056</Color>
             <Color x:Key="LightBlue">#0099ff</Color>
             <Color x:Key="DarkBlue">#6998B8</Color>
+            <Style x:Key="TitleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="#707070"/>
+                <Setter Property="FontSize" Value="32"/>
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontFamily" Value="Poppins" />
+                <Setter Property="Margin" Value="16,0,0,0" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+            </Style>
+            <Style x:Key="SubTitleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="#707070"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontAttributes" Value="Italic" />
+                <Setter Property="FontFamily" Value="Poppins" />
+                <Setter Property="Margin" Value="16,0,0,0" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </prism:PrismApplication>

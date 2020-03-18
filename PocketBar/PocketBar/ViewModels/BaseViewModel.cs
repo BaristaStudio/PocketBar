@@ -4,16 +4,19 @@ using Prism.Services;
 using Refit;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PocketBar.ViewModels
 {
-    public abstract class BaseViewModel
+    public abstract class BaseViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         INavigationService NavigationService { get; set; }
         IPageDialogService PageDialogService { get; set; }
+        public bool IsLoading { get; set; }
 
         public Task<bool> HasInternetConnection()
         {
