@@ -22,31 +22,59 @@ namespace PocketBar.Managers
 		{
 			if(ingredients == null || ingredients.Count == 0)
 			{
-				var response = await cocktailService.ApiService.GetAllIngredientsAsync();
-				ingredients = response.Ingredients.ToList();
+				try
+				{
+					var response = await cocktailService.ApiService.GetAllIngredientsAsync();
+					ingredients = response.Ingredients.ToList();
+				}
+				catch(Exception e)
+				{
+					throw e;
+				}
 			}
 			return ingredients;
 		}
 
 		public async Task<Ingredient> GetRandomIngredient()
 		{
-			if(ingredients == null || ingredients.Count == 0)
+			try
 			{
-				await GetIngredients();
+				if (ingredients == null || ingredients.Count == 0)
+				{
+					await GetIngredients();
+				}
+				Random rand = new Random();
+				int randomPosition = rand.Next(0, this.ingredients.Count - 1);
+				return ingredients[randomPosition];
 			}
-			Random rand = new Random();
-			int randomPosition = rand.Next(0, this.ingredients.Count - 1);
-			return ingredients[randomPosition];
+			catch (Exception e)
+			{
+				throw e;
+			}
 		}
 		public async Task<Ingredient> GetIngredient(int id)
 		{
-			var ingredient = await cocktailService.ApiService.GetIngredientByIdAsync(id);
-			return ingredient;
+			try
+			{
+				var ingredient = await cocktailService.ApiService.GetIngredientByIdAsync(id);
+				return ingredient;
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
 		}
 		public async Task<List<Cocktail>> GetCocktailsByIngredient(string ingredient)
 		{
-			var response = await cocktailService.ApiService.GetCocktailsByIngredientAsync(ingredient);
-			return response.Drinks.ToList();
+			try
+			{
+				var response = await cocktailService.ApiService.GetCocktailsByIngredientAsync(ingredient);
+				return response.Drinks.ToList();
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
 		}
 	}
 }

@@ -14,9 +14,15 @@ namespace PocketBar.ViewModels
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        INavigationService NavigationService { get; set; }
-        IPageDialogService PageDialogService { get; set; }
+        public INavigationService NavigationService { get; set; }
+        public IPageDialogService PageDialogService { get; set; }
         public bool IsLoading { get; set; }
+
+        public BaseViewModel(PageDialogService pageDialogService, INavigationService navigationService)
+        {
+            this.PageDialogService = pageDialogService;
+            this.NavigationService = navigationService;
+        }
 
         public Task<bool> HasInternetConnection()
         {
