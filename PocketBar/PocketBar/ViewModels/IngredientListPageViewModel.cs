@@ -2,6 +2,8 @@
 using PocketBar.Managers;
 using PocketBar.Models;
 using PocketBar.Services;
+using Prism.Navigation;
+using Prism.Services;
 using Refit;
 using System;
 using System.Collections.Generic;
@@ -18,7 +20,7 @@ namespace PocketBar.ViewModels
 
 		private IngredientsManager ingredientsManager;
 
-		public IngredientListPageViewModel(IngredientsManager ingredientsManager) : base()
+		public IngredientListPageViewModel(PageDialogService pageDialogService, INavigationService navigationService,IngredientsManager ingredientsManager) : base(pageDialogService, navigationService)
 		{
 			this.ingredientsManager = ingredientsManager;
 		}

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PocketBar.Controls.Common.ImageOption"
+             x:Name="this">
+    <ContentView.Content>
+        <Frame HasShadow="True"
+               BackgroundColor="White"
+               Margin="5,5"
+               CornerRadius="5"
+               BindingContext="{x:Reference this}">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OptionSelectedCommand}"/>
+            </Frame.GestureRecognizers>
+            <StackLayout
+                Margin="5"
+                VerticalOptions="CenterAndExpand">
+                <Image Source="{Binding ImageSrc}" 
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       HeightRequest="85"
+                       />
+                <Label Text="{Binding OptionName}"
+                       FontFamily="Poppins"
+                       FontAttributes="Bold"
+                       FontSize="14"
+                       HorizontalOptions="CenterAndExpand"
+                       TextColor="{StaticResource Default}"
+                       />
+            </StackLayout>
+        </Frame>
+    </ContentView.Content>
+</ContentView>
