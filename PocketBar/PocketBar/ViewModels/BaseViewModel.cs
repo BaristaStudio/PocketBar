@@ -24,15 +24,20 @@ namespace PocketBar.ViewModels
             this.NavigationService = navigationService;
         }
 
-        public Task<bool> HasInternetConnection()
+        public async Task<bool> HasInternetConnection(bool sendMessage = false)
         {
             if(Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
-                return Task.FromResult(true);
+                return true;
             }
             else
             {
-                return Task.FromResult(false);
+                if (sendMessage)
+                {
+                    await App.Current.MainPage.DisplayAlert(Constants.ErrorMessages.NoInternet,Constants.ErrorMessages.NoInternetDescription, Constants.ErrorMessages.Ok);
+
+                }
+                return false;
             }
         }
 

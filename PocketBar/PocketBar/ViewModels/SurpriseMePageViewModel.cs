@@ -53,18 +53,20 @@ namespace PocketBar.ViewModels
             this.GoToCocktailWithIngredientCommand = new DelegateCommand(GoToCocktailWithIngredient);
             this.GoToCocktailWithGlassCommand = new DelegateCommand(GoToCocktailWithGlass);
         }
-
         public async void GetData()
         {
             try
             {
-                IsLoading = true;
-                RandomCocktail = await cocktailsManager.GetRandomCocktail();
-                RandomAlcoholicCocktail = await cocktailsManager.GetRandomAlcoholicCocktail();
-                RandomNonAlcoholicCocktail = await cocktailsManager.GetRandomAlcoholicCocktail();
-                RandomIngredient = await ingredientsManager.GetRandomIngredient();
-                RandomGlass = await glassesManager.GetRandomGlass();
-                IsLoading = false;
+                if (await HasInternetConnection(true))
+                {
+                    IsLoading = true;
+                    RandomCocktail = await cocktailsManager.GetRandomCocktail();
+                    RandomAlcoholicCocktail = await cocktailsManager.GetRandomAlcoholicCocktail();
+                    RandomNonAlcoholicCocktail = await cocktailsManager.GetRandomAlcoholicCocktail();
+                    RandomIngredient = await ingredientsManager.GetRandomIngredient();
+                    RandomGlass = await glassesManager.GetRandomGlass();
+                    IsLoading = false;
+                }
             }
             catch (Exception e)
             {
@@ -76,11 +78,13 @@ namespace PocketBar.ViewModels
         {
             try
             {
-                IsLoading = true;
-                var drink = await this.cocktailsManager.GetRandomAlcoholicCocktail();
-                this.GoToDrink(drink.IdDrink);
-                IsLoading = false;
-
+                if (await HasInternetConnection(true))
+                {
+                    IsLoading = true;
+                    var drink = await this.cocktailsManager.GetRandomAlcoholicCocktail();
+                    this.GoToDrink(drink.IdDrink);
+                    IsLoading = false;
+                }
             }
             catch(Exception e)
             {
@@ -92,10 +96,13 @@ namespace PocketBar.ViewModels
         {
             try
             {
-                IsLoading = true;
-                var drink = await this.cocktailsManager.GetRandomNonAlcoholicCocktail();
-                this.GoToDrink(drink.IdDrink);
-                IsLoading = false;
+                if (await HasInternetConnection(true))
+                {
+                    IsLoading = true;
+                    var drink = await this.cocktailsManager.GetRandomNonAlcoholicCocktail();
+                    this.GoToDrink(drink.IdDrink);
+                    IsLoading = false;
+                }
 
             }
             catch (Exception e)
@@ -131,7 +138,7 @@ namespace PocketBar.ViewModels
             try
             {
                 IsLoading = true;
-                if (!string.IsNullOrEmpty(searchTerm))
+                if (!string.IsNullOrEmpty(searchTerm) && await HasInternetConnection(true))
                 {
                     IsFiltered = true;
                     FilteredCocktails = new ObservableCollection<Cocktail>(await cocktailsManager.FindCocktails(searchTerm));
@@ -150,15 +157,17 @@ namespace PocketBar.ViewModels
                 await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
             }
         }
-
         public async void GoToCocktailWithGlass()
         {
             try
             {
-                IsLoading = true;
-                var drink = await this.glassesManager.GetRandomCocktailByGlass(RandomGlass.GlassName);
-                this.GoToDrink(drink.IdDrink);
-                IsLoading = false;
+                if (await HasInternetConnection(true))
+                {
+                    IsLoading = true;
+                    var drink = await this.glassesManager.GetRandomCocktailByGlass(RandomGlass.GlassName);
+                    this.GoToDrink(drink.IdDrink);
+                    IsLoading = false;
+                }
             }
             catch (Exception e)
             {
@@ -171,10 +180,13 @@ namespace PocketBar.ViewModels
         {
             try
             {
-                IsLoading = true;
-                var drink = await this.ingredientsManager.GetRandomCocktailByIngredient(RandomIngredient.IngredientName);
-                this.GoToDrink(drink.IdDrink);
-                IsLoading = false;
+                if (await HasInternetConnection(true))
+                {
+                    IsLoading = true;
+                    var drink = await this.ingredientsManager.GetRandomCocktailByIngredient(RandomIngredient.IngredientName);
+                    this.GoToDrink(drink.IdDrink);
+                    IsLoading = false;
+                }
             }
             catch (Exception e)
             {
