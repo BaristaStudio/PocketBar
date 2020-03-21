@@ -9,129 +9,165 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true"
              xmlns:local="clr-namespace:PocketBar.Controls.Common"
-             xmlns:utils="clr-namespace:PocketBar.Utils">
+             xmlns:utils="clr-namespace:PocketBar.Utils"
+             xmlns:prism="http://prismlibrary.com">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <utils:InverseBoolConverter x:Key="InverseBoolConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <AbsoluteLayout BackgroundColor="White">
-            <StackLayout AbsoluteLayout.LayoutFlags="All"
-                         AbsoluteLayout.LayoutBounds="0,0,1,1">
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Surprise Me"
+        <RefreshView  IsRefreshing="{Binding IsLoading}"
+                      Command="{Binding RefreshDataCommand}"
+                      BackgroundColor="White">
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Surprise Me"
                        Style="{StaticResource TitleStyle}"
                                HorizontalOptions="Start"/>
-                    <Image Source="star" 
+                        <Image Source="star" 
                                HorizontalOptions="Start"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal"
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                             BackgroundColor="#FCFCFC">
-                    <Label  FontFamily="{StaticResource FontAwesomeSolid}"
+                        <Label  FontFamily="{StaticResource FontAwesomeSolid}"
                             Text="{x:Static utils:Icon.Search}"
                             TextColor="LightGray"
                             FontSize="16"
                             VerticalOptions="CenterAndExpand"
                             Margin="10,0,0,0"/>
-                    <local:BorderlessEntry Placeholder="Search  by cocktail name..."
+                        <local:BorderlessEntry Placeholder="Search  by cocktail name..."
                            TextColor="LightGray"
                            PlaceholderColor="LightGray"
                            HorizontalOptions="FillAndExpand"
                            FontSize="16"
-                           Margin="0,0,0,10"/>
-                </StackLayout>
-                <ScrollView>
-                    <Grid    Margin="20,0,20,0"
+                           Margin="0,0,0,10"
+                           x:Name="SearchTerm">
+                            <local:BorderlessEntry.Behaviors>
+                                <prism:EventToCommandBehavior EventName="TextChanged"
+                                                      Command="{Binding SearchCommand}"
+                                                      CommandParameter="{Binding Source={x:Reference SearchTerm}, Path=Text}"/>
+                            </local:BorderlessEntry.Behaviors>
+                        </local:BorderlessEntry>
+                    </StackLayout>
+                    <ScrollView IsVisible="False">
+                        <ScrollView.Triggers>
+                            <MultiTrigger TargetType="ScrollView">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding IsFiltered}"
+                                                  Value="False"/>
+                                    <BindingCondition Binding="{Binding IsLoading}"
+                                                  Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible" Value="True"/>
+                            </MultiTrigger>
+                        </ScrollView.Triggers>
+                        <Grid    Margin="20,0,20,0"
                              Padding="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Text="Show me an:"
-                   Style="{StaticResource SubTitleStyle}"
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Show me an:"
+                                   Style="{StaticResource SubTitleStyle}"
                                    Grid.Row="0"
                                    Grid.Column="0"
                                    Grid.ColumnSpan="4"/>
-                        <local:ImageOption OptionName="Alcoholic Drink"
+                            <local:ImageOption OptionName="Alcoholic Drink"
                                    OptionSelectedCommand="{Binding GoToAlcoholicDrinkCommand}"
                                    ImageSrc="alcoholic"
                                    Grid.Row="1"
                                    Grid.Column="0"
                                    Grid.ColumnSpan="2"/>
-                        <local:ImageOption OptionName="Non Alcoholic Drink"
+                            <local:ImageOption OptionName="Non Alcoholic Drink"
                                    OptionSelectedCommand="{Binding GoToNonAlcoholicDrinkCommand}"
                                    ImageSrc="nonalcoholic"
                                    Grid.Row="1"
                                    Grid.Column="2"
                                    Grid.ColumnSpan="2"/>
-                        <Label Text="Peep this drink:"
-                   Style="{StaticResource SubTitleStyle}"
+                            <Label Text="Peep this drink:"
+                                   Style="{StaticResource SubTitleStyle}"
                                   Grid.Row="2"
                                    Grid.Column="0"
                                    Grid.ColumnSpan="4"/>
                         <Image Source="{Binding RandomCocktail.DrinkThumb}" 
-                       Grid.Row="3"
-                       HorizontalOptions="FillAndExpand"
-                       HeightRequest="200"
-                       Aspect="Fill"
-                       Grid.ColumnSpan="4"
-                       Grid.Column="0"/>
+                               Grid.Row="3"
+                               HorizontalOptions="FillAndExpand"
+                               HeightRequest="200"
+                               Aspect="Fill"
+                               Grid.ColumnSpan="4"
+                               Grid.Column="0">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToDrinkCommand}" 
+                                                      CommandParameter="{Binding RandomCocktail.IdDrink}"/>                                
+                            </Image.GestureRecognizers>
+                        </Image>
                         <StackLayout BackgroundColor="{StaticResource Default}"
-                                 Opacity="0.7"
-                                   Grid.Row="3"
-                                   Grid.Column="0"
-                                   Grid.ColumnSpan="2"
-                                   VerticalOptions="End"
-                                   Padding="15,5">
+                                     Opacity="0.7"
+                                     Grid.Row="3"
+                                     Grid.Column="0"
+                                     Grid.ColumnSpan="2"
+                                     VerticalOptions="End"
+                                     Padding="15,5">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToDrinkCommand}" 
+                                                      CommandParameter="{Binding RandomCocktail.IdDrink}"/>
+                            </StackLayout.GestureRecognizers>
                             <Label Text="{Binding RandomCocktail.DrinkName}"
-                           TextColor="White"
-                           FontFamily="Poppins"
-                           FontAttributes="Bold"
-                           FontSize="14"/>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding RandomCocktail.Glass}"
                                    TextColor="White"
                                    FontFamily="Poppins"
-                                   FontSize="14"
-                                   HorizontalOptions="Start"/>
+                                   FontAttributes="Bold"
+                                   FontSize="14"/>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding RandomCocktail.Glass}"
+                                       TextColor="White"
+                                       FontFamily="Poppins"
+                                       FontSize="14"
+                                       HorizontalOptions="Start"/>
                                 <Image Source="glass"
-                                   HorizontalOptions="Start"/>
-
+                                       HorizontalOptions="Start"/>
                             </StackLayout>
-                        </StackLayout>
-                        <Label Text="Show me a cocktail with:"
-                   Style="{StaticResource SubTitleStyle}"
-                       Grid.Row="4"
-                       Grid.ColumnSpan="4"
-                       Grid.Column="0"/>
-                        <StackLayout Orientation="Horizontal" 
+                            </StackLayout>
+                            <Label Text="Show me a cocktail with:"
+                                   Style="{StaticResource SubTitleStyle}"
+                                   Grid.Row="4"
+                                   Grid.ColumnSpan="4"
+                                   Grid.Column="0"/>
+                            <StackLayout Orientation="Horizontal" 
                                          Spacing="0"
                                          HeightRequest="80"
                                          Margin="0,0,0,14"
                                         Grid.Row="5"
                                         Grid.ColumnSpan="4"
                                         Grid.Column="0">
-                            <yummy:PancakeView
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToCocktailWithIngredientCommand}"/>
+                            </StackLayout.GestureRecognizers>
+                                <yummy:PancakeView
                                        BackgroundColor="{StaticResource LightOrange}"
                                        Padding="5"
                                        CornerRadius="5,0,5,0"
                                        Margin="0"
                                        HasShadow="False">
-                                <Image Source="{Binding RandomIngredient.IngredientName, StringFormat='https://www.thecocktaildb.com/images/ingredients/{0:F0}-Small.png'}"
+                                    <Image Source="{Binding RandomIngredient.IngredientName, StringFormat='https://www.thecocktaildb.com/images/ingredients/{0:F0}-Small.png'}"
                                            HorizontalOptions="Center"
                                            VerticalOptions="Center"
                                            WidthRequest="50"/>
-                            </yummy:PancakeView>
-                            <Frame
+                                </yummy:PancakeView>
+                                <Frame
                                        BackgroundColor="{StaticResource DarkOrange}"
                                        Margin="0"
                                        Padding="0"
@@ -139,7 +175,7 @@
                                        HorizontalOptions="FillAndExpand"
                                        CornerRadius="0"
                                        HasShadow="False">
-                                <Label             Text="{Binding RandomIngredient.IngredientName}"
+                                    <Label             Text="{Binding RandomIngredient.IngredientName}"
                                         TextColor="White"
                                         FontSize="19"
                                         FontAttributes="Bold"
@@ -148,50 +184,56 @@
                                         VerticalOptions="CenterAndExpand"
                                         Margin="15"/>
 
-                            </Frame>
-                        </StackLayout>
+                                </Frame>
+                            </StackLayout>
                         <StackLayout BackgroundColor="{StaticResource Default}"
-                                 Opacity="0.5"
-                                   Grid.Row="5"
-                                   Grid.Column="2"
-                                   Grid.ColumnSpan="2"
-                                   VerticalOptions="End"
-                                   Padding="15,5"
-                                   Margin="0,0,0,14"
-                                   HorizontalOptions="End">
+                                     Opacity="0.5"
+                                     Grid.Row="5"
+                                     Grid.Column="2"
+                                     Grid.ColumnSpan="2"
+                                     VerticalOptions="End"
+                                     Padding="15,5"
+                                     Margin="0,0,0,14"
+                                     HorizontalOptions="End">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToCocktailWithIngredientCommand}"/>
+                            </StackLayout.GestureRecognizers>
                             <Label Text="Ingredient"
-                           TextColor="White"
-                           FontFamily="Poppins"
-                           FontAttributes="Bold"
-                           FontSize="14"/>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal" 
+                                   TextColor="White"
+                                   FontFamily="Poppins"
+                                   FontAttributes="Bold"
+                                   FontSize="14"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" 
                                          Spacing="0"
                                          HeightRequest="80"
                                          Margin="0,0,0,14"
-                                        Grid.Row="6"
-                                        Grid.ColumnSpan="4"
-                                        Grid.Column="0">
+                                         Grid.Row="6"
+                                         Grid.ColumnSpan="4"
+                                         Grid.Column="0">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToCocktailWithGlassCommand}"/>
+                            </StackLayout.GestureRecognizers>
                             <yummy:PancakeView
-                                       BackgroundColor="{StaticResource LightBlue}"
-                                       Padding="5"
-                                       CornerRadius="5,0,5,0"
-                                       Margin="0"
-                                       HasShadow="False">
-                                <Image Source="{Binding RandomIngredient.IngredientName, StringFormat='https://www.thecocktaildb.com/images/ingredients/{0:F0}-Small.png'}"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"
-                                           WidthRequest="50"/>
-                            </yummy:PancakeView>
-                            <Frame
-                                       BackgroundColor="{StaticResource DarkBlue}"
-                                       Margin="0"
-                                       Padding="0"
-                                       VerticalOptions="FillAndExpand"
-                                       HorizontalOptions="FillAndExpand"
-                                       CornerRadius="0"
-                                       HasShadow="False">
-                                <Label             Text="{Binding RandomGlass.GlassName}"
+                                           BackgroundColor="{StaticResource LightBlue}"
+                                           Padding="5"
+                                           CornerRadius="5,0,5,0"
+                                           Margin="0"
+                                           HasShadow="False">
+                                <Image Source="glass"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       WidthRequest="50"/>
+                                </yummy:PancakeView>
+                                <Frame
+                                        BackgroundColor="{StaticResource DarkBlue}"
+                                        Margin="0"
+                                        Padding="0"
+                                        VerticalOptions="FillAndExpand"
+                                        HorizontalOptions="FillAndExpand"
+                                        CornerRadius="0"
+                                        HasShadow="False">
+                                <Label  Text="{Binding RandomGlass.GlassName}"
                                         TextColor="White"
                                         FontSize="19"
                                         FontAttributes="Bold"
@@ -201,36 +243,63 @@
                                         Margin="15"/>
 
                             </Frame>
-                        </StackLayout>
+                            </StackLayout>
                         <StackLayout BackgroundColor="{StaticResource Default}"
-                                 Opacity="0.5"
-                                   Grid.Row="6"
-                                   Grid.Column="2"
-                                   Grid.ColumnSpan="2"
-                                   VerticalOptions="End"
-                                   Padding="15,5"
-                                   Margin="0,0,0,14"
-                                   HorizontalOptions="End">
+                                     Opacity="0.5"
+                                     Grid.Row="6"
+                                     Grid.Column="2"
+                                     Grid.ColumnSpan="2"
+                                     VerticalOptions="End"
+                                     Padding="15,5"
+                                     Margin="0,0,0,14"
+                                     HorizontalOptions="End">
                             <Label Text="Glass"
-                           TextColor="White"
-                           FontFamily="Poppins"
-                           FontAttributes="Bold"
-                           FontSize="14"/>
+                                   TextColor="White"
+                                   FontFamily="Poppins"
+                                   FontAttributes="Bold"
+                                   FontSize="14"/>
                         </StackLayout>
-                    </Grid>
-                </ScrollView>
-
-            </StackLayout>
-            <ContentView BackgroundColor="#222222" Opacity="0.5"
-                         AbsoluteLayout.LayoutFlags="All"
-                         AbsoluteLayout.LayoutBounds="0,0,1,1"
-                         IsVisible="{Binding IsLoading}">
-            </ContentView>
-            <ActivityIndicator  IsRunning="{Binding IsLoading}"
-                                IsVisible="{Binding IsLoading}"
-                                Color="AliceBlue"
-                                AbsoluteLayout.LayoutFlags="PositionProportional"
-                                AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"/>
-        </AbsoluteLayout>
+                        </Grid>
+                    </ScrollView>
+                    <ListView ItemsSource="{Binding FilteredCocktails}"
+                          CachingStrategy="RecycleElement"
+                          IsVisible="False"
+                          HasUnevenRows="True"
+                          x:Name="CocktailsListView">
+                        <ListView.Triggers>
+                            <MultiTrigger TargetType="ListView">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding IsFiltered}"
+                                                  Value="True"/>
+                                    <BindingCondition Binding="{Binding IsLoading}"
+                                                  Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible" Value="True"/>
+                            </MultiTrigger>
+                        </ListView.Triggers>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Margin="10,5">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path=Parent.BindingContext.GoToDrinkCommand, Source={x:Reference CocktailsListView}}}"
+                                                              CommandParameter="{Binding IdDrink}"/>
+                                    </StackLayout.GestureRecognizers>
+                                        <Label FontFamily="Poppins"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="Black"
+                                       Text="{Binding DrinkName}"/>
+                                        <Label FontFamily="Poppins"
+                                       FontSize="14"
+                                       TextColor="Black"
+                                       Text="{Binding Glass}"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </RefreshView>
     </ContentPage.Content>
 </ContentPage>

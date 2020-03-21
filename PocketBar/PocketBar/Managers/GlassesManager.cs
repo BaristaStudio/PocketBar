@@ -34,7 +34,6 @@ namespace PocketBar.Managers
 			}
 			return glasses;
 		}
-
 		public async Task<Glass> GetRandomGlass()
 		{
 			if (glasses == null || glasses.Count == 0)
@@ -63,6 +62,22 @@ namespace PocketBar.Managers
 			{
 				throw e;
 			}
+		}
+
+		public async Task<Cocktail> GetRandomCocktailByGlass(string glass)
+		{
+			try
+			{
+				var cocktailsWithGlass = await GetCocktailsByGlass(glass);
+				Random rand = new Random();
+				int randomPosition = rand.Next(0, cocktailsWithGlass.Count - 1);
+				return cocktailsWithGlass[randomPosition];
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
+
 		}
 
 	}

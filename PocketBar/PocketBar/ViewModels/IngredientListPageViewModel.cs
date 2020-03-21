@@ -23,10 +23,11 @@ namespace PocketBar.ViewModels
 		public IngredientListPageViewModel(PageDialogService pageDialogService, INavigationService navigationService,IngredientsManager ingredientsManager) : base(pageDialogService, navigationService)
 		{
 			this.ingredientsManager = ingredientsManager;
+			GetIngredients();
 		}
 		public async void GetIngredients()
 		{
-			if (await this.HasInternetConnection())
+			if (Ingredients == null && await HasInternetConnection(true))
 			{
 				try
 				{

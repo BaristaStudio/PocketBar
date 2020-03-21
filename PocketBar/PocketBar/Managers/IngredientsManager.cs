@@ -76,5 +76,20 @@ namespace PocketBar.Managers
 				throw e;
 			}
 		}
+		public async Task<Cocktail> GetRandomCocktailByIngredient(string ingredient)
+		{
+			try
+			{
+				var cocktailsWithIngredient = await GetCocktailsByIngredient(ingredient);
+				Random rand = new Random();
+				int randomPosition = rand.Next(0, cocktailsWithIngredient.Count - 1);
+				return cocktailsWithIngredient[randomPosition];
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
+
+		}
 	}
 }
