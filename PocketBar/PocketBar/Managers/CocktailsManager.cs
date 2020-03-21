@@ -50,18 +50,15 @@ namespace PocketBar.Managers
 		}
 		public async Task<List<Cocktail>> FindCocktails(string term)
 		{
-			if (cocktails == null || cocktails.Count == 0)
-			{
 				try
 				{
-					await GetCocktails();
+					var filteredCocktails = await cocktailService.ApiService.SearchCocktailByTermAsync(term);
+					return (filteredCocktails.Drinks!=null) ? filteredCocktails.Drinks.OrderBy(c => c.DrinkName).ToList() : new List<Cocktail>();
 				}
 				catch(Exception e)
 				{
 					throw e;
 				}
-			}
-			return cocktails.Where(c => c.DrinkName.Contains(term)).ToList();
 		}
 
 		public async Task<int> GetAlcoholicCocktails()

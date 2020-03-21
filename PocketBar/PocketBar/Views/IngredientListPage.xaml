@@ -22,7 +22,7 @@
                       HasUnevenRows="True"
                       SeparatorVisibility="None"
                       Margin="20,0,20,20"
-                      CachingStrategy="RecycleElementAndDataTemplate">
+                      CachingStrategy="RecycleElement">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell >
