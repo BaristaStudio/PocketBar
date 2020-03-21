@@ -35,6 +35,8 @@ namespace PocketBar.ViewModels
         public DelegateCommand RefreshDataCommand { get; set; }
         public bool HasData { get; set; }
 
+        private bool RefreshData = true;
+
         private TypeAssistant typeAssistant;
         public SurpriseMePageViewModel(PageDialogService pageDialogService, INavigationService navigationService, CocktailsManager cocktailsManager, IngredientsManager ingredientsManager, GlassesManager glassesManager) : base(pageDialogService, navigationService)
         {
@@ -57,6 +59,11 @@ namespace PocketBar.ViewModels
         {
             try
             {
+                if (!RefreshData)
+                {
+                    RefreshData = true;
+                    return;
+                }
                 if (await HasInternetConnection(true))
                 {
                     IsLoading = true;
@@ -78,6 +85,7 @@ namespace PocketBar.ViewModels
         {
             try
             {
+                RefreshData = false;
                 if (await HasInternetConnection(true))
                 {
                     IsLoading = true;
@@ -96,6 +104,7 @@ namespace PocketBar.ViewModels
         {
             try
             {
+                RefreshData = false;
                 if (await HasInternetConnection(true))
                 {
                     IsLoading = true;
@@ -161,6 +170,7 @@ namespace PocketBar.ViewModels
         {
             try
             {
+                RefreshData = false;
                 if (await HasInternetConnection(true))
                 {
                     IsLoading = true;
@@ -180,6 +190,7 @@ namespace PocketBar.ViewModels
         {
             try
             {
+                RefreshData = false;
                 if (await HasInternetConnection(true))
                 {
                     IsLoading = true;
