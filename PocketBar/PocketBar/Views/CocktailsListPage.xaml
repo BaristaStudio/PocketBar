@@ -5,11 +5,53 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="PocketBar.Views.CocktailsListPage">
+    <NavigationPage.TitleView>
+        <Label Text="Category"
+                   Style="{StaticResource TitleStyle}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="StartAndExpand"/>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Padding="20,5">
+            <ListView ItemsSource="{Binding Cocktails}" x:Name="DrinksList" RowHeight="210" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell >
+                            <Grid Margin="0,0,0,10">
+                                <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                                <Image Source="{Binding DrinkThumb}" 
+                       HorizontalOptions="FillAndExpand"
+                       HeightRequest="200"
+                       Aspect="Fill"
+                       Grid.ColumnSpan="4"
+                       Grid.Column="0"/>
+                                <StackLayout BackgroundColor="{StaticResource Default}"
+                                 Opacity="0.7"
+                                   Grid.Row="0"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   VerticalOptions="End"
+                                   Padding="15,5">
+                                    <Label Text="{Binding DrinkName}"
+                           TextColor="White"
+                           FontFamily="Poppins"
+                           FontAttributes="Bold"
+                           FontSize="14"/>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
