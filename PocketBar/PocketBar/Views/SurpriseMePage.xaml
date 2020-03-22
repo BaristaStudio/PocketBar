@@ -111,8 +111,7 @@
                                Grid.ColumnSpan="4"
                                Grid.Column="0">
                             <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding GoToDrinkCommand}" 
-                                                      CommandParameter="{Binding RandomCocktail.IdDrink}"/>                                
+                                <TapGestureRecognizer Command="{Binding GoToRandomDrinkCommand}" />                                
                             </Image.GestureRecognizers>
                         </Image>
                         <StackLayout BackgroundColor="{StaticResource Default}"
@@ -123,8 +122,7 @@
                                      VerticalOptions="End"
                                      Padding="15,5">
                             <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding GoToDrinkCommand}" 
-                                                      CommandParameter="{Binding RandomCocktail.IdDrink}"/>
+                                <TapGestureRecognizer Command="{Binding GoToRandomDrinkCommand}" />
                             </StackLayout.GestureRecognizers>
                             <Label Text="{Binding RandomCocktail.DrinkName}"
                                    TextColor="White"
@@ -282,7 +280,7 @@
                             <ViewCell>
                                 <StackLayout Margin="10,5">
                                     <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Path=Parent.BindingContext.GoToDrinkCommand, Source={x:Reference CocktailsListView}}}"
+                                        <TapGestureRecognizer Command="{Binding Path=Parent.BindingContext.GoToDrinkCommand, Source={x:Reference CocktailsListView}}"
                                                               CommandParameter="{Binding IdDrink}"/>
                                     </StackLayout.GestureRecognizers>
                                         <Label FontFamily="Poppins"
