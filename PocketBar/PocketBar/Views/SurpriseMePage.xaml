@@ -17,9 +17,12 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <RefreshView  IsRefreshing="{Binding IsLoading}"
-                      Command="{Binding RefreshDataCommand}"
-                      BackgroundColor="White">
+        <AbsoluteLayout>
+            <RefreshView  IsRefreshing="{Binding IsRefreshing}"
+                          Command="{Binding RefreshDataCommand}"
+                          BackgroundColor="White"
+                          AbsoluteLayout.LayoutFlags="All"
+                          AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Surprise Me"
@@ -111,8 +114,8 @@
                                Grid.ColumnSpan="4"
                                Grid.Column="0">
                             <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding GoToDrinkCommand}" 
-                                                      CommandParameter="{Binding RandomCocktail.IdDrink}"/>                                
+                                <TapGestureRecognizer Command="{Binding GoToDrinkCommand}"
+                                                      CommandParameter="{Binding RandomCocktail.IdDrink}"/>                           
                             </Image.GestureRecognizers>
                         </Image>
                         <StackLayout BackgroundColor="{StaticResource Default}"
@@ -123,7 +126,7 @@
                                      VerticalOptions="End"
                                      Padding="15,5">
                             <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding GoToDrinkCommand}" 
+                                <TapGestureRecognizer Command="{Binding GoToDrinkCommand}"
                                                       CommandParameter="{Binding RandomCocktail.IdDrink}"/>
                             </StackLayout.GestureRecognizers>
                             <Label Text="{Binding RandomCocktail.DrinkName}"
@@ -282,7 +285,7 @@
                             <ViewCell>
                                 <StackLayout Margin="10,5">
                                     <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Path=Parent.BindingContext.GoToDrinkCommand, Source={x:Reference CocktailsListView}}}"
+                                        <TapGestureRecognizer Command="{Binding Path=Parent.BindingContext.GoToDrinkCommand, Source={x:Reference CocktailsListView}}"
                                                               CommandParameter="{Binding IdDrink}"/>
                                     </StackLayout.GestureRecognizers>
                                         <Label FontFamily="Poppins"
@@ -300,6 +303,17 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </StackLayout>
-            </RefreshView>
+        </RefreshView>
+        <ContentView BackgroundColor="#222222" Opacity="0.5"
+                         AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         IsVisible="{Binding IsLoading}">
+        </ContentView>
+        <ActivityIndicator  IsRunning="{Binding IsLoading}"
+                                IsVisible="{Binding IsLoading}"
+                                Color="AliceBlue"
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
+                                AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"/>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

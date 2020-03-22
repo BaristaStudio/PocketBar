@@ -35,7 +35,7 @@ namespace PocketBar.ViewModels
         public DelegateCommand RefreshDataCommand { get; set; }
         public bool HasData { get; set; }
 
-        private bool RefreshData = true;
+        public bool IsRefreshing { get; set; } = false;
 
         private TypeAssistant typeAssistant;
         public SurpriseMePageViewModel(PageDialogService pageDialogService, INavigationService navigationService, CocktailsManager cocktailsManager, IngredientsManager ingredientsManager, GlassesManager glassesManager) : base(pageDialogService, navigationService)
@@ -58,26 +58,22 @@ namespace PocketBar.ViewModels
         public async void GetData()
         {
             try
-            {
-                if (!RefreshData)
-                {
-                    RefreshData = true;
-                    return;
-                }
+           {
                 if (await HasInternetConnection(true))
                 {
-                    IsLoading = true;
+                    IsRefreshing = true;
                     RandomCocktail = await cocktailsManager.GetRandomCocktail();
                     RandomAlcoholicCocktail = await cocktailsManager.GetRandomAlcoholicCocktail();
                     RandomNonAlcoholicCocktail = await cocktailsManager.GetRandomAlcoholicCocktail();
                     RandomIngredient = await ingredientsManager.GetRandomIngredient();
                     RandomGlass = await glassesManager.GetRandomGlass();
-                    IsLoading = false;
                 }
+                IsRefreshing = false;
             }
             catch (Exception e)
             {
                 IsLoading = false;
+                IsRefreshing = false;
                 await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
             }
         }
@@ -85,13 +81,12 @@ namespace PocketBar.ViewModels
         {
             try
             {
-                RefreshData = false;
                 if (await HasInternetConnection(true))
                 {
                     IsLoading = true;
                     var drink = await this.cocktailsManager.GetRandomAlcoholicCocktail();
-                    this.GoToDrink(drink.IdDrink);
                     IsLoading = false;
+                    this.GoToDrink(drink.IdDrink);
                 }
             }
             catch(Exception e)
@@ -104,13 +99,12 @@ namespace PocketBar.ViewModels
         {
             try
             {
-                RefreshData = false;
                 if (await HasInternetConnection(true))
                 {
                     IsLoading = true;
                     var drink = await this.cocktailsManager.GetRandomNonAlcoholicCocktail();
-                    this.GoToDrink(drink.IdDrink);
                     IsLoading = false;
+                    this.GoToDrink(drink.IdDrink);
                 }
 
             }
@@ -170,13 +164,12 @@ namespace PocketBar.ViewModels
         {
             try
             {
-                RefreshData = false;
                 if (await HasInternetConnection(true))
                 {
                     IsLoading = true;
                     var drink = await this.glassesManager.GetRandomCocktailByGlass(RandomGlass.GlassName);
-                    this.GoToDrink(drink.IdDrink);
                     IsLoading = false;
+                    this.GoToDrink(drink.IdDrink);
                 }
             }
             catch (Exception e)
@@ -190,13 +183,12 @@ namespace PocketBar.ViewModels
         {
             try
             {
-                RefreshData = false;
                 if (await HasInternetConnection(true))
                 {
                     IsLoading = true;
                     var drink = await this.ingredientsManager.GetRandomCocktailByIngredient(RandomIngredient.IngredientName);
-                    this.GoToDrink(drink.IdDrink);
                     IsLoading = false;
+                    this.GoToDrink(drink.IdDrink);
                 }
             }
             catch (Exception e)
