@@ -17,9 +17,12 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <RefreshView  IsRefreshing="{Binding IsLoading}"
-                      Command="{Binding RefreshDataCommand}"
-                      BackgroundColor="White">
+        <AbsoluteLayout>
+            <RefreshView  IsRefreshing="{Binding IsRefreshing}"
+                          Command="{Binding RefreshDataCommand}"
+                          BackgroundColor="White"
+                          AbsoluteLayout.LayoutFlags="All"
+                          AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Surprise Me"
@@ -300,6 +303,17 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </StackLayout>
-            </RefreshView>
+        </RefreshView>
+        <ContentView BackgroundColor="#222222" Opacity="0.5"
+                         AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         IsVisible="{Binding IsLoading}">
+        </ContentView>
+        <ActivityIndicator  IsRunning="{Binding IsLoading}"
+                                IsVisible="{Binding IsLoading}"
+                                Color="AliceBlue"
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
+                                AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"/>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
