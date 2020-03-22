@@ -22,7 +22,7 @@ namespace PocketBar.Services
          Task<CocktailList> GetCocktailsByIngredientAsync(string ingredient);
 
          [Get("/lookup.php?iid={ingredientId}")]
-         Task<Ingredient> GetIngredientByIdAsync(int ingredientId);
+         Task<IngredientList> GetIngredientByIdAsync(int ingredientId);
 
          [Get("/lookup.php?i={drinkId}")]
          Task<CocktailList> GetCocktailByIdAsync(int drinkId);
@@ -41,6 +41,8 @@ namespace PocketBar.Services
 
         [Get("/search.php?s={searchTerm}")]
         Task<CocktailList> SearchCocktailByTermAsync(string searchTerm);
+        [Get("/search.php?i={searchIngredient}")]
+        Task<IngredientList> SearchIngredientByNameAsync(string searchIngredient);
 
     }
 }

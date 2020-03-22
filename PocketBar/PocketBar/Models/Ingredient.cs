@@ -34,7 +34,7 @@ namespace PocketBar.Models
     }
     public class IngredientList : INotifyPropertyChanged
     {
-        [JsonProperty("drinks")]
+        [JsonProperty("ingredients")]
         public IList<Ingredient> Ingredients { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -23,7 +23,7 @@ namespace PocketBar.ViewModels
         public DelegateCommand ShareCocktailCommand { get; set; }
         public DelegateCommand<string> MarkAsFavoriteCommand { get; set; }
         public DelegateCommand<string> GoToIngredientCommand { get; set; }
-        public CocktailDetailsPageViewModel(PageDialogService pageDialogService, INavigationService navigationService, CocktailsManager cocktailsManager) : base(pageDialogService, navigationService)
+        public CocktailDetailsPageViewModel(PageDialogService pageDialogService, INavigationService navigationService, CocktailsManager cocktailsManager, IngredientsManager ingredientsManager) : base(pageDialogService, navigationService)
         {
             _cocktailsManager = cocktailsManager;
             
@@ -53,9 +53,14 @@ namespace PocketBar.ViewModels
                 IsFavorite = !IsFavorite;
                 FavoriteIcon = IsFavorite ? FavoriteFilledIcon : FavoriteEmptyIcon;
             });
-            GoToIngredientCommand = new DelegateCommand<string>(async (ingredient) => 
+            GoToIngredientCommand = new DelegateCommand<string>(async (ingredientName) => 
             {
-                await NavigationService.NavigateAsync(new Uri(Constants.NavConstants.IngredientDetailsPage, UriKind.Relative));
+                var ingredient = ingredientsManager.GetIngredientByName(ingredientName);
+                var parameters = new NavigationParameters
+                {
+                    { "ingredient", ingredient }
+                };
+                await NavigationService.NavigateAsync(new Uri(Constants.NavConstants.IngredientDetailsPage, UriKind.Relative), parameters);
             });            
         }
         public async void Initialize(INavigationParameters parameters)
