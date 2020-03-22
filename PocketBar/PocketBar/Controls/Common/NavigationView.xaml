@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:utils="clr-namespace:PocketBar.Utils"
+             x:Class="PocketBar.Controls.Common.NavigationView">
+  <ContentView.Content>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,20,0,20">
+            <Image Source="backArrow" Margin="10,0,50,0" HorizontalOptions="Start">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OnPressedBackCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Label Text="Cocktail Details" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" FontSize="21" Style="{StaticResource TitleStyle}"/>
+            <Label  FontFamily="{StaticResource FontAwesomeSolid}"
+                    IsVisible="{Binding HasShareButton}"
+                    Text="{x:Static utils:Icon.Share}"
+                    TextColor="Black"
+                    FontSize="21"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="EndAndExpand"
+                    Margin="0,0,16,0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShareCocktailCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

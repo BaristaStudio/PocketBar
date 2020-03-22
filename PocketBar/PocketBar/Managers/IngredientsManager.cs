@@ -57,7 +57,19 @@ namespace PocketBar.Managers
 			try
 			{
 				var ingredient = await cocktailService.ApiService.GetIngredientByIdAsync(id);
-				return ingredient;
+				return ingredient.Ingredients2.FirstOrDefault();
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
+		}
+		public async Task<Ingredient> GetIngredientByName(string ingredientName)
+		{
+			try
+			{
+				var ingredient = await cocktailService.ApiService.SearchIngredientByNameAsync(ingredientName);
+				return ingredient.Ingredients2.FirstOrDefault();
 			}
 			catch (Exception e)
 			{
