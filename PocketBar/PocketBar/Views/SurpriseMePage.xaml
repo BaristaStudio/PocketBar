@@ -111,7 +111,8 @@
                                Grid.ColumnSpan="4"
                                Grid.Column="0">
                             <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding GoToRandomDrinkCommand}" />                                
+                                <TapGestureRecognizer Command="{Binding GoToDrinkCommand}"
+                                                      CommandParameter="{Binding RandomCocktail.IdDrink}"/>                           
                             </Image.GestureRecognizers>
                         </Image>
                         <StackLayout BackgroundColor="{StaticResource Default}"
@@ -122,7 +123,8 @@
                                      VerticalOptions="End"
                                      Padding="15,5">
                             <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding GoToRandomDrinkCommand}" />
+                                <TapGestureRecognizer Command="{Binding GoToDrinkCommand}"
+                                                      CommandParameter="{Binding RandomCocktail.IdDrink}"/>
                             </StackLayout.GestureRecognizers>
                             <Label Text="{Binding RandomCocktail.DrinkName}"
                                    TextColor="White"
