@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              x:Class="PocketBar.Views.CocktailDetailsPage"
              xmlns:local="clr-namespace:PocketBar.Controls.CocktailDetails"
-             xmlns:utils="clr-namespace:PocketBar.Utils"
+             xmlns:control="clr-namespace:PocketBar.Controls.Common"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="True">
     <ContentPage.Resources>
@@ -25,72 +25,59 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,20,0,20">
-                <Image Source="backArrow" Margin="10,0,50,0" HorizontalOptions="Start">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding OnPressedBackCommand}"/>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Label Text="Cocktail Details" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" FontSize="21" Style="{StaticResource TitleStyle}"/>
-                <Label  FontFamily="{StaticResource FontAwesomeSolid}"
-                            Text="{x:Static utils:Icon.Share}"
-                            TextColor="Black"
-                            FontSize="21"
-                            VerticalOptions="CenterAndExpand"
-                            HorizontalOptions="EndAndExpand"
-                            Margin="0,0,16,0">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ShareCocktailCommand}"/>
-                    </Label.GestureRecognizers>
-                </Label>
-            </StackLayout>
-            <Image Source="{Binding Cocktail.DrinkThumb}" HorizontalOptions="Fill" Aspect="AspectFill"/>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                <Label Text="{Binding Cocktail.DrinkName}" Style="{StaticResource TitleStyle}"/>
-                <Image Source="{Binding FavoriteIcon}" HorizontalOptions="End" Margin="0,0,16,0">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding MarkAsFavoriteCommand}" CommandParameter="{Binding Cocktail.IdDrink}"/>
-                    </Image.GestureRecognizers>
-                </Image>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="16,0,0,0" >
-                <Frame Style="{StaticResource Tag}">
-                    <Label Text="{Binding Cocktail.Alcoholic}"/>
-                </Frame>
-                <Frame Style="{StaticResource Tag}">
-                    <Label Text="{Binding Cocktail.Glass}"/>
-                </Frame>
-            </StackLayout>
-            <Frame HorizontalOptions="FillAndExpand" BackgroundColor="LightGray">
-                <StackLayout>
-                    <Label Text="Instructions:" Style="{StaticResource TitleStyle}" FontSize="Large"/>
-                    <Label Text="{Binding Cocktail.Instructions}" Margin="16,0,0,0"/>
+        <ScrollView>
+            <StackLayout>
+                <control:NavigationView 
+                    ShareCocktailCommand="{Binding ShareCocktailCommand}" 
+                    OnPressedBackCommand="{Binding OnPressedBackCommand}"
+                    HasShareButton="True"/>
+                <Image Source="{Binding Cocktail.DrinkThumb}" HorizontalOptions="Fill" Aspect="AspectFill"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Label Text="{Binding Cocktail.DrinkName}" Style="{StaticResource TitleStyle}" VerticalOptions="FillAndExpand"/>
+                    <Image Source="{Binding FavoriteIcon}" HorizontalOptions="End" Margin="0,0,16,0">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding MarkAsFavoriteCommand}" CommandParameter="{Binding Cocktail.IdDrink}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
                 </StackLayout>
-            </Frame>
-            <Label Text="Ingredients" Style="{StaticResource TitleStyle}" Margin="16,23,0,0" FontSize="21"/>
-            <ListView ItemsSource="{Binding Cocktail.Ingredients}" Margin="16,0,16,16" SeparatorVisibility="None" x:Name="CocktailIngredients">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal">
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer 
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="16,0,0,0" >
+                    <Frame Style="{StaticResource Tag}">
+                        <Label Text="{Binding Cocktail.Alcoholic}"/>
+                    </Frame>
+                    <Frame Style="{StaticResource Tag}">
+                        <Label Text="{Binding Cocktail.Glass}"/>
+                    </Frame>
+                </StackLayout>
+                <Frame HorizontalOptions="FillAndExpand" BackgroundColor="LightGray">
+                    <StackLayout>
+                        <Label Text="Instructions:" Style="{StaticResource TitleStyle}" FontSize="Large"/>
+                        <Label Text="{Binding Cocktail.Instructions}" Margin="16,0,0,0"/>
+                    </StackLayout>
+                </Frame>
+                <Label Text="Ingredients" Style="{StaticResource TitleStyle}" Margin="16,23,0,0" FontSize="21"/>
+                <local:RepeaterView ItemsSource="{Binding Cocktail.Ingredients}" Margin="16,0,16,16"  x:Name="CocktailIngredients">
+                    <local:RepeaterView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
                                         Command="{Binding Path=Parent.BindingContext.GoToIngredientCommand, Source={x:Reference CocktailIngredients}}" 
                                         CommandParameter="{Binding Ingredient}"/>
-                                </StackLayout.GestureRecognizers>
-                                <Frame Style="{StaticResource Tag}" Margin="0,5,0,10" HorizontalOptions="Start">
-                                    <Label Text="{Binding Ingredient}" VerticalTextAlignment="Center"/>
-                                </Frame>
-                                <local:DashedLine HeightRequest="5" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
-                                <Frame Style="{StaticResource DarkTag}" HorizontalOptions="End">
-                                    <Label Text="{Binding Measure}" TextColor="White" FontAttributes="Bold"/>
-                                </Frame>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+                                    </StackLayout.GestureRecognizers>
+                                    <Frame Style="{StaticResource Tag}" Margin="0,5,0,10" HorizontalOptions="Start">
+                                        <Label Text="{Binding Ingredient}" VerticalTextAlignment="Center"/>
+                                    </Frame>
+                                    <local:DashedLine HeightRequest="5" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                                    <Frame Style="{StaticResource DarkTag}" HorizontalOptions="End">
+                                        <Label Text="{Binding Measure}" TextColor="White" FontAttributes="Bold"/>
+                                    </Frame>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </local:RepeaterView.ItemTemplate>
+                </local:RepeaterView>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -57,7 +57,7 @@ namespace PocketBar.Managers
 			try
 			{
 				var ingredient = await cocktailService.ApiService.GetIngredientByIdAsync(id);
-				return ingredient.Ingredients.FirstOrDefault();
+				return ingredient.Ingredients2.FirstOrDefault();
 			}
 			catch (Exception e)
 			{
@@ -69,7 +69,7 @@ namespace PocketBar.Managers
 			try
 			{
 				var ingredient = await cocktailService.ApiService.SearchIngredientByNameAsync(ingredientName);
-				return ingredient.Ingredients.FirstOrDefault();
+				return ingredient.Ingredients2.FirstOrDefault();
 			}
 			catch (Exception e)
 			{
