@@ -33,6 +33,7 @@ namespace PocketBar.ViewModels
         public DelegateCommand<string> GoToDrinkCommand { get; set; }
         public DelegateCommand<string> SearchCommand { get; set; }
         public DelegateCommand RefreshDataCommand { get; set; }
+        public DelegateCommand GoToRandomDrinkCommand { get; set; }
         public bool HasData { get; set; }
 
         private bool RefreshData = true;
@@ -49,6 +50,7 @@ namespace PocketBar.ViewModels
             this.IsFiltered = false;
             this.GoToAlcoholicDrinkCommand = new DelegateCommand(GoToAlcoholicDrink);
             this.GoToNonAlcoholicDrinkCommand = new DelegateCommand(GoToNonAlcoholicDrink);
+            this.GoToRandomDrinkCommand = new DelegateCommand(GoToRandomDrink);
             this.SearchCommand = new DelegateCommand<string>(SearchTermChanged);
             this.RefreshDataCommand = new DelegateCommand(GetData);
             this.GoToDrinkCommand = new DelegateCommand<string>(GoToDrink);
@@ -58,7 +60,7 @@ namespace PocketBar.ViewModels
         public async void GetData()
         {
             try
-            {
+           {
                 if (!RefreshData)
                 {
                     RefreshData = true;
@@ -120,6 +122,12 @@ namespace PocketBar.ViewModels
                 await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
             }
         }
+
+        public void GoToRandomDrink()
+        {
+            RefreshData = false;
+            GoToDrink(RandomCocktail.IdDrink);
+        }
         public async void GoToDrink(string drinkId)
         {
             try
@@ -140,6 +148,7 @@ namespace PocketBar.ViewModels
         }
         public void SearchTermChanged(string searchTerm)
         {
+            RefreshData = false;
             typeAssistant.TextChanged(searchTerm);
         }
         public async void Search(string searchTerm)

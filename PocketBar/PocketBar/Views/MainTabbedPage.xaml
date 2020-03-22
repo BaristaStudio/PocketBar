@@ -5,12 +5,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:PocketBar.Views"
              mc:Ignorable="d"
-             x:Class="PocketBar.Views.MainTabbedPage">
+             x:Class="PocketBar.Views.MainTabbedPage"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             android:TabbedPage.ToolbarPlacement="Bottom"
+             ios:Page.UseSafeArea="true"
+             NavigationPage.HasNavigationBar="False"
+             UnselectedTabColor="#515151"
+             SelectedTabColor="Black"
+             BarBackgroundColor="White">
     <TabbedPage.Children>
-        <local:CocktailsListPage Title="Cocktails"/>
-        <local:CategoriesPage Title="Categories"/>
-        <local:MyFavoritesPage Title="Favorties"/>
-        <local:SurpriseMePage Title="Surprise Me"/>
-        <local:IngredientListPage Title="Ingredients"/>
+        <local:CocktailsListPage IconImageSource="glasses"/>
+        <local:CategoriesPage IconImageSource="categories"/>
+        <local:MyFavoritesPage IconImageSource="favorites"/>
+        <local:SurpriseMePage IconImageSource="surprise"/>
+        <local:IngredientListPage IconImageSource="ingredients"/>
     </TabbedPage.Children>
 </TabbedPage>
