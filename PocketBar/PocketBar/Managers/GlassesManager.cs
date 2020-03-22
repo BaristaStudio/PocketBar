@@ -22,17 +22,30 @@ namespace PocketBar.Managers
 		{
 			if (glasses == null || glasses.Count == 0)
 			{
-				var response = await cocktailService.ApiService.GetAllGlassesAsync();
-				glasses = response.Glasses.ToList();
+				try
+				{
+					var response = await cocktailService.ApiService.GetAllGlassesAsync();
+					glasses = response.Glasses.ToList();
+				}
+				catch(Exception e)
+				{
+					throw e;
+				}
 			}
 			return glasses;
 		}
-
 		public async Task<Glass> GetRandomGlass()
 		{
 			if (glasses == null || glasses.Count == 0)
 			{
-				await GetGlasses();
+				try
+				{
+					await GetGlasses();
+				}
+				catch (Exception e)
+				{
+					throw e;
+				}
 			}
 			Random rand = new Random();
 			int randomPosition = rand.Next(0, glasses.Count - 1);
@@ -40,8 +53,31 @@ namespace PocketBar.Managers
 		}
 		public async Task<List<Cocktail>> GetCocktailsByGlass(string glass)
 		{
-			var response = await cocktailService.ApiService.GetCocktailsByGlassAsync(glass);
-			return response.Drinks.ToList();
+			try
+			{
+				var response = await cocktailService.ApiService.GetCocktailsByGlassAsync(glass);
+				return response.Drinks.ToList();
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
+		}
+
+		public async Task<Cocktail> GetRandomCocktailByGlass(string glass)
+		{
+			try
+			{
+				var cocktailsWithGlass = await GetCocktailsByGlass(glass);
+				Random rand = new Random();
+				int randomPosition = rand.Next(0, cocktailsWithGlass.Count - 1);
+				return cocktailsWithGlass[randomPosition];
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
+
 		}
 
 	}

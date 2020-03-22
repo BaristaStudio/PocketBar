@@ -14,19 +14,30 @@ namespace PocketBar.ViewModels
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        INavigationService NavigationService { get; set; }
-        IPageDialogService PageDialogService { get; set; }
+        public INavigationService NavigationService { get; set; }
+        public IPageDialogService PageDialogService { get; set; }
         public bool IsLoading { get; set; }
 
-        public Task<bool> HasInternetConnection()
+        public BaseViewModel(PageDialogService pageDialogService, INavigationService navigationService)
+        {
+            this.PageDialogService = pageDialogService;
+            this.NavigationService = navigationService;
+        }
+
+        public async Task<bool> HasInternetConnection(bool sendMessage = false)
         {
             if(Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
-                return Task.FromResult(true);
+                return true;
             }
             else
             {
-                return Task.FromResult(false);
+                if (sendMessage)
+                {
+                    await App.Current.MainPage.DisplayAlert(Constants.ErrorMessages.NoInternet,Constants.ErrorMessages.NoInternetDescription, Constants.ErrorMessages.Ok);
+
+                }
+                return false;
             }
         }
 

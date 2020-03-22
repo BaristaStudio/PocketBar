@@ -22,7 +22,7 @@
                       HasUnevenRows="True"
                       SeparatorVisibility="None"
                       Margin="20,0,20,20"
-                      CachingStrategy="RecycleElementAndDataTemplate">
+                      CachingStrategy="RecycleElement">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell >
@@ -31,7 +31,7 @@
                                          HeightRequest="80"
                                          Margin="0,20,0,0">
                                     <yummy:PancakeView
-                                       BackgroundColor="{StaticResource LightBlue}"
+                                       BackgroundColor="{StaticResource LightOrange}"
                                        Padding="5"
                                        CornerRadius="5,0,5,0"
                                        Margin="0"
@@ -42,7 +42,7 @@
                                            WidthRequest="50"/>
                                     </yummy:PancakeView>
                                     <Frame
-                                       BackgroundColor="{StaticResource DarkBlue}"
+                                       BackgroundColor="{StaticResource DarkOrange}"
                                        Margin="0"
                                        Padding="0"
                                        VerticalOptions="FillAndExpand"

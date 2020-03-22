@@ -17,9 +17,5 @@ namespace PocketBar.Views
         {
             InitializeComponent();
         }
-        protected override async void OnAppearing()
-        {
-            ((SurpriseMePageViewModel)this.BindingContext).GetData();
-        }
     }
 }

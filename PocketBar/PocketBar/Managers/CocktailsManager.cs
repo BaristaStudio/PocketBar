@@ -31,32 +31,50 @@ namespace PocketBar.Managers
 		{
 			if (cocktails == null || cocktails.Count == 0)
 			{
-				var tasks = new[]
+				try
 				{
-				GetAlcoholicCocktails(),
-				GetNonAlcoholicCocktails(),
-				FillCocktailsWithOptionalAlcoholCocktails()
-				};
-				await Task.WhenAll(tasks);
+					var tasks = new[]
+						{
+					GetAlcoholicCocktails(),
+					GetNonAlcoholicCocktails(),
+					FillCocktailsWithOptionalAlcoholCocktails()
+					};
+					await Task.WhenAll(tasks);
+				}
+				catch(Exception e)
+				{
+					throw e;
+				}
 			}
 			return cocktails;
 		}
 		public async Task<List<Cocktail>> FindCocktails(string term)
 		{
-			if (cocktails == null || cocktails.Count == 0)
-			{
-				await GetCocktails();
-			}
-			return cocktails.Where(c => c.DrinkName.Contains(term)).ToList();
+				try
+				{
+					var filteredCocktails = await cocktailService.ApiService.SearchCocktailByTermAsync(term);
+					return (filteredCocktails.Drinks!=null) ? filteredCocktails.Drinks.OrderBy(c => c.DrinkName).ToList() : new List<Cocktail>();
+				}
+				catch(Exception e)
+				{
+					throw e;
+				}
 		}
 
 		public async Task<int> GetAlcoholicCocktails()
 		{
 			if (alcoholicCocktails == null || alcoholicCocktails.Count == 0)
 			{
-				var response =  await cocktailService.ApiService.GetCocktailsByAlcoholicAsync(AlcoholicFilter);
-				alcoholicCocktails = response.Drinks.ToList();
-				cocktails.AddRange(alcoholicCocktails);
+				try
+				{
+					var response = await cocktailService.ApiService.GetCocktailsByAlcoholicAsync(AlcoholicFilter);
+					alcoholicCocktails = response.Drinks.ToList();
+					cocktails.AddRange(alcoholicCocktails);
+				}
+				catch(Exception e)
+				{
+					throw e;
+				}
 			}
 			return 0;
 		}
@@ -65,6 +83,14 @@ namespace PocketBar.Managers
 		{
 			if (nonAlcoholicCocktails == null || nonAlcoholicCocktails.Count == 0)
 			{
+				try
+				{
+					
+				}
+				catch(Exception e)
+				{
+					throw e;
+				}
 				var response = await cocktailService.ApiService.GetCocktailsByAlcoholicAsync(NonAlcoholicFilter);
 				nonAlcoholicCocktails = response.Drinks.ToList();
 				cocktails.AddRange(nonAlcoholicCocktails);
@@ -76,22 +102,43 @@ namespace PocketBar.Managers
 		{
 			if (cocktails == null || cocktails.Count == 0)
 			{
-				var response = await cocktailService.ApiService.GetCocktailsByAlcoholicAsync(OptionalAlcoholFilter);
-				cocktails.AddRange(response.Drinks.ToList());
-				cocktails.OrderBy(c => c.DrinkName);
+				try
+				{
+					var response = await cocktailService.ApiService.GetCocktailsByAlcoholicAsync(OptionalAlcoholFilter);
+					cocktails.AddRange(response.Drinks.ToList());
+					cocktails.OrderBy(c => c.DrinkName);
+				}
+				catch (Exception e)
+				{
+					throw e;
+				}
 			}
 			return 0;
 		}
 
 		public async Task<Cocktail> GetRandomCocktail()
 		{
-			return (await cocktailService.ApiService.GetRandomCocktailAsync()).Drinks.FirstOrDefault();
+			try
+			{
+				return (await cocktailService.ApiService.GetRandomCocktailAsync()).Drinks.FirstOrDefault();
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
 		}
 		public async Task<Cocktail> GetRandomAlcoholicCocktail()
 		{
 			if (alcoholicCocktails == null || alcoholicCocktails.Count == 0)
 			{
-				await GetAlcoholicCocktails();
+				try
+				{
+					await GetAlcoholicCocktails();
+				}
+				catch (Exception e)
+				{
+					throw e;
+				}
 			}
 
 			Random rand = new Random();
@@ -102,7 +149,14 @@ namespace PocketBar.Managers
 		{
 			if (nonAlcoholicCocktails == null || nonAlcoholicCocktails.Count == 0)
 			{
-				await GetNonAlcoholicCocktails();
+				try
+				{
+					await GetNonAlcoholicCocktails();
+				}
+				catch (Exception e)
+				{
+					throw e;
+				}
 			}
 
 			Random rand = new Random();
@@ -112,8 +166,15 @@ namespace PocketBar.Managers
 
 		public async Task<Cocktail> GetCocktail(int id)
 		{
-			var cocktail = await cocktailService.ApiService.GetCocktailByIdAsync(id);
-			return cocktail;
+			try
+			{
+				var cocktail = await cocktailService.ApiService.GetCocktailByIdAsync(id);
+				return cocktail;
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
 		}
 	}
 }

@@ -1,7 +1,8 @@
-﻿using PocketBar.Constants;
+using PocketBar.Constants;
 using PocketBar.Managers;
 using PocketBar.Models;
 using Prism.Navigation;
+using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,18 +14,18 @@ namespace PocketBar.ViewModels
     class CocktailsListPageViewModel: BaseViewModel
 	{
 		public ObservableCollection <Cocktail> Cocktails { get; set; }
-        private CategoriesManager categoriesManager;
+    private CategoriesManager categoriesManager;
 		private GlassesManager glassesManager;
 		private IngredientsManager ingredientsManager;
 
 
-		public CocktailsListPageViewModel(CategoriesManager categoriesManager, GlassesManager glassesManager, IngredientsManager ingredientsManager) :base()
+		public CocktailsListPageViewModel(PageDialogService pageDialogService, INavigationService navigationService,CategoriesManager categoriesManager, GlassesManager glassesManager, IngredientsManager ingredientsManager) : base(pageDialogService, navigationService)
         {
             this.categoriesManager = categoriesManager;
-			this.glassesManager = glassesManager;
-			this.ingredientsManager = ingredientsManager;
+            this.glassesManager = glassesManager;
+            this.ingredientsManager = ingredientsManager;
 
-			GetIngredient("Gin");
+            GetIngredient("Gin");
 		}
 
 		public async void GetCategories(string Category)

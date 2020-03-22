@@ -39,5 +39,8 @@ namespace PocketBar.Services
         [Get("/list.php?c=list")]
         Task<CategoryList> GetAllCategoriesAsync();
 
+        [Get("/search.php?s={searchTerm}")]
+        Task<CocktailList> SearchCocktailByTermAsync(string searchTerm);
+
     }
 }

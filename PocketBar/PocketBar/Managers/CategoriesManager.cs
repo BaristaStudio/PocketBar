@@ -23,15 +23,29 @@ namespace PocketBar.Managers
 		{
 			if (categories == null || categories.Count == 0)
 			{
-				var response = await cocktailService.ApiService.GetAllCategoriesAsync();
-				categories = response.Categories.ToList();
+				try
+				{
+					var response = await cocktailService.ApiService.GetAllCategoriesAsync();
+					categories = response.Categories.ToList();
+				}
+				catch (Exception e)
+				{
+					throw e;
+				}
 			}
 			return categories;
 		}
 		public async Task<List<Cocktail>> GetCocktailsByCategory(string category)
 		{
-			var response = await cocktailService.ApiService.GetCocktailsByCategoryAsync(category);
-			return response.Drinks.ToList();
+			try
+			{
+				var response = await cocktailService.ApiService.GetCocktailsByCategoryAsync(category);
+				return response.Drinks.ToList();
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
 		}
 	}
 }
