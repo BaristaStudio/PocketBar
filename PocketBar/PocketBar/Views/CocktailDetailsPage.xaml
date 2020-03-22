@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="PocketBar.Views.CocktailDetailsPage"
              xmlns:local="clr-namespace:PocketBar.Controls.CocktailDetails"
+             xmlns:utils="clr-namespace:PocketBar.Utils"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="True">
     <ContentPage.Resources>
@@ -31,10 +32,28 @@
                         <TapGestureRecognizer Command="{Binding OnPressedBackCommand}"/>
                     </Image.GestureRecognizers>
                 </Image>
-                <Label Text="Cocktail Details" HorizontalOptions="Center" VerticalTextAlignment="Center" FontSize="21" Style="{StaticResource TitleStyle}"/>
+                <Label Text="Cocktail Details" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" FontSize="21" Style="{StaticResource TitleStyle}"/>
+                <Label  FontFamily="{StaticResource FontAwesomeSolid}"
+                            Text="{x:Static utils:Icon.Share}"
+                            TextColor="Black"
+                            FontSize="21"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="EndAndExpand"
+                            Margin="0,0,16,0">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShareCocktailCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
             </StackLayout>
             <Image Source="{Binding Cocktail.DrinkThumb}" HorizontalOptions="Fill" Aspect="AspectFill"/>
-            <Label Text="{Binding Cocktail.DrinkName}" Style="{StaticResource TitleStyle}"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Label Text="{Binding Cocktail.DrinkName}" Style="{StaticResource TitleStyle}"/>
+                <Image Source="{Binding FavoriteIcon}" HorizontalOptions="End" Margin="0,0,16,0">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MarkAsFavoriteCommand}" CommandParameter="{Binding Cocktail.IdDrink}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="16,0,0,0" >
                 <Frame Style="{StaticResource Tag}">
                     <Label Text="{Binding Cocktail.Alcoholic}"/>

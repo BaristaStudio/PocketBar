@@ -17,5 +17,7 @@ namespace PocketBar.Constants
 
 		public const string PlaygroundPage = "PlaygroundPage";
 		public const string MainTabbedPage = "MainTabbedPage";
+
+		public const string AppURL = "http://www.PocketBar.com";
 	}
 }
