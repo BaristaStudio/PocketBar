@@ -19,10 +19,11 @@
                    Margin="16,36,0,0"
                    VerticalOptions="StartAndExpand"/>
                 <ListView ItemsSource="{Binding Ingredients}"
-                      HasUnevenRows="True"
-                      SeparatorVisibility="None"
-                      Margin="20,0,20,20"
-                      CachingStrategy="RecycleElement">
+                          HasUnevenRows="True"
+                          SeparatorVisibility="None"
+                          Margin="20,0,20,20"
+                          CachingStrategy="RecycleElement"
+                          x:Name="IngredientsListView">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell >
@@ -30,6 +31,10 @@
                                          Spacing="0"
                                          HeightRequest="80"
                                          Margin="0,20,0,0">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path=Parent.BindingContext.GoToIngredientCommand, Source={x:Reference IngredientsListView}}"
+                                                              CommandParameter="{Binding IngredientName}"/>
+                                    </StackLayout.GestureRecognizers>
                                     <yummy:PancakeView
                                        BackgroundColor="{StaticResource LightOrange}"
                                        Padding="5"

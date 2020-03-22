@@ -151,7 +151,9 @@
       <Name>PocketBar</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BundleResource Include="Resources\favorites%402x.png" />
+  </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\alcoholic.png" />
   </ItemGroup>
@@ -187,5 +189,11 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\glass%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\favorites%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\favorites.png" />
   </ItemGroup>
 </Project>
