@@ -25,7 +25,7 @@ namespace PocketBar.Services
          Task<Ingredient> GetIngredientByIdAsync(int ingredientId);
 
          [Get("/lookup.php?i={drinkId}")]
-         Task<Cocktail> GetCocktailByIdAsync(int drinkId);
+         Task<CocktailList> GetCocktailByIdAsync(int drinkId);
 
         [Get("/random.php")]
         Task<CocktailList> GetRandomCocktailAsync();

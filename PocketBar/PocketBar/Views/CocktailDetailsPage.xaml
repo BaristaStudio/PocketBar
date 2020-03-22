@@ -4,12 +4,74 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="PocketBar.Views.CocktailDetailsPage">
+             x:Class="PocketBar.Views.CocktailDetailsPage"
+             xmlns:local="clr-namespace:PocketBar.Controls.CocktailDetails"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Frame" x:Key="Tag">
+                <Setter Property="Padding" Value="10,0,10,0"/>
+                <Setter Property="BackgroundColor" Value="LightGray"/>
+                <Setter Property="CornerRadius" Value="50"/>
+            </Style>
+            <Style TargetType="Frame" x:Key="DarkTag">
+                <Setter Property="Padding" Value="3,5,0,5"/>
+                <Setter Property="BackgroundColor" Value="DimGray"/>
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="Margin" Value="0,5,0,5"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,20,0,20">
+                <Image Source="backArrow" Margin="10,0,50,0" HorizontalOptions="Start">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnPressedBackCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Text="Cocktail Details" HorizontalOptions="Center" VerticalTextAlignment="Center" FontSize="21" Style="{StaticResource TitleStyle}"/>
+            </StackLayout>
+            <Image Source="{Binding Cocktail.DrinkThumb}" HorizontalOptions="Fill" Aspect="AspectFill"/>
+            <Label Text="{Binding Cocktail.DrinkName}" Style="{StaticResource TitleStyle}"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="16,0,0,0" >
+                <Frame Style="{StaticResource Tag}">
+                    <Label Text="{Binding Cocktail.Alcoholic}"/>
+                </Frame>
+                <Frame Style="{StaticResource Tag}">
+                    <Label Text="{Binding Cocktail.Glass}"/>
+                </Frame>
+            </StackLayout>
+            <Frame HorizontalOptions="FillAndExpand" BackgroundColor="LightGray">
+                <StackLayout>
+                    <Label Text="Instructions:" Style="{StaticResource TitleStyle}" FontSize="Large"/>
+                    <Label Text="{Binding Cocktail.Instructions}" Margin="16,0,0,0"/>
+                </StackLayout>
+            </Frame>
+            <Label Text="Ingredients" Style="{StaticResource TitleStyle}" Margin="16,23,0,0" FontSize="21"/>
+            <ListView ItemsSource="{Binding Cocktail.Ingredients}" Margin="16,0,16,16" SeparatorVisibility="None" x:Name="CocktailIngredients">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding Path=Parent.BindingContext.GoToIngredientCommand, Source={x:Reference CocktailIngredients}}" 
+                                        CommandParameter="{Binding Ingredient}"/>
+                                </StackLayout.GestureRecognizers>
+                                <Frame Style="{StaticResource Tag}" Margin="0,5,0,10" HorizontalOptions="Start">
+                                    <Label Text="{Binding Ingredient}" VerticalTextAlignment="Center"/>
+                                </Frame>
+                                <local:DashedLine HeightRequest="5" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                                <Frame Style="{StaticResource DarkTag}" HorizontalOptions="End">
+                                    <Label Text="{Binding Measure}" TextColor="White" FontAttributes="Bold"/>
+                                </Frame>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

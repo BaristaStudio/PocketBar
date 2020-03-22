@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PocketBar.Constants
 {
-	class ErrorMessages
+	public static class ErrorMessages
 	{
 		public const string ErrorOccured = "Error Occured";
 		public const string Ok = "Ok";

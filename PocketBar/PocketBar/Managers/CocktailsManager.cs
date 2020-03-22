@@ -169,7 +169,7 @@ namespace PocketBar.Managers
 			try
 			{
 				var cocktail = await cocktailService.ApiService.GetCocktailByIdAsync(id);
-				return cocktail;
+				return cocktail.Drinks.FirstOrDefault();
 			}
 			catch (Exception e)
 			{
