@@ -18,7 +18,7 @@ using Xamarin.Forms.Platform.Android;
 [assembly: ExportRenderer(typeof(DashedLine), typeof(DashedLineRenderer))]
 namespace PocketBar.Droid.CustomRenders
 {
-    public class DashedLineRenderer : BoxRenderer
+    class DashedLineRenderer : BoxRenderer
     {
         public DashedLineRenderer(Context context) : base(context)
         {
