@@ -11,5 +11,6 @@ namespace PocketBar.Utils
 		public static readonly string AddressBook = "\uf2b9";
 		public static readonly string Search = "\uf002";
 		public static readonly string Share = "\uf1e0";
+		public static readonly string Dismiss = "\uf057";
 	}
 }
