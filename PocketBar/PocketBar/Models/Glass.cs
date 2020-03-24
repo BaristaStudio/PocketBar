@@ -11,6 +11,7 @@ namespace PocketBar.Models
 
         [JsonProperty("strGlass")]
         public string GlassName { get; set; }
+        public string GlassThumb { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }
