@@ -58,7 +58,7 @@ namespace PocketBar.ViewModels
             } catch(Exception e)
             {
                 IsLoading = false;
-                await PageDialogService.DisplayAlertAsync(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
+                await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
             }
         }
         async void GoBack()
@@ -81,7 +81,7 @@ namespace PocketBar.ViewModels
                 FavoriteIcon = IsFavorite ? FavoriteFilledIcon : FavoriteEmptyIcon;
             } catch(Exception e)
             {
-                await PageDialogService.DisplayAlertAsync(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
+                await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
             }
         }
         async void GoToIngredient(string ingredientName)
@@ -99,7 +99,7 @@ namespace PocketBar.ViewModels
                 await NavigationService.NavigateAsync(new Uri(Constants.NavConstants.IngredientDetailsPage, UriKind.Relative), parameters);
             } catch(Exception e)
             {
-                await PageDialogService.DisplayAlertAsync(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
+                await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
             }
         }
         async void ShareCocktail()
@@ -115,7 +115,7 @@ namespace PocketBar.ViewModels
             }
             catch(Exception e)
             {
-                await PageDialogService.DisplayAlertAsync(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
+                await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
             }
         }
     }
