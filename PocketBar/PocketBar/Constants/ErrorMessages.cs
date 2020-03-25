@@ -10,5 +10,6 @@ namespace PocketBar.Constants
 		public const string Ok = "Ok";
 		public const string NoInternet = "No Internet Connection";
 		public const string NoInternetDescription = "Can not get information because there is no internet connection available. Please connect to the internet and try again.";
+		public const string MissingInformation = "Missing Information";
 	}
 }
