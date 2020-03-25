@@ -28,6 +28,18 @@ namespace PocketBar.Controls.Common
             typeof(string),
             typeof(NavigationView),
             string.Empty);
+
+        public double FontSize
+        {
+            get => (double)GetValue(FontSizeProperty);
+            set => SetValue(FontSizeProperty, value);
+        }
+
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(
+            nameof(FontSize),
+            typeof(double),
+            typeof(NavigationView),
+            21.0);
         public DelegateCommand OnPressedBackCommand
         {
             get => (DelegateCommand)GetValue(OnPressedBackCommandProperty);

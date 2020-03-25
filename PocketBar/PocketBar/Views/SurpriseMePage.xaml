@@ -118,19 +118,22 @@
                                   Grid.Row="2"
                                    Grid.Column="0"
                                    Grid.ColumnSpan="4"/>
-                        <Image Source="{Binding RandomCocktail.DrinkThumb}" 
-                               Grid.Row="3"
-                               HorizontalOptions="FillAndExpand"
-                               HeightRequest="200"
-                               Aspect="Fill"
-                               Grid.ColumnSpan="4"
-                               Grid.Column="0">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding GoToDrinkCommand}"
-                                                      CommandParameter="{Binding RandomCocktail.IdDrink}"/>                           
-                            </Image.GestureRecognizers>
-                        </Image>
-                        <StackLayout BackgroundColor="{StaticResource Default}"
+                            <yummy:PancakeView CornerRadius="6" 
+                                               HorizontalOptions="FillAndExpand" 
+                                               Grid.Row="3" 
+                                               Grid.ColumnSpan="4"
+                                               Grid.Column="0">
+                                <Image Source="{Binding RandomCocktail.DrinkThumb}" 
+                                       HorizontalOptions="FillAndExpand"
+                                       HeightRequest="200"
+                                       Aspect="Fill">   
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding GoToDrinkCommand}"
+                                                              CommandParameter="{Binding RandomCocktail.IdDrink}"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </yummy:PancakeView>
+                            <StackLayout BackgroundColor="{StaticResource Default}"
                                      Opacity="0.7"
                                      Grid.Row="3"
                                      Grid.Column="0"

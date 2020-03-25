@@ -17,7 +17,8 @@
                 <control:NavigationView 
                     OnPressedBackCommand="{Binding OnPressedBackCommand}"
                     HasShareButton="False"
-                    Title="{Binding Title}"/>
+                    Title="{Binding Title}"
+                    FontSize="18"/>
                 <ListView ItemsSource="{Binding Cocktails}" x:Name="DrinksList" RowHeight="230" SeparatorVisibility="None" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -33,7 +34,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <yummy:PancakeView CornerRadius="10,10,10,10" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="4"
+                                    <yummy:PancakeView CornerRadius="6" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="4"
                                                Grid.Column="0">
                                         <Image Source="{Binding DrinkThumb}" 
                                                HorizontalOptions="FillAndExpand"
@@ -41,7 +42,7 @@
                                                Aspect="Fill"/>
                                     </yummy:PancakeView>
 
-                                    <yummy:PancakeView CornerRadius="0,0,10,0"  Grid.Row="0"
+                                    <yummy:PancakeView CornerRadius="0,0,6,0"  Grid.Row="0"
                                            Grid.Column="0"
                                            Grid.ColumnSpan="2">
                                         <StackLayout BackgroundColor="{StaticResource Default}"
