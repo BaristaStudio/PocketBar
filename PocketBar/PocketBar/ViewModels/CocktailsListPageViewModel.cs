@@ -19,7 +19,7 @@ namespace PocketBar.ViewModels
 		private GlassesManager glassesManager;
 		private IngredientsManager ingredientsManager;
 
-		public string Title;
+		public string Title { get; set; }
 
 
 		public CocktailsListPageViewModel(PageDialogService pageDialogService, INavigationService navigationService,CategoriesManager categoriesManager, GlassesManager glassesManager, IngredientsManager ingredientsManager) : base(pageDialogService, navigationService)

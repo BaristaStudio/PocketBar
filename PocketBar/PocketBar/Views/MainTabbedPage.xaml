@@ -15,7 +15,7 @@
              SelectedTabColor="Black"
              BarBackgroundColor="White">
     <TabbedPage.Children>
-        <local:CocktailsListPage IconImageSource="glasses"/>
+        <local:GlassesListPage IconImageSource="glasses"/>
         <local:CategoriesPage IconImageSource="categories"/>
         <local:MyFavoritesPage IconImageSource="favorites"/>
         <local:SurpriseMePage IconImageSource="surprise"/>
