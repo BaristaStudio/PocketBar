@@ -14,9 +14,11 @@
             <StackLayout Padding="20,5" 
                          AbsoluteLayout.LayoutFlags="All"
                          AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <Label Text="Hola"/>
                 <control:NavigationView 
                     OnPressedBackCommand="{Binding OnPressedBackCommand}"
-                    HasShareButton="True"/>
+                    HasShareButton="False"
+                    Title="{Binding Title}"/>
                 <ListView ItemsSource="{Binding Cocktails}" x:Name="DrinksList" RowHeight="230" SeparatorVisibility="None" >
                     <ListView.ItemTemplate>
                         <DataTemplate>

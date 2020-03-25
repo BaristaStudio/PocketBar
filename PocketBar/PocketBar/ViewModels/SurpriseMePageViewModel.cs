@@ -31,9 +31,13 @@ namespace PocketBar.ViewModels
         public DelegateCommand GoToCocktailWithIngredientCommand { get; set; }
         public DelegateCommand GoToCocktailWithGlassCommand { get; set; }
         public DelegateCommand<string> GoToDrinkCommand { get; set; }
-        public DelegateCommand<string> SearchCommand { get; set; }
+        public DelegateCommand SearchCommand { get; set; }
         public DelegateCommand RefreshDataCommand { get; set; }
+
+        public DelegateCommand ClearSearchCommand { get; set; }
         public bool HasData { get; set; }
+
+        public string SearchTerm { get; set; }
 
         public bool IsRefreshing { get; set; } = false;
 
@@ -49,11 +53,12 @@ namespace PocketBar.ViewModels
             this.IsFiltered = false;
             this.GoToAlcoholicDrinkCommand = new DelegateCommand(GoToAlcoholicDrink);
             this.GoToNonAlcoholicDrinkCommand = new DelegateCommand(GoToNonAlcoholicDrink);
-            this.SearchCommand = new DelegateCommand<string>(SearchTermChanged);
+            this.SearchCommand = new DelegateCommand(SearchTermChanged);
             this.RefreshDataCommand = new DelegateCommand(GetData);
             this.GoToDrinkCommand = new DelegateCommand<string>(GoToDrink);
             this.GoToCocktailWithIngredientCommand = new DelegateCommand(GoToCocktailWithIngredient);
             this.GoToCocktailWithGlassCommand = new DelegateCommand(GoToCocktailWithGlass);
+            this.ClearSearchCommand = new DelegateCommand(() => SearchTerm = string.Empty);
         }
         public async void GetData()
         {
@@ -132,19 +137,19 @@ namespace PocketBar.ViewModels
                 await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
             }
         }
-        public void SearchTermChanged(string searchTerm)
+        public void SearchTermChanged()
         {
-            typeAssistant.TextChanged(searchTerm);
+            typeAssistant.TextChanged();
         }
-        public async void Search(string searchTerm)
+        public async void Search()
         {
             try
             {
                 IsLoading = true;
-                if (!string.IsNullOrEmpty(searchTerm) && await HasInternetConnection(true))
+                if (!string.IsNullOrEmpty(SearchTerm) && await HasInternetConnection(true))
                 {
                     IsFiltered = true;
-                    FilteredCocktails = new ObservableCollection<Cocktail>(await cocktailsManager.FindCocktails(searchTerm));
+                    FilteredCocktails = new ObservableCollection<Cocktail>(await cocktailsManager.FindCocktails(SearchTerm));
                     HasData = FilteredCocktails.Count > 0;
                 }
                 else

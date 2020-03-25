@@ -10,7 +10,8 @@
              ios:Page.UseSafeArea="true"
              xmlns:local="clr-namespace:PocketBar.Controls.Common"
              xmlns:utils="clr-namespace:PocketBar.Utils"
-             xmlns:prism="http://prismlibrary.com">
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms">
     <ContentPage.Resources>
         <ResourceDictionary>
             <utils:InverseBoolConverter x:Key="InverseBoolConverter"/>
@@ -40,18 +41,29 @@
                             VerticalOptions="CenterAndExpand"
                             Margin="10,0,0,0"/>
                         <local:BorderlessEntry Placeholder="Search  by cocktail name..."
-                           TextColor="LightGray"
-                           PlaceholderColor="LightGray"
-                           HorizontalOptions="FillAndExpand"
-                           FontSize="16"
-                           Margin="0,0,0,10"
-                           x:Name="SearchTerm">
+                                               TextColor="LightGray"
+                                               PlaceholderColor="LightGray"
+                                               HorizontalOptions="FillAndExpand"
+                                               FontSize="16"
+                                               Margin="0,0,0,10"
+                                               x:Name="SearchTerm"
+                                               Text="{Binding SearchTerm}">    
                             <local:BorderlessEntry.Behaviors>
                                 <prism:EventToCommandBehavior EventName="TextChanged"
-                                                      Command="{Binding SearchCommand}"
-                                                      CommandParameter="{Binding Source={x:Reference SearchTerm}, Path=Text}"/>
+                                                      Command="{Binding SearchCommand}"/>
                             </local:BorderlessEntry.Behaviors>
                         </local:BorderlessEntry>
+                        <Label  FontFamily="{StaticResource FontAwesomeRegular}"
+                            Text="{x:Static utils:Icon.Dismiss}"
+                            TextColor="LightGray"
+                            FontSize="18"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="End"
+                            Margin="10,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ClearSearchCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
                     </StackLayout>
                     <ScrollView IsVisible="False">
                         <ScrollView.Triggers>
@@ -276,6 +288,8 @@
                                                   Value="True"/>
                                     <BindingCondition Binding="{Binding IsLoading}"
                                                   Value="False"/>
+                                    <BindingCondition Binding="{Binding HasData}"
+                                                  Value="True"/>
                                 </MultiTrigger.Conditions>
                                 <Setter Property="IsVisible" Value="True"/>
                             </MultiTrigger>
@@ -302,6 +316,36 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+                    <StackLayout IsVisible="False">
+                        <StackLayout.Triggers>
+                            <MultiTrigger TargetType="StackLayout">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding IsFiltered}"
+                                                  Value="True"/>
+                                    <BindingCondition Binding="{Binding HasData}"
+                                                  Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible" Value="True"/>
+                            </MultiTrigger>
+                        </StackLayout.Triggers>
+                        <Label Text="Nothing to see here"
+                               Style="{StaticResource TitleStyle}"
+                               FontAttributes="None"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="CenterAndExpand"
+                               Margin="0"/>
+                        <Label Text="Your search returned no results"
+                               Style="{StaticResource SubTitleStyle}"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="CenterAndExpand"/>
+                        <lottie:AnimationView
+                            x:Name="EmptyState" 
+                            Animation="empty.json" 
+                            AutoPlay="True" Loop="true"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="CenterAndExpand"
+                            Margin="0"/>
+                    </StackLayout>
                 </StackLayout>
         </RefreshView>
         <ContentView BackgroundColor="#222222" Opacity="0.5"

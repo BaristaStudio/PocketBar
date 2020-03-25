@@ -20,7 +20,6 @@ namespace PocketBar.ViewModels
         public string FavoriteIcon { get; set; } = FavoriteEmptyIcon;
         public bool IsFavorite { get; set; } = false;
         public Cocktail Cocktail {get; set; }
-        public DelegateCommand OnPressedBackCommand { get; set; }
         public DelegateCommand ShareCocktailCommand { get; set; }
         public DelegateCommand<string> MarkAsFavoriteCommand { get; set; }
         public DelegateCommand<string> GoToIngredientCommand { get; set; }
@@ -28,65 +27,90 @@ namespace PocketBar.ViewModels
         {
             _cocktailsManager = cocktailsManager;
             _ingredientsManager = ingredientsManager;
-            OnPressedBackCommand = new DelegateCommand(GoBack);
             ShareCocktailCommand = new DelegateCommand(ShareCocktail);
             MarkAsFavoriteCommand = new DelegateCommand<string>(MarkAsFavorite);
             GoToIngredientCommand = new DelegateCommand<string>(GoToIngredient);            
         }
         public async void Initialize(INavigationParameters parameters)
         {
-            if (!parameters.ContainsKey("DrinkId"))
+            try
             {
-                await ShowMessage("Error", Constants.ErrorMessages.ErrorOccured, "Ok");
-                return;
-            }
-            int drinkId = int.Parse(parameters["DrinkId"].ToString());
-            if (parameters.ContainsKey("Cocktail"))
+                if (!parameters.ContainsKey("DrinkId"))
+                {
+                    await ShowMessage(Constants.ErrorMessages.ErrorOccured, Constants.ErrorMessages.MissingParameter, Constants.ErrorMessages.Ok);
+                    return;
+                }
+                IsLoading = true;
+                int drinkId = int.Parse(parameters["DrinkId"].ToString());
+                if (parameters.ContainsKey("Cocktail"))
+                {
+                    Cocktail = parameters["Cocktail"] as Cocktail;
+                }
+                else if(await HasInternetConnection(true))
+                {
+                    Cocktail = await _cocktailsManager.GetCocktail(drinkId);
+                }
+                IsFavorite = _cocktailsManager.IsFavorite(drinkId);
+                FavoriteIcon = IsFavorite ? FavoriteFilledIcon : FavoriteEmptyIcon;
+                IsLoading = false;
+            } catch(Exception e)
             {
-                Cocktail = parameters["Cocktail"] as Cocktail;
+                IsLoading = false;
+                await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
             }
-            else
-            {
-                Cocktail = await _cocktailsManager.GetCocktail(drinkId);
-            }
-            IsFavorite = _cocktailsManager.IsFavorite(drinkId);
-            FavoriteIcon = IsFavorite ? FavoriteFilledIcon : FavoriteEmptyIcon;
         }
-        async void GoBack()
+        async void MarkAsFavorite(string drinkId)
         {
-            await NavigationService.GoBackAsync();
-        }
-        void MarkAsFavorite(string drinkId)
-        {
-            if (IsFavorite)
+            try
             {
-                _cocktailsManager.RemoveFromFavorites(int.Parse(drinkId));
-            }
-            else
+                if (IsFavorite)
+                {
+                    _cocktailsManager.RemoveFromFavorites(int.Parse(drinkId));
+                }
+                else
+                {
+                    _cocktailsManager.MarkAsFavorite(Cocktail);
+                }
+                IsFavorite = !IsFavorite;
+                FavoriteIcon = IsFavorite ? FavoriteFilledIcon : FavoriteEmptyIcon;
+            } catch(Exception e)
             {
-                _cocktailsManager.MarkAsFavorite(Cocktail);
+                await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
             }
-            IsFavorite = !IsFavorite;
-            FavoriteIcon = IsFavorite ? FavoriteFilledIcon : FavoriteEmptyIcon;
         }
         async void GoToIngredient(string ingredientName)
         {
-            var ingredient = _ingredientsManager.GetIngredientByName(ingredientName);
-            var parameters = new NavigationParameters
+            try
+            {
+                Ingredient ingredient = null;
+                if (await HasInternetConnection(true))
+                    ingredient = await _ingredientsManager.GetIngredientByName(ingredientName);
+
+                var parameters = new NavigationParameters
                 {
                     { "ingredient", ingredient }
                 };
-            await NavigationService.NavigateAsync(new Uri(Constants.NavConstants.IngredientDetailsPage, UriKind.Relative), parameters);
-        }
-        void ShareCocktail()
-        {
-            var message = new ShareMessage()
+                await NavigationService.NavigateAsync(new Uri(Constants.NavConstants.IngredientDetailsPage, UriKind.Relative), parameters);
+            } catch(Exception e)
             {
-                Title = "Pocket Bar",
-                Text = $"Check this awesome drink at Pocket Bar: {Cocktail.DrinkName}",
-                Url = $"{Constants.NavConstants.AppURL}/{Constants.NavConstants.SurpriseMePage}/{Constants.NavConstants.CocktailDetailsPage}?DrinkId={Cocktail.IdDrink}"
-            };
-            CrossShare.Current.Share(message);
+                await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
+            }
+        }
+        async void ShareCocktail()
+        {
+            try
+            {
+                var message = new ShareMessage()
+                {
+                    Title = "Pocket Bar",
+                    Text = $"Check this awesome drink at Pocket Bar: {Cocktail.DrinkName} \n Instructions: {Cocktail.Instructions} \n For more information Go to Pocket Bar App"
+                };
+                await CrossShare.Current.Share(message);
+            }
+            catch(Exception e)
+            {
+                await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
+            }
         }
     }
 }
