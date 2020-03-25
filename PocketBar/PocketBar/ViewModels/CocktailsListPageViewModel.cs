@@ -93,33 +93,53 @@ namespace PocketBar.ViewModels
 		{
 			try
 			{
-				if (!parameters.ContainsKey("type"))
+				SearchType? type;
+				string searchTerm = "";
+				if (parameters == null || parameters.Count == 0) return;
+				if (parameters.ContainsKey("type"))
+				{
+					type = (SearchType)parameters["type"];
+				}
+				else
 				{
 					await ShowMessage(ErrorMessages.ErrorOccured, ErrorMessages.MissingInformation, ErrorMessages.Ok);
 					return;
 				}
 
-				if (!parameters.ContainsKey("searchTerm"))
+				if (parameters.ContainsKey("searchTerm"))
 				{
-					await ShowMessage(Constants.ErrorMessages.ErrorOccured, Constants.ErrorMessages.MissingInformation, Constants.ErrorMessages.Ok);
+					searchTerm = parameters["searchTerm"] as string;
+				}
+				else
+				{
+					await ShowMessage(ErrorMessages.ErrorOccured, ErrorMessages.MissingInformation, ErrorMessages.Ok);
 					return;
 				}
-				var type = (SearchType)parameters["type"];
-				//var type = parameters["type"] as SearchType
-				string searchTerm = parameters["searchTerm"] as string;
-				Title = parameters.GetValue<string>("searchTerm");
 
-				switch (type)
+				if (parameters.ContainsKey("title"))
 				{
-					case SearchType.Category:
-						GetCocktailsByCategory(searchTerm);
-						break;
-					case SearchType.Glass:
-						GetCocktailsByGlass(searchTerm);
-						break;
-					case SearchType.Ingredient:
-						GetCocktailsByIngredient(searchTerm);
-						break;
+					Title = parameters.GetValue<string>("title");
+				}
+				else
+				{
+					await ShowMessage(ErrorMessages.ErrorOccured, ErrorMessages.MissingInformation, ErrorMessages.Ok);
+					return;
+				}
+
+				if(type != null && !string.IsNullOrEmpty(searchTerm))
+				{
+					switch (type)
+					{
+						case SearchType.Category:
+							GetCocktailsByCategory(searchTerm);
+							break;
+						case SearchType.Glass:
+							GetCocktailsByGlass(searchTerm);
+							break;
+						case SearchType.Ingredient:
+							GetCocktailsByIngredient(searchTerm);
+							break;
+					}
 				}
 			}catch(Exception e)
 			{
