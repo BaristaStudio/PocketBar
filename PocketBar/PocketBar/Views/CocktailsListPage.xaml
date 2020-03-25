@@ -4,54 +4,74 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="PocketBar.Views.CocktailsListPage">
-    <NavigationPage.TitleView>
-        <Label Text="Category"
-                   Style="{StaticResource TitleStyle}"
-                   HorizontalOptions="Center"
-                   VerticalOptions="StartAndExpand"/>
-    </NavigationPage.TitleView>
+             x:Class="PocketBar.Views.CocktailsListPage"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:control="clr-namespace:PocketBar.Controls.Common"
+             ios:Page.UseSafeArea="True">
     <ContentPage.Content>
-        <StackLayout Padding="20,5">
-            <ListView ItemsSource="{Binding Cocktails}" x:Name="DrinksList" RowHeight="210" >
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell >
-                            <Grid Margin="0,0,0,10">
-                                <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                                <Image Source="{Binding DrinkThumb}" 
-                       HorizontalOptions="FillAndExpand"
-                       HeightRequest="200"
-                       Aspect="Fill"
-                       Grid.ColumnSpan="4"
-                       Grid.Column="0"/>
-                                <StackLayout BackgroundColor="{StaticResource Default}"
-                                 Opacity="0.7"
-                                   Grid.Row="0"
-                                   Grid.Column="0"
-                                   Grid.ColumnSpan="2"
-                                   VerticalOptions="End"
-                                   Padding="15,5">
-                                    <Label Text="{Binding DrinkName}"
-                           TextColor="White"
-                           FontFamily="Poppins"
-                           FontAttributes="Bold"
-                           FontSize="14"/>
-                                </StackLayout>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+        <AbsoluteLayout>
+            <StackLayout Padding="20,5" 
+                         AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <control:NavigationView 
+                    OnPressedBackCommand="{Binding OnPressedBackCommand}"
+                    HasShareButton="True"/>
+                <ListView ItemsSource="{Binding Cocktails}" x:Name="DrinksList" RowHeight="230" SeparatorVisibility="None" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <yummy:PancakeView CornerRadius="10,10,10,10" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="4"
+                                               Grid.Column="0">
+                                        <Image Source="{Binding DrinkThumb}" 
+                                               HorizontalOptions="FillAndExpand"
+                                               HeightRequest="200"
+                                               Aspect="Fill"/>
+                                    </yummy:PancakeView>
+
+                                    <yummy:PancakeView CornerRadius="0,0,10,0"  Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="2">
+                                        <StackLayout BackgroundColor="{StaticResource Default}"
+                                         Opacity="0.7"
+                                          
+                                           VerticalOptions="End"
+                                           Padding="15,5">
+
+                                            <Label Text="{Binding DrinkName}"
+                                           TextColor="White"
+                                           FontFamily="Poppins"
+                                           FontAttributes="Bold"
+                                           FontSize="14"/>
+                                        </StackLayout>
+                                    </yummy:PancakeView>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <ContentView BackgroundColor="#222222" Opacity="0.5"
+                         AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         IsVisible="{Binding IsLoading}">
+            </ContentView>
+            <ActivityIndicator  IsRunning="{Binding IsLoading}"
+                                IsVisible="{Binding IsLoading}"
+                                Color="AliceBlue"
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
+                                AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"/>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
