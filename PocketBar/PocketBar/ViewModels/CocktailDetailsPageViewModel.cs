@@ -20,7 +20,6 @@ namespace PocketBar.ViewModels
         public string FavoriteIcon { get; set; } = FavoriteEmptyIcon;
         public bool IsFavorite { get; set; } = false;
         public Cocktail Cocktail {get; set; }
-        public DelegateCommand OnPressedBackCommand { get; set; }
         public DelegateCommand ShareCocktailCommand { get; set; }
         public DelegateCommand<string> MarkAsFavoriteCommand { get; set; }
         public DelegateCommand<string> GoToIngredientCommand { get; set; }
@@ -28,7 +27,6 @@ namespace PocketBar.ViewModels
         {
             _cocktailsManager = cocktailsManager;
             _ingredientsManager = ingredientsManager;
-            OnPressedBackCommand = new DelegateCommand(GoBack);
             ShareCocktailCommand = new DelegateCommand(ShareCocktail);
             MarkAsFavoriteCommand = new DelegateCommand<string>(MarkAsFavorite);
             GoToIngredientCommand = new DelegateCommand<string>(GoToIngredient);            
@@ -60,10 +58,6 @@ namespace PocketBar.ViewModels
                 IsLoading = false;
                 await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
             }
-        }
-        async void GoBack()
-        {
-            await NavigationService.GoBackAsync();
         }
         async void MarkAsFavorite(string drinkId)
         {

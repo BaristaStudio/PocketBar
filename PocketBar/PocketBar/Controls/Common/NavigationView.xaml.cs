@@ -17,7 +17,17 @@ namespace PocketBar.Controls.Common
         {
             InitializeComponent();
         }
+        public string Title
+        {
+            get => (string)GetValue(TitleProperty);
+            set => SetValue(TitleProperty, value);
+        }
 
+        public static readonly BindableProperty TitleProperty = BindableProperty.Create(
+            nameof(Title),
+            typeof(string),
+            typeof(NavigationView),
+            string.Empty);
         public DelegateCommand OnPressedBackCommand
         {
             get => (DelegateCommand)GetValue(OnPressedBackCommandProperty);

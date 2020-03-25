@@ -32,6 +32,7 @@
                     <control:NavigationView 
                     ShareCocktailCommand="{Binding ShareCocktailCommand}" 
                     OnPressedBackCommand="{Binding OnPressedBackCommand}"
+                    Title="Cocktail Details"
                     HasShareButton="True"/>
                     <Image Source="{Binding Cocktail.DrinkThumb}" HorizontalOptions="Fill" Aspect="AspectFill"/>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">

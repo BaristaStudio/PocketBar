@@ -5,15 +5,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:utils="clr-namespace:PocketBar.Utils"
-             x:Class="PocketBar.Controls.Common.NavigationView">
+             x:Class="PocketBar.Controls.Common.NavigationView"
+             x:Name="this">
   <ContentView.Content>
-        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,20,0,20">
-            <Image Source="backArrow" Margin="10,0,50,0" HorizontalOptions="Start">
+        <Grid Margin="0,20,0,20" 
+                     BindingContext="{x:Reference this}">
+            <Image Source="backArrow" Margin="10,0,50,0" HorizontalOptions="Start" Grid.Row="0" Grid.Column="0">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OnPressedBackCommand}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Label Text="Cocktail Details" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" FontSize="21" Style="{StaticResource TitleStyle}"/>
+            <Label  Text="{Binding Title}" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" FontSize="21" Style="{StaticResource TitleStyle}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
             <Label  FontFamily="{StaticResource FontAwesomeSolid}"
                     IsVisible="{Binding HasShareButton}"
                     Text="{x:Static utils:Icon.Share}"
@@ -21,11 +23,13 @@
                     FontSize="21"
                     VerticalOptions="CenterAndExpand"
                     HorizontalOptions="EndAndExpand"
-                    Margin="0,0,16,0">
+                    Margin="0,0,16,0"
+                    Grid.Row="0"
+                    Grid.Column="3">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ShareCocktailCommand}"/>
                 </Label.GestureRecognizers>
             </Label>
-        </StackLayout>
+        </Grid>
     </ContentView.Content>
 </ContentView>

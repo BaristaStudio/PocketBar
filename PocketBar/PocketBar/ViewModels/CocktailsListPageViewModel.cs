@@ -11,7 +11,7 @@ using System.Text;
 
 namespace PocketBar.ViewModels
 {
-    class CocktailsListPageViewModel: BaseViewModel, IInitialize
+	class CocktailsListPageViewModel: BaseViewModel, IInitialize
 	{
 		public ObservableCollection <Cocktail> Cocktails { get; set; }
 		private CategoriesManager categoriesManager;
