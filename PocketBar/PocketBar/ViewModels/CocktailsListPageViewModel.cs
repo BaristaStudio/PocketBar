@@ -11,12 +11,14 @@ using System.Text;
 
 namespace PocketBar.ViewModels
 {
-    class CocktailsListPageViewModel: BaseViewModel
+    class CocktailsListPageViewModel: BaseViewModel, IInitialize
 	{
 		public ObservableCollection <Cocktail> Cocktails { get; set; }
-    private CategoriesManager categoriesManager;
+		private CategoriesManager categoriesManager;
 		private GlassesManager glassesManager;
 		private IngredientsManager ingredientsManager;
+
+		public string Title;
 
 
 		public CocktailsListPageViewModel(PageDialogService pageDialogService, INavigationService navigationService,CategoriesManager categoriesManager, GlassesManager glassesManager, IngredientsManager ingredientsManager) : base(pageDialogService, navigationService)
@@ -25,12 +27,11 @@ namespace PocketBar.ViewModels
             this.glassesManager = glassesManager;
             this.ingredientsManager = ingredientsManager;
 
-            GetIngredient("Gin");
 		}
 
-		public async void GetCategories(string Category)
+		public async void GetCocktailsByCategory(string Category)
 		{
-			if (await this.HasInternetConnection())
+			if (await this.HasInternetConnection(true))
 			{
 				try
 				{
@@ -48,15 +49,15 @@ namespace PocketBar.ViewModels
 
 		}
 
-		public async void GetGlass(string Glass)
+		public async void GetCocktailsByGlass(string Glass)
 		{
-			if (await this.HasInternetConnection())
+			if (await this.HasInternetConnection(true))
 			{
 				try
 				{
 					IsLoading = true;
-					var resutl = await glassesManager.GetCocktailsByGlass(Glass);
-					Cocktails = resutl != null ? new ObservableCollection<Cocktail>(resutl.OrderBy(i => i.DrinkName)) : new ObservableCollection<Cocktail>();
+					var result = await glassesManager.GetCocktailsByGlass(Glass);
+					Cocktails = result != null ? new ObservableCollection<Cocktail>(result.OrderBy(i => i.DrinkName)) : new ObservableCollection<Cocktail>();
 					IsLoading = false;
 				}
 				catch (Exception e)
@@ -68,9 +69,9 @@ namespace PocketBar.ViewModels
 
 		}
 
-		public async void GetIngredient(string Ingredient)
+		public async void GetCocktailsByIngredient(string Ingredient)
 		{
-			if (await this.HasInternetConnection())
+			if (await this.HasInternetConnection(true))
 			{
 				try
 				{
@@ -88,5 +89,42 @@ namespace PocketBar.ViewModels
 
 		}
 
+		public async void Initialize(INavigationParameters parameters)
+		{
+			try
+			{
+				if (!parameters.ContainsKey("type"))
+				{
+					await ShowMessage(ErrorMessages.ErrorOccured, ErrorMessages.MissingInformation, ErrorMessages.Ok);
+					return;
+				}
+
+				if (!parameters.ContainsKey("searchTerm"))
+				{
+					await ShowMessage(Constants.ErrorMessages.ErrorOccured, Constants.ErrorMessages.MissingInformation, Constants.ErrorMessages.Ok);
+					return;
+				}
+				var type = (SearchType)parameters["type"];
+				//var type = parameters["type"] as SearchType
+				string searchTerm = parameters["searchTerm"] as string;
+				Title = parameters.GetValue<string>("searchTerm");
+
+				switch (type)
+				{
+					case SearchType.Category:
+						GetCocktailsByCategory(searchTerm);
+						break;
+					case SearchType.Glass:
+						GetCocktailsByGlass(searchTerm);
+						break;
+					case SearchType.Ingredient:
+						GetCocktailsByIngredient(searchTerm);
+						break;
+				}
+			}catch(Exception e)
+			{
+				await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
+			}
+		}
 	}
 }

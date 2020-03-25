@@ -4,15 +4,20 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="PocketBar.Views.CocktailsListPage">
+             x:Class="PocketBar.Views.CocktailsListPage"
+              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True">
     <NavigationPage.TitleView>
-        <Label Text="Category"
+        <Label Text="{Binding Title}"
                    Style="{StaticResource TitleStyle}"
                    HorizontalOptions="Center"
                    VerticalOptions="StartAndExpand"/>
     </NavigationPage.TitleView>
     <ContentPage.Content>
-        <StackLayout Padding="20,5">
+        <AbsoluteLayout>
+            <StackLayout Padding="20,5" 
+                         AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1">
             <ListView ItemsSource="{Binding Cocktails}" x:Name="DrinksList" RowHeight="210" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -53,5 +58,16 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
+        <ContentView BackgroundColor="#222222" Opacity="0.5"
+                         AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         IsVisible="{Binding IsLoading}">
+        </ContentView>
+        <ActivityIndicator  IsRunning="{Binding IsLoading}"
+                                IsVisible="{Binding IsLoading}"
+                                Color="AliceBlue"
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
+                                AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"/>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

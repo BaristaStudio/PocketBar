@@ -225,4 +225,11 @@ namespace PocketBar.Models
         public string Ingredient { get; set; }
         public string Measure { get; set; }
     }
+
+    public enum SearchType
+    {
+        Glass,
+        Category,
+        Ingredient
+    }
 }

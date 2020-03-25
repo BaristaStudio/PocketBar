@@ -7,9 +7,8 @@ namespace PocketBar.Utils
 {
 	public class TypeAssistant
     {
-        public delegate void TextChangedEventHandler(string text);
+        public delegate void TextChangedEventHandler();
         public event TextChangedEventHandler OnFinishedTyping;
-        private string Text = "";
         public int WaitingMilliSeconds { get; set; }
         System.Threading.Timer waitingTimer;
 
@@ -18,12 +17,11 @@ namespace PocketBar.Utils
             WaitingMilliSeconds = waitingMilliSeconds;
             waitingTimer = new Timer(p =>
             {
-                OnFinishedTyping(Text);
+                OnFinishedTyping();
             });
         }
-        public void TextChanged(string text)
+        public void TextChanged()
         {
-            this.Text = text;
             waitingTimer.Change(WaitingMilliSeconds, System.Threading.Timeout.Infinite);
         }
     }
