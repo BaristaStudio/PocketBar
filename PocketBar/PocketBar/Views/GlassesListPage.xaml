@@ -4,12 +4,72 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="PocketBar.Views.GlassesListPage">
+             x:Class="PocketBar.Views.GlassesListPage"
+             xmlns:utils="clr-namespace:PocketBar.Utils"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style  TargetType="Label" x:Key="ImageTitle">
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontFamily" Value="Poppins-Bold" />
+                <Setter Property="Margin" Value="10,0,0,5" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+            <utils:GlassImageConverter x:Key="imageConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <AbsoluteLayout>
+            <ListView 
+                ItemsSource="{Binding Glasses}"
+                Margin="0"
+                RowHeight="200"
+                AbsoluteLayout.LayoutFlags="All"
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                x:Name="GlassesList"
+                SeparatorVisibility="None">
+                <ListView.Header>
+                    <Label Text="Glasses" Style="{StaticResource TitleStyle}" Margin="16,15,0,10"/>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame IsClippedToBounds="True" CornerRadius="20" Margin="10" Padding="0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="{Binding GlassName,Converter={StaticResource imageConverter}}" Aspect="AspectFill" HorizontalOptions="FillAndExpand">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer 
+                                                Command="{Binding Path=Parent.BindingContext.GoToDrinksCommand, Source={x:Reference GlassesList}}" 
+                                                CommandParameter="{Binding GlassName}"/>   
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    <Frame BackgroundColor="{StaticResource Default}" Opacity="0.7" Grid.Row="0" VerticalOptions="End" Margin="0" Padding="0,0,10,0" HorizontalOptions="Start">
+                                        <Label Text="{Binding GlassName}" Style="{StaticResource ImageTitle}"/>
+                                    </Frame>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ContentView BackgroundColor="#222222" Opacity="0.5"
+                         AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         IsVisible="{Binding IsLoading}">
+            </ContentView>
+            <ActivityIndicator  IsRunning="{Binding IsLoading}"
+                                IsVisible="{Binding IsLoading}"
+                                Color="AliceBlue"
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
+                                AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"/>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

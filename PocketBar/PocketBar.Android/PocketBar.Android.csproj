@@ -80,6 +80,10 @@
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\margaritaGlass.webp" />
+    <AndroidResource Include="Resources\drawable-xhdpi\margaritaGlass.webp" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\margaritaGlass.webp" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\margaritaGlass.webp" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Tabbar.xml" />
@@ -263,6 +267,144 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\favorites.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\highballGlass.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\cocktailGlass.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\oldFGlass.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\collinsGlass.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\pousseCafeGlass.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\champagneFlute.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\whiskeySourGlass.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\brandySnifter.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\hurricaneGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\coffeeMug.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\jar.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\irishCoffeeCup.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\copperMug.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\cordialGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\beerMug.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\beerPilsner.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\margaritaCoupetteGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\martiniGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\balloonGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\coupeGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\masonJar.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\beerGlass.jpg" />
+    <Content Include="Resources\drawable-hdpi\nickNoraGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\shotGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\punchBowl.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\pitcher.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\pintGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\parfaitGlass.jpg" />
+    <Content Include="Resources\drawable-hdpi\whiteWineGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\wineGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\balloonGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\beerMug.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\beerPilsner.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\brandySnifter.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\champagneFlute.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\cocktailGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\coffeeMug.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\collinsGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\copperMug.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\cordialGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\coupeGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\highballGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\hurricaneGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\irishCoffeeCup.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\jar.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\margaritaCoupetteGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\martiniGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\nickNoraGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\oldFGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\parfaitGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\pintGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\pitcher.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\pousseCafeGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\punchBowl.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\shotGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\whiskeySourGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\whiteWineGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\wineGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\balloonGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\beerMug.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\beerPilsner.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\brandySnifter.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\champagneFlute.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\cocktailGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\coffeeMug.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\collinsGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\copperMug.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\cordialGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\coupeGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\highballGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\hurricaneGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\irishCoffeeCup.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\jar.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\margaritaCoupetteGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\martiniGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\nickNoraGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\oldFGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\parfaitGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\pintGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\pitcher.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\pousseCafeGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\punchBowl.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\shotGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\whiskeySourGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\whiteWineGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\wineGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\balloonGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\beerMug.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\beerPilsner.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\brandySnifter.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\champagneFlute.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\cocktailGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\coffeeMug.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\collinsGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\copperMug.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\cordialGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\coupeGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\highballGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\hurricaneGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\irishCoffeeCup.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\jar.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\margaritaCoupetteGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\martiniGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\nickNoraGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\oldFGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\parfaitGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\pintGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\pitcher.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\pousseCafeGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\punchBowl.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\shotGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\whiskeySourGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\whiteWineGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\wineGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\masonJar.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\masonJar.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\masonJar.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\beerGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\beerGlass.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\beerGlass.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
