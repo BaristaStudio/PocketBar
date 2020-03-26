@@ -48,7 +48,7 @@ namespace PocketBar.ViewModels
             {
                 { "type", SearchType.Glass },
                 { "searchTerm", glassName },
-                { "title", glassName }
+                { "title", $"Showing Cocktails By Glass: {glassName}" }
             };
             await NavigationService.NavigateAsync(new Uri(NavConstants.CocktailsListPage, UriKind.Relative), parameters);
         }
