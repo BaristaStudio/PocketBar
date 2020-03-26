@@ -5,27 +5,48 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:utils="clr-namespace:PocketBar.Utils"
-             x:Class="PocketBar.Controls.Common.NavigationView">
+             x:Class="PocketBar.Controls.Common.NavigationView"
+             x:Name="this">
   <ContentView.Content>
-        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,20,0,20">
-            <Image Source="backArrow" Margin="10,0,50,0" HorizontalOptions="Start">
+        <Grid Margin="0,20,0,20" 
+                     BindingContext="{x:Reference this}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="backArrow" Margin="10,0" HorizontalOptions="Start" Grid.Row="0" Grid.Column="0">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OnPressedBackCommand}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Label Text="Cocktail Details" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" FontSize="21" Style="{StaticResource TitleStyle}"/>
+            <Label  Text="{Binding Title}" 
+                    HorizontalOptions="CenterAndExpand" 
+                    VerticalOptions="CenterAndExpand" 
+                    VerticalTextAlignment="Center" 
+                    HorizontalTextAlignment="Center" 
+                    FontSize="{Binding FontSize}" 
+                    Style="{StaticResource TitleStyle}" 
+                    Grid.Row="0" 
+                    Grid.Column="1">
+            </Label>
             <Label  FontFamily="{StaticResource FontAwesomeSolid}"
                     IsVisible="{Binding HasShareButton}"
                     Text="{x:Static utils:Icon.Share}"
                     TextColor="Black"
-                    FontSize="21"
+                    FontSize="{Binding FontSize}"
                     VerticalOptions="CenterAndExpand"
                     HorizontalOptions="EndAndExpand"
-                    Margin="0,0,16,0">
+                    Margin="10,0"
+                    Grid.Row="0"
+                    Grid.Column="2">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ShareCocktailCommand}"/>
                 </Label.GestureRecognizers>
             </Label>
-        </StackLayout>
+        </Grid>
     </ContentView.Content>
 </ContentView>

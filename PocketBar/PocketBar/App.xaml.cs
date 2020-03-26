@@ -18,7 +18,7 @@ namespace PocketBar
         protected override void OnInitialized()
         {
             InitializeComponent();
-            NavigationService.NavigateAsync(NavConstants.MainTabbedPage);
+           NavigationService.NavigateAsync(NavConstants.MainTabbedPage);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
