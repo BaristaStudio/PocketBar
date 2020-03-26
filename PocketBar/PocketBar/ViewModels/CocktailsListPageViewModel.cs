@@ -55,10 +55,6 @@ namespace PocketBar.ViewModels
 			{
 				var parameter = new NavigationParameters();
 				parameter.Add("DrinkId", drinkId);
-				if (drinkId == _cocktailSelected.IdDrink)
-				{
-					parameter.Add("Cocktail", _cocktailSelected);
-				}
 				await NavigationService.NavigateAsync(new System.Uri(NavConstants.CocktailDetailsPage, UriKind.Relative), parameter);
 
 			}
