@@ -19,10 +19,10 @@
                     HasShareButton="False"
                     Title="{Binding Title}"
                     FontSize="18"/>
-                <ListView ItemsSource="{Binding Cocktails}" x:Name="DrinksList" RowHeight="230" SeparatorVisibility="None" >
+                <ListView ItemsSource="{Binding Cocktails}" x:Name="DrinksList" RowHeight="230" SeparatorVisibility="None" SelectedItem="{Binding CocktailSelected, Mode=TwoWay}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell >
+                            <ViewCell>
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
