@@ -1,6 +1,7 @@
 ﻿using PocketBar.Constants;
 using PocketBar.Managers;
 using PocketBar.Models;
+using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System;
@@ -15,9 +16,11 @@ namespace PocketBar.ViewModels
     {
         private readonly GlassesManager _glassesManager;
         public ObservableCollection<Glass> Glasses { get; set; }
+        public DelegateCommand<string> GoToDrinksCommand { get; set; }
         public GlassesListPageViewModel(PageDialogService pageDialogService, INavigationService navigationService, GlassesManager glassesManager): base(pageDialogService, navigationService)
         {
             _glassesManager = glassesManager;
+            GoToDrinksCommand = new DelegateCommand<string>(GoToDrinks);
             GetGlasses();
         }
         public async void GetGlasses()
@@ -28,8 +31,7 @@ namespace PocketBar.ViewModels
                 {
                     IsLoading = true;
                     var response = await _glassesManager.GetGlasses();
-                    response = GetImageGlasses(response);
-                    Glasses = new ObservableCollection<Glass>((response ?? new List<Glass>()).OrderBy(x => x.GlassName));
+                    Glasses = new ObservableCollection<Glass>((response ?? new List<Glass>()).Where(x => !string.IsNullOrEmpty(x.GlassName)).OrderBy(x => x.GlassName));
                     IsLoading = false;
                     
                 }
@@ -40,29 +42,13 @@ namespace PocketBar.ViewModels
                 }
             }
         }
-        private List<Glass> GetImageGlasses(List<Glass> glasses)
+        public async void GoToDrinks(string glassName)
         {
-            glasses?.ForEach(x => 
+            var parameters = new NavigationParameters
             {
-                switch (x.GlassName)
-                {
-                    case "Margarita/Coupette glass":
-                        x.GlassThumb = "margaritaCoupetteGlass.jpg";
-                        break;
-                    case "Nick and Nora Glass":
-                        x.GlassThumb = "nickNoraGlass.jpg";
-                        break;
-                    case "Old-fashioned glass":
-                        x.GlassThumb = "oldFGlass.jpg";
-                        break;
-                    default:
-                        string image = new string(x.GlassName.ToLower()
-                        .Select((y, z) => (z != 0 && x.GlassName[z - 1] == ' ') ? char.ToUpper(y) : y).ToArray()).Replace(" ", "");
-                        x.GlassThumb = $"{image}.jpg";
-                        break;
-                }
-            });
-            return glasses.Where(x => !string.IsNullOrEmpty(x.GlassName)).ToList();
+                { "glass", glassName }
+            };
+            await NavigationService.NavigateAsync(new Uri(NavConstants.CocktailsListPage, UriKind.Relative), parameters);
         }
             
     }
