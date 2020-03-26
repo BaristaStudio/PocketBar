@@ -15,9 +15,11 @@ namespace PocketBar.ViewModels
 	class CocktailsListPageViewModel: BaseViewModel, IInitialize
 	{
 		public ObservableCollection <Cocktail> Cocktails { get; set; }
+		public Cocktail _cocktailSelected { get; set; }
 		private CategoriesManager categoriesManager;
 		private GlassesManager glassesManager;
 		private IngredientsManager ingredientsManager;
+
 
 		public string Title { get; set; }
 
@@ -29,6 +31,37 @@ namespace PocketBar.ViewModels
             this.glassesManager = glassesManager;
             this.ingredientsManager = ingredientsManager;
 
+		}
+
+		public Cocktail CocktailSelected
+		{
+			get
+			{
+				return _cocktailSelected;
+			}
+			set
+			{
+				if (_cocktailSelected != value)
+				{
+					_cocktailSelected = value;
+					GoToDrink(_cocktailSelected.IdDrink);
+				}
+			}
+		}
+
+		public async void GoToDrink(string drinkId)
+		{
+			try
+			{
+				var parameter = new NavigationParameters();
+				parameter.Add("DrinkId", drinkId);
+				await NavigationService.NavigateAsync(new System.Uri(NavConstants.CocktailDetailsPage, UriKind.Relative), parameter);
+
+			}
+			catch (Exception e)
+			{
+				await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
+			}
 		}
 
 		public async void GetCocktailsByCategory(string Category)
@@ -70,6 +103,8 @@ namespace PocketBar.ViewModels
 			}
 
 		}
+
+
 
 		public async void GetCocktailsByIngredient(string Ingredient)
 		{
