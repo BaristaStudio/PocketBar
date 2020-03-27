@@ -18,17 +18,16 @@ namespace PocketBar.ViewModels
         const string FavoriteEmptyIcon = "favorites";
         const string FavoriteFilledIcon = "favoritesFilled";
         public string FavoriteIcon { get; set; } = FavoriteEmptyIcon;
-        public bool IsFavorite { get; set; } = false;
         public Cocktail Cocktail {get; set; }
         public DelegateCommand ShareCocktailCommand { get; set; }
-        public DelegateCommand<string> MarkAsFavoriteCommand { get; set; }
+        public DelegateCommand MarkAsFavoriteCommand { get; set; }
         public DelegateCommand<string> GoToIngredientCommand { get; set; }
         public CocktailDetailsPageViewModel(PageDialogService pageDialogService, INavigationService navigationService, CocktailsManager cocktailsManager, IngredientsManager ingredientsManager) : base(pageDialogService, navigationService)
         {
             _cocktailsManager = cocktailsManager;
             _ingredientsManager = ingredientsManager;
             ShareCocktailCommand = new DelegateCommand(ShareCocktail);
-            MarkAsFavoriteCommand = new DelegateCommand<string>(MarkAsFavorite);
+            MarkAsFavoriteCommand = new DelegateCommand(ToggleFavorite);
             GoToIngredientCommand = new DelegateCommand<string>(GoToIngredient);            
         }
         public async void Initialize(INavigationParameters parameters)
@@ -50,8 +49,7 @@ namespace PocketBar.ViewModels
                 {
                     Cocktail = await _cocktailsManager.GetCocktail(drinkId);
                 }
-                IsFavorite = _cocktailsManager.IsFavorite(drinkId);
-                FavoriteIcon = IsFavorite ? FavoriteFilledIcon : FavoriteEmptyIcon;
+                FavoriteIcon = Cocktail.IsFavorite ? FavoriteFilledIcon : FavoriteEmptyIcon;
                 IsLoading = false;
             } catch(Exception e)
             {
@@ -59,20 +57,19 @@ namespace PocketBar.ViewModels
                 await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
             }
         }
-        async void MarkAsFavorite(string drinkId)
+        async void ToggleFavorite()
         {
             try
             {
-                if (IsFavorite)
+                if (Cocktail.IsFavorite)
                 {
-                    _cocktailsManager.RemoveFromFavorites(int.Parse(drinkId));
+                    _cocktailsManager.RemoveFromFavorites(Cocktail);
                 }
                 else
                 {
                     _cocktailsManager.MarkAsFavorite(Cocktail);
                 }
-                IsFavorite = !IsFavorite;
-                FavoriteIcon = IsFavorite ? FavoriteFilledIcon : FavoriteEmptyIcon;
+                FavoriteIcon = Cocktail.IsFavorite ? FavoriteFilledIcon : FavoriteEmptyIcon;
             } catch(Exception e)
             {
                 await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);

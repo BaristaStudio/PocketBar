@@ -2,6 +2,7 @@
 using PocketBar.Managers;
 using PocketBar.Models;
 using PocketBar.Services;
+using Prism;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
@@ -56,7 +57,7 @@ namespace PocketBar.ViewModels
 				parameter.Add("ingredient", ingredientName);
 				parameter.Add("searchTerm", ingredientName);
 				parameter.Add("type", SearchType.Ingredient);
-				parameter.Add("title", String.Format("Showing Cocktails By Ingrdient: {0}", ingredientName));
+				parameter.Add("title", String.Format("Showing Cocktails By Ingredient: {0}", ingredientName));
 				await NavigationService.NavigateAsync(new System.Uri(NavConstants.CocktailsListPage, UriKind.Relative), parameter);
 
 			}

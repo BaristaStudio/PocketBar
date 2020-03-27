@@ -43,6 +43,7 @@ namespace PocketBar.Managers
 					FillCocktailsWithOptionalAlcoholCocktails()
 					};
 					await Task.WhenAll(tasks);
+					MapCocktailFavorites(cocktails);
 				}
 				catch(Exception e)
 				{
@@ -123,7 +124,13 @@ namespace PocketBar.Managers
 		{
 			try
 			{
-				return (await cocktailService.ApiService.GetRandomCocktailAsync()).Drinks.FirstOrDefault();
+				var cocktail =  (await cocktailService.ApiService.GetRandomCocktailAsync()).Drinks.FirstOrDefault();
+				var favorites = GetFavorites();
+				if (favorites != null && favorites.Count > 0 && cocktail!=null)
+				{
+					cocktail.IsFavorite = favorites.Exists(f => f.IdDrink == cocktail.IdDrink);
+				}
+				return cocktail;
 			}
 			catch (Exception e)
 			{
@@ -146,7 +153,13 @@ namespace PocketBar.Managers
 
 			Random rand = new Random();
 			int randomPosition = rand.Next(0, alcoholicCocktails.Count - 1);
-			return alcoholicCocktails[randomPosition];
+			var cocktail =  alcoholicCocktails[randomPosition];
+			var favorites = GetFavorites();
+			if (favorites != null && favorites.Count > 0 && cocktail != null)
+			{
+				cocktail.IsFavorite = favorites.Exists(f => f.IdDrink == cocktail.IdDrink);
+			}
+			return cocktail;
 		}
 		public async Task<Cocktail> GetRandomNonAlcoholicCocktail()
 		{
@@ -164,15 +177,27 @@ namespace PocketBar.Managers
 
 			Random rand = new Random();
 			int randomPosition = rand.Next(0, nonAlcoholicCocktails.Count - 1);
-			return nonAlcoholicCocktails[randomPosition];
+			var cocktail = nonAlcoholicCocktails[randomPosition];
+			var favorites = GetFavorites();
+			if (favorites != null && favorites.Count > 0 && cocktail != null)
+			{
+				cocktail.IsFavorite = favorites.Exists(f => f.IdDrink == cocktail.IdDrink);
+			}
+			return cocktail;
 		}
 
 		public async Task<Cocktail> GetCocktail(int id)
 		{
 			try
 			{
-				var cocktail = await cocktailService.ApiService.GetCocktailByIdAsync(id);
-				return cocktail.Drinks.FirstOrDefault();
+				var cocktailResponse = await cocktailService.ApiService.GetCocktailByIdAsync(id);
+				var cocktail = cocktailResponse.Drinks.FirstOrDefault();
+				var favorites = GetFavorites();
+				if (favorites != null && favorites.Count > 0 && cocktail != null)
+				{
+					cocktail.IsFavorite = favorites.Exists(f => f.IdDrink == cocktail.IdDrink);
+				}
+				return cocktail;
 			}
 			catch (Exception e)
 			{
@@ -194,15 +219,16 @@ namespace PocketBar.Managers
 			if (cocktails == null)
 				cocktails = new List<Cocktail>();
 			cocktails.Add(cocktail);
+			cocktail.IsFavorite = true;
 			AddToBarrel(cocktails);
 		}
-		public void RemoveFromFavorites(int drinkId)
+		public void RemoveFromFavorites(Cocktail cocktail)
 		{
 			var cocktails = GetFavorites();
 			if (cocktails == null)
 				return;
-			var c = cocktails.FirstOrDefault(x => x.IdDrink == drinkId.ToString());
-			cocktails.Remove(c);
+			cocktails.Remove(cocktails.FirstOrDefault(c => c.IdDrink == cocktail.IdDrink));
+			cocktail.IsFavorite = false;
 			AddToBarrel(cocktails);
 		}
 		void AddToBarrel(List<Cocktail> cocktails)
@@ -211,6 +237,15 @@ namespace PocketBar.Managers
 				Barrel.Current.Empty(FavoritesListKey);
 
 			Barrel.Current.Add(FavoritesListKey, cocktails, TimeSpan.FromDays(3));
+		}
+
+		public void MapCocktailFavorites(List<Cocktail> cocktails)
+		{
+			var favorites = GetFavorites();
+			if (favorites != null && favorites.Count > 0 && cocktails!=null && cocktails.Count >0)
+			{
+				cocktails.ForEach(c => c.IsFavorite = favorites.Exists(f => f.IdDrink == c.IdDrink));
+			}
 		}
 	}
 }

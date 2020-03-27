@@ -131,6 +131,8 @@ namespace PocketBar.Models
 
         private List<CocktailIngredient> _ingredients;
 
+        public bool IsFavorite { get; set; }
+
         public List<CocktailIngredient> Ingredients
         {
             get

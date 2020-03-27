@@ -8,7 +8,14 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:control="clr-namespace:PocketBar.Controls.Common"
-             ios:Page.UseSafeArea="True">
+             xmlns:utils="clr-namespace:PocketBar.Utils"
+             ios:Page.UseSafeArea="True"
+             x:Name="this">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <utils:BoolTextConverter x:Key="BoolTextConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <AbsoluteLayout>
             <StackLayout Padding="20,5" 
@@ -19,10 +26,22 @@
                     HasShareButton="False"
                     Title="{Binding Title}"
                     FontSize="18"/>
-                <ListView ItemsSource="{Binding Cocktails}" x:Name="DrinksList" RowHeight="230" SeparatorVisibility="None" SelectedItem="{Binding CocktailSelected, Mode=TwoWay}">
+                <ListView ItemsSource="{Binding Cocktails}" 
+                          x:Name="DrinksList" 
+                          RowHeight="230" 
+                          SeparatorVisibility="None" 
+                          SelectedItem="{Binding CocktailSelected, Mode=TwoWay}"
+                          CachingStrategy="RecycleElement">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Command="{Binding Path=BindingContext.ToggleFavoriteCommand, Source={x:Reference this}}"
+                                              CommandParameter="{Binding .}"
+                                              Text="{Binding IsFavorite, Converter={StaticResource BoolTextConverter}, ConverterParameter='Remove From Favorites|Mark As Favorite'}"
+                                              IsDestructive="{Binding IsFavorite}">
+                                    </MenuItem>
+                                </ViewCell.ContextActions>
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
