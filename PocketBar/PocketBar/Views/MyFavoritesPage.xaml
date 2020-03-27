@@ -4,12 +4,134 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="PocketBar.Views.MyFavoritesPage">
+             x:Class="PocketBar.Views.MyFavoritesPage"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             ios:Page.UseSafeArea="True"
+             x:Name="this">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <AbsoluteLayout>
+            <StackLayout Padding="20,5" 
+                         AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <Label Text="Favorites" 
+                       Style="{StaticResource TitleStyle}" 
+                       Margin="16,15,0,10"/>
+                <ListView ItemsSource="{Binding FavoriteCocktails}" 
+                          x:Name="DrinksList" 
+                          RowHeight="230" 
+                          SeparatorVisibility="None" 
+                          SelectedItem="{Binding CocktailSelected, Mode=TwoWay}"
+                          IsVisible="True"
+                          CachingStrategy="RecycleElement">
+                    <ListView.Triggers>
+                        <DataTrigger TargetType="ListView"
+                                     Binding="{Binding IsEmpty}"
+                                     Value="True">
+                            <Setter Property="IsVisible" Value="False"/>
+                        </DataTrigger>
+                    </ListView.Triggers>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Command="{Binding Path=BindingContext.RemoveFromFavoritesCommand, Source={x:Reference this}}"
+                                              CommandParameter="{Binding .}"
+                                              Text="Remove From Favorites"/>
+                                </ViewCell.ContextActions>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <yummy:PancakeView CornerRadius="6" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="4"
+                                               Grid.Column="0">
+                                        <Image Source="{Binding DrinkThumb}" 
+                                               HorizontalOptions="FillAndExpand"
+                                               HeightRequest="200"
+                                               Aspect="Fill"/>
+                                    </yummy:PancakeView>
+
+                                    <yummy:PancakeView CornerRadius="0,0,6,0"  Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="2">
+                                        <StackLayout BackgroundColor="{StaticResource Default}"
+                                                     Opacity="0.7"
+                                                   VerticalOptions="End"
+                                                   Padding="15,5">
+                                            <Label Text="{Binding DrinkName}"
+                                                   TextColor="White"
+                                                   FontFamily="Poppins"
+                                                   FontAttributes="Bold"
+                                                   FontSize="14"
+                                                   VerticalOptions="End"/>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="{Binding Glass}"
+                                                       TextColor="White"
+                                                       FontFamily="Poppins"
+                                                       FontAttributes="None"
+                                                       FontSize="12"
+                                                       VerticalOptions="Center"/>
+                                                <Image Source="glass"
+                                                       HorizontalOptions="Start"
+                                                       VerticalOptions="Center"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </yummy:PancakeView>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackLayout IsVisible="False"
+                             HorizontalOptions="CenterAndExpand"
+                             VerticalOptions="CenterAndExpand">
+                    <StackLayout.Triggers>
+                        <DataTrigger TargetType="StackLayout"
+                                     Binding="{Binding IsEmpty}"
+                                     Value="True">
+                            <Setter Property="IsVisible" Value="True"/>
+                        </DataTrigger>
+                    </StackLayout.Triggers>
+                    <Label Text="It looks like you have no favorites"
+                           Style="{StaticResource TitleStyle}"
+                           FontAttributes="None"
+                           HorizontalTextAlignment="Center"
+                           HorizontalOptions="CenterAndExpand"
+                           Margin="0"/>
+                    <lottie:AnimationView
+                            x:Name="EmptyState" 
+                            Animation="noFavorites.json" 
+                            AutoPlay="True" Loop="true"
+                            Margin="0"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand"
+                            HeightRequest="200"
+                            WidthRequest="200"
+                        />
+                    <Label Text="Go find some!"
+                           Style="{StaticResource SubTitleStyle}"
+                           HorizontalOptions="CenterAndExpand"
+                           />
+                </StackLayout>
+            </StackLayout>
+            <ContentView BackgroundColor="#222222" Opacity="0.5"
+                         AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         IsVisible="{Binding IsLoading}">
+            </ContentView>
+            <ActivityIndicator  IsRunning="{Binding IsLoading}"
+                                IsVisible="{Binding IsLoading}"
+                                Color="AliceBlue"
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
+                                AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"/>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

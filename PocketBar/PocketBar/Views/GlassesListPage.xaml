@@ -32,7 +32,8 @@
                 AbsoluteLayout.LayoutFlags="All"
                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                 x:Name="GlassesList"
-                SeparatorVisibility="None">
+                SeparatorVisibility="None"
+                CachingStrategy="RecycleElement">
                 <ListView.Header>
                     <Label Text="Glasses" Style="{StaticResource TitleStyle}" Margin="16,15,0,10"/>
                 </ListView.Header>

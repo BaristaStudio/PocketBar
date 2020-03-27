@@ -1,4 +1,5 @@
 ﻿using PocketBar.Services;
+using Prism;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
@@ -12,9 +13,18 @@ using Xamarin.Essentials;
 
 namespace PocketBar.ViewModels
 {
-    public abstract class BaseViewModel : INotifyPropertyChanged
+    public abstract class BaseViewModel : INotifyPropertyChanged, IActiveAware
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler IsActiveChanged;
+        public bool IsEmpty { get; set; }
+
+        private bool _isActive;
+        public bool IsActive
+        {
+            get { return _isActive; }
+            set { _isActive = value; IsActiveChanged?.Invoke(this, EventArgs.Empty); }
+        }
         public INavigationService NavigationService { get; set; }
         public IPageDialogService PageDialogService { get; set; }
         public DelegateCommand OnPressedBackCommand { get; set; }

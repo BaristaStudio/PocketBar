@@ -291,8 +291,8 @@
                                                   Value="True"/>
                                     <BindingCondition Binding="{Binding IsLoading}"
                                                   Value="False"/>
-                                    <BindingCondition Binding="{Binding HasData}"
-                                                  Value="True"/>
+                                    <BindingCondition Binding="{Binding IsEmpty}"
+                                                  Value="False"/>
                                 </MultiTrigger.Conditions>
                                 <Setter Property="IsVisible" Value="True"/>
                             </MultiTrigger>
@@ -319,14 +319,16 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <StackLayout IsVisible="False">
+                    <StackLayout IsVisible="False"
+                                 VerticalOptions="CenterAndExpand"
+                                 HorizontalOptions="CenterAndExpand">
                         <StackLayout.Triggers>
                             <MultiTrigger TargetType="StackLayout">
                                 <MultiTrigger.Conditions>
                                     <BindingCondition Binding="{Binding IsFiltered}"
                                                   Value="True"/>
-                                    <BindingCondition Binding="{Binding HasData}"
-                                                  Value="False"/>
+                                    <BindingCondition Binding="{Binding IsEmpty}"
+                                                  Value="True"/>
                                 </MultiTrigger.Conditions>
                                 <Setter Property="IsVisible" Value="True"/>
                             </MultiTrigger>
@@ -337,17 +339,19 @@
                                VerticalOptions="CenterAndExpand"
                                HorizontalOptions="CenterAndExpand"
                                Margin="0"/>
-                        <Label Text="Your search returned no results"
-                               Style="{StaticResource SubTitleStyle}"
-                               VerticalOptions="CenterAndExpand"
-                               HorizontalOptions="CenterAndExpand"/>
                         <lottie:AnimationView
                             x:Name="EmptyState" 
                             Animation="empty.json" 
                             AutoPlay="True" Loop="true"
-                            VerticalOptions="CenterAndExpand"
-                            HorizontalOptions="CenterAndExpand"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand"
+                            HeightRequest="400"
+                            WidthRequest="400"
                             Margin="0"/>
+                        <Label Text="Your search returned no results"
+                               Style="{StaticResource SubTitleStyle}"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="CenterAndExpand"/>
                     </StackLayout>
                 </StackLayout>
         </RefreshView>

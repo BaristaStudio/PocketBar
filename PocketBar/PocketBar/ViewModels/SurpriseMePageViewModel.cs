@@ -35,7 +35,6 @@ namespace PocketBar.ViewModels
         public DelegateCommand RefreshDataCommand { get; set; }
 
         public DelegateCommand ClearSearchCommand { get; set; }
-        public bool HasData { get; set; }
 
         public string SearchTerm { get; set; }
 
@@ -59,6 +58,14 @@ namespace PocketBar.ViewModels
             this.GoToCocktailWithIngredientCommand = new DelegateCommand(GoToCocktailWithIngredient);
             this.GoToCocktailWithGlassCommand = new DelegateCommand(GoToCocktailWithGlass);
             this.ClearSearchCommand = new DelegateCommand(() => SearchTerm = string.Empty);
+            this.IsActiveChanged += new EventHandler(OnActivated);
+        }
+        private void OnActivated(object sender, EventArgs e)
+        {
+            if (IsActive && RandomCocktail!=null)
+            {
+                RandomCocktail.IsFavorite = cocktailsManager.IsFavorite(int.Parse(RandomCocktail.IdDrink));
+            }
         }
         public async void GetData()
         {
@@ -150,12 +157,12 @@ namespace PocketBar.ViewModels
                 {
                     IsFiltered = true;
                     FilteredCocktails = new ObservableCollection<Cocktail>(await cocktailsManager.FindCocktails(SearchTerm));
-                    HasData = FilteredCocktails.Count > 0;
+                    IsEmpty = FilteredCocktails.Count == 0;
                 }
                 else
                 {
                     IsFiltered = false;
-                    HasData = false;
+                    IsEmpty = false;
                 }
                 IsLoading = false;
             }

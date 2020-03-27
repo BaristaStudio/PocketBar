@@ -1,15 +1,88 @@
-﻿using Prism.Navigation;
+﻿using PocketBar.Constants;
+using PocketBar.Managers;
+using PocketBar.Models;
+using Prism.Commands;
+using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 
 namespace PocketBar.ViewModels
 {
-    class MyFavoritesPageViewModel: BaseViewModel
+    public class MyFavoritesPageViewModel: BaseViewModel
     {
-        public MyFavoritesPageViewModel(PageDialogService pageDialogService, INavigationService navigationService) : base(pageDialogService, navigationService)
+        private CocktailsManager cocktailsManager;
+        public ObservableCollection<Cocktail> FavoriteCocktails { get; set; }
+        public DelegateCommand<Cocktail> RemoveFromFavoritesCommand { get; set; }
+        public Cocktail _cocktailSelected { get; set; }
+        public Cocktail CocktailSelected
         {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                    _cocktailSelected = value;
+                    GoToDrink(_cocktailSelected.IdDrink);
+            }
+        }
+        public MyFavoritesPageViewModel(PageDialogService pageDialogService, INavigationService navigationService, CocktailsManager cocktailsManager) : base(pageDialogService, navigationService)
+        {
+            this.cocktailsManager = cocktailsManager;
+            this.IsActiveChanged += new EventHandler(OnActivated);
+            RemoveFromFavoritesCommand = new DelegateCommand<Cocktail>(RemoveFromFavorites);
+        }
+
+        private void OnActivated(object sender, EventArgs e)
+        {
+            if (IsActive)
+            {
+                GetFavorites();
+            }
+        }
+        public async void GetFavorites()
+        {
+            try
+            {
+                var response = cocktailsManager.GetFavorites();
+                FavoriteCocktails = response != null ? new ObservableCollection<Cocktail>(response.OrderBy(i => i.DrinkName)) : new ObservableCollection<Cocktail>();
+                IsEmpty = FavoriteCocktails.Count == 0;
+            }
+            catch (Exception e)
+            {
+                await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
+            }
+        }
+        public async void RemoveFromFavorites(Cocktail cocktail)
+        {
+            try
+            {
+                cocktailsManager.RemoveFromFavorites(cocktail);
+                FavoriteCocktails.Remove(FavoriteCocktails.FirstOrDefault(f => f.IdDrink == cocktail.IdDrink));
+                IsEmpty = FavoriteCocktails.Count == 0;
+            }
+            catch (Exception e)
+            {
+                await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
+            }
+        }
+        public async void GoToDrink(string drinkId)
+        {
+            try
+            {
+                var parameter = new NavigationParameters();
+                parameter.Add("DrinkId", drinkId);
+                await NavigationService.NavigateAsync(new System.Uri(NavConstants.CocktailDetailsPage, UriKind.Relative), parameter);
+
+            }
+            catch (Exception e)
+            {
+                await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
+            }
         }
     }
 }

@@ -74,6 +74,7 @@
     <BundleResource Include="Resources\fa-solid-900.ttf" />
     <BundleResource Include="Resources\fa-brands-400.ttf" />
     <BundleResource Include="Resources\margaritaGlass.webp" />
+    <BundleResource Include="noFavorites.json" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\cocktailSplash.imageset\Contents.json">

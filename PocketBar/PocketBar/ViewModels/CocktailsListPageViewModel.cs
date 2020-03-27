@@ -12,41 +12,40 @@ using System.Text;
 
 namespace PocketBar.ViewModels
 {
-	class CocktailsListPageViewModel: BaseViewModel, IInitialize
+	class CocktailsListPageViewModel: BaseViewModel, IInitialize, INavigatedAware
 	{
-		public ObservableCollection <Cocktail> Cocktails { get; set; }
-		public Cocktail _cocktailSelected { get; set; }
 		private CategoriesManager categoriesManager;
 		private GlassesManager glassesManager;
 		private IngredientsManager ingredientsManager;
-
-
+		private CocktailsManager cocktailsManager;
+		public ObservableCollection<Cocktail> Cocktails { get; set; }
+		public Cocktail _cocktailSelected { get; set; }
+		public Cocktail CocktailSelected
+		{
+			get
+			{
+				return null;
+			}
+			set
+			{
+					_cocktailSelected = value;
+					GoToDrink(_cocktailSelected.IdDrink);
+			}
+		}
 		public string Title { get; set; }
 
+		public DelegateCommand<Cocktail> ToggleFavoriteCommand { get; set; }
 
-		public CocktailsListPageViewModel(PageDialogService pageDialogService, INavigationService navigationService,CategoriesManager categoriesManager, GlassesManager glassesManager, IngredientsManager ingredientsManager) : base(pageDialogService, navigationService)
+
+		public CocktailsListPageViewModel(PageDialogService pageDialogService, INavigationService navigationService,CategoriesManager categoriesManager, GlassesManager glassesManager, IngredientsManager ingredientsManager, CocktailsManager cocktailsManager) : base(pageDialogService, navigationService)
         {
 
 			this.categoriesManager = categoriesManager;
             this.glassesManager = glassesManager;
             this.ingredientsManager = ingredientsManager;
+			this.cocktailsManager = cocktailsManager;
 
-		}
-
-		public Cocktail CocktailSelected
-		{
-			get
-			{
-				return _cocktailSelected;
-			}
-			set
-			{
-				if (_cocktailSelected != value)
-				{
-					_cocktailSelected = value;
-					GoToDrink(_cocktailSelected.IdDrink);
-				}
-			}
+			ToggleFavoriteCommand = new DelegateCommand<Cocktail>(ToggleFavorite);
 		}
 
 		public async void GoToDrink(string drinkId)
@@ -66,19 +65,20 @@ namespace PocketBar.ViewModels
 
 		public async void GetCocktailsByCategory(string Category)
 		{
-			if (await this.HasInternetConnection(true))
+			if (await HasInternetConnection(true))
 			{
 				try
 				{
 					IsLoading = true;
 					var response = await categoriesManager.GetCocktailsByCategory(Category);
+					cocktailsManager.MapCocktailFavorites(response);
 					Cocktails = response != null ? new ObservableCollection<Cocktail>(response.OrderBy(i => i.DrinkName)) : new ObservableCollection<Cocktail>();
 					IsLoading = false;
 				}
 				catch (Exception e)
 				{
 					IsLoading = false;
-					await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
+					await ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
 				}
 			}
 
@@ -86,25 +86,43 @@ namespace PocketBar.ViewModels
 
 		public async void GetCocktailsByGlass(string Glass)
 		{
-			if (await this.HasInternetConnection(true))
+			if (await HasInternetConnection(true))
 			{
 				try
 				{
 					IsLoading = true;
 					var result = await glassesManager.GetCocktailsByGlass(Glass);
+					cocktailsManager.MapCocktailFavorites(result);
 					Cocktails = result != null ? new ObservableCollection<Cocktail>(result.OrderBy(i => i.DrinkName)) : new ObservableCollection<Cocktail>();
 					IsLoading = false;
 				}
 				catch (Exception e)
 				{
 					IsLoading = false;
-					await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
+					await ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
 				}
 			}
 
 		}
 
-
+		async void ToggleFavorite(Cocktail cocktail)
+		{
+			try
+			{
+				if (cocktail.IsFavorite)
+				{
+					cocktailsManager.RemoveFromFavorites(cocktail);
+				}
+				else
+				{
+					cocktailsManager.MarkAsFavorite(cocktail);
+				}
+			}
+			catch (Exception e)
+			{
+				await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
+			}
+		}
 
 		public async void GetCocktailsByIngredient(string Ingredient)
 		{
@@ -113,8 +131,9 @@ namespace PocketBar.ViewModels
 				try
 				{
 					IsLoading = true;
-					var resutl = await ingredientsManager.GetCocktailsByIngredient(Ingredient);
-					Cocktails = resutl != null ? new ObservableCollection<Cocktail>(resutl.OrderBy(i => i.DrinkName)) : new ObservableCollection<Cocktail>();
+					var result = await ingredientsManager.GetCocktailsByIngredient(Ingredient);
+					cocktailsManager.MapCocktailFavorites(result);
+					Cocktails = result != null ? new ObservableCollection<Cocktail>(result.OrderBy(i => i.DrinkName)) : new ObservableCollection<Cocktail>();
 					IsLoading = false;
 				}
 				catch (Exception e)
@@ -181,6 +200,21 @@ namespace PocketBar.ViewModels
 			}catch(Exception e)
 			{
 				await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
+			}
+		}
+
+		public void OnNavigatedFrom(INavigationParameters parameters)
+		{
+			// do nothing, we do not need this;
+		}
+
+		public void OnNavigatedTo(INavigationParameters parameters)
+		{
+			if(Cocktails != null && Cocktails.Count > 0)
+			{
+				IsLoading = true;
+				cocktailsManager.MapCocktailFavorites(Cocktails.ToList());
+				IsLoading = false;
 			}
 		}
 	}

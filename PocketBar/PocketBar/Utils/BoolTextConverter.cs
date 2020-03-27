@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace PocketBar.Utils
 {
-    public class InverseBoolConverter : IValueConverter
+	class BoolTextConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return !((bool)value);
+            var values = parameter.ToString().Split('|');
+
+            return (bool)value ? values[0] : values[1];
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
