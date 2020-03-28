@@ -317,4 +317,40 @@
   <ItemGroup>
     <BundleResource Include="Resources\beerGlass.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\glasses%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ingredients.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ingredients%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ingredients%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\surprise.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\surprise%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\surprise%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\categories.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\categories%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\categories%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\glasses.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\glasses%402x.png" />
+  </ItemGroup>
 </Project>
