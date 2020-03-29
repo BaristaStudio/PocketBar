@@ -52,7 +52,8 @@
                                                 CommandParameter="{Binding GlassName}"/>   
                                         </Image.GestureRecognizers>
                                     </Image>
-                                    <Frame BackgroundColor="{StaticResource Default}" Opacity="0.7" Grid.Row="0" VerticalOptions="End" Margin="0" Padding="0,0,10,0" HorizontalOptions="Start">
+                                    <Frame Grid.Row="0" VerticalOptions="End" Margin="0" Padding="0,0,10,0" HorizontalOptions="Start">
+                                        <Frame.BackgroundColor>#99707070</Frame.BackgroundColor>
                                         <Label Text="{Binding GlassName}" Style="{StaticResource ImageTitle}"/>
                                     </Frame>
                                 </Grid>

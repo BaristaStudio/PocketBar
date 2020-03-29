@@ -353,4 +353,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\glasses%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\favoritesUnfilled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\favoritesUnfilled%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\favoritesUnfilled%403x.png" />
+  </ItemGroup>
 </Project>
