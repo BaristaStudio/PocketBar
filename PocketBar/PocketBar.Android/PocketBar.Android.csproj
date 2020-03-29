@@ -299,6 +299,7 @@
     <AndroidResource Include="Resources\drawable-hdpi\masonJar.jpg" />
     <AndroidResource Include="Resources\drawable-hdpi\beerGlass.jpg" />
     <Content Include="Properties\favorites.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\glassShowMe.png" />
     <Content Include="Resources\drawable-hdpi\nickNoraGlass.jpg" />
     <AndroidResource Include="Resources\drawable-hdpi\shotGlass.jpg" />
     <AndroidResource Include="Resources\drawable-hdpi\punchBowl.jpg" />

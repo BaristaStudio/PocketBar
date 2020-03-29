@@ -93,25 +93,63 @@
       <Visible>false</Visible>
     </ImageAsset>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-1024x1024.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-1024x1024-1.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-152x152.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-76x76.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-40x40.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-58x58.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-29x29.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-40x40-1.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-20x20.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-180x180.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-120x120.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-120x120-1.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-58x58-1.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-40x40-2.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-80x80.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-80x80-1.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-60x60.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-87x87.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-167x167.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-1024x1024.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-1024x1024-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-152x152.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-76x76.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-40x40.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-58x58.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-29x29.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-40x40-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-20x20.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-180x180.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-120x120.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-120x120-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-58x58-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-40x40-2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-80x80.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-80x80-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-60x60.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-87x87.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-167x167.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -341,5 +379,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\favoritesUnfilled%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\glassShowMe.png" />
   </ItemGroup>
 </Project>
