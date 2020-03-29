@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PocketBar.Services
 {
-    public interface ICocktailAPIService
+    public interface ITheCocktailDBAPIService
     {
          [Get("/filter.php?g={glass}")]
          Task<CocktailList> GetCocktailsByGlassAsync(string glass);

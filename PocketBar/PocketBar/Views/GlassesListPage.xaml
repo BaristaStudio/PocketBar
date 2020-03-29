@@ -12,7 +12,7 @@
         <ResourceDictionary>
             <Style  TargetType="Label" x:Key="ImageTitle">
                 <Setter Property="TextColor" Value="White"/>
-                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontSize" Value="16"/>
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="FontFamily" Value="Poppins-Bold" />
                 <Setter Property="Margin" Value="10,0,0,5" />
@@ -25,43 +25,51 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <AbsoluteLayout>
-            <ListView 
-                ItemsSource="{Binding Glasses}"
-                Margin="0"
-                RowHeight="200"
-                AbsoluteLayout.LayoutFlags="All"
-                AbsoluteLayout.LayoutBounds="0,0,1,1"
-                x:Name="GlassesList"
-                SeparatorVisibility="None"
-                CachingStrategy="RecycleElement">
-                <ListView.Header>
-                    <Label Text="Glasses" Style="{StaticResource TitleStyle}" Margin="16,15,0,10"/>
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Frame IsClippedToBounds="True" CornerRadius="20" Margin="10" Padding="0">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Image Source="{Binding GlassName,Converter={StaticResource imageConverter}}" Aspect="AspectFill" HorizontalOptions="FillAndExpand">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer 
-                                                Command="{Binding Path=Parent.BindingContext.GoToDrinksCommand, Source={x:Reference GlassesList}}" 
-                                                CommandParameter="{Binding GlassName}"/>   
-                                        </Image.GestureRecognizers>
-                                    </Image>
-                                    <Frame Grid.Row="0" VerticalOptions="End" Margin="0" Padding="0,0,10,0" HorizontalOptions="Start">
-                                        <Frame.BackgroundColor>#99707070</Frame.BackgroundColor>
-                                        <Label Text="{Binding GlassName}" Style="{StaticResource ImageTitle}"/>
-                                    </Frame>
-                                </Grid>
-                            </Frame>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <StackLayout AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <Label Text="Glasses" 
+                       Style="{StaticResource TitleStyle}" 
+                       Margin="16,15,0,10"/>
+                <ListView 
+                    ItemsSource="{Binding Glasses}"
+                    Margin="0"
+                    RowHeight="200"
+                    x:Name="GlassesList"
+                    SeparatorVisibility="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame IsClippedToBounds="True"
+                                       CornerRadius="20"
+                                       Margin="10"
+                                       Padding="0"
+                                       HasShadow="False">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Image Source="{Binding GlassName,Converter={StaticResource imageConverter}}" Aspect="AspectFill" HorizontalOptions="FillAndExpand">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer 
+                                                    Command="{Binding Path=Parent.BindingContext.GoToDrinksCommand, Source={x:Reference GlassesList}}" 
+                                                    CommandParameter="{Binding GlassName}"/>   
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                        <Frame BackgroundColor="{StaticResource DefaultWithOpacity}"
+                                               Grid.Row="0"
+                                               VerticalOptions="End"
+                                               Margin="0"
+                                               Padding="0,0,10,0"
+                                               HorizontalOptions="Start">
+                                            <Label Text="{Binding GlassName}" Style="{StaticResource ImageTitle}"/>
+                                        </Frame>
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
             <ContentView BackgroundColor="#222222" Opacity="0.5"
                          AbsoluteLayout.LayoutFlags="All"
                          AbsoluteLayout.LayoutBounds="0,0,1,1"

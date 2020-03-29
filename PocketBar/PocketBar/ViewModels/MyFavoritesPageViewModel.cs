@@ -1,5 +1,6 @@
 ﻿using PocketBar.Constants;
 using PocketBar.Managers;
+using PocketBar.Managers.Interfaces;
 using PocketBar.Models;
 using Prism.Commands;
 using Prism.Navigation;
@@ -9,12 +10,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PocketBar.ViewModels
 {
     public class MyFavoritesPageViewModel: BaseViewModel
     {
-        private CocktailsManager cocktailsManager;
+        private ICocktailsManager cocktailsManager;
         public ObservableCollection<Cocktail> FavoriteCocktails { get; set; }
         public DelegateCommand<Cocktail> RemoveFromFavoritesCommand { get; set; }
         public Cocktail _cocktailSelected { get; set; }
@@ -30,11 +32,11 @@ namespace PocketBar.ViewModels
                     GoToDrink(_cocktailSelected.IdDrink);
             }
         }
-        public MyFavoritesPageViewModel(PageDialogService pageDialogService, INavigationService navigationService, CocktailsManager cocktailsManager) : base(pageDialogService, navigationService)
+        public MyFavoritesPageViewModel(PageDialogService pageDialogService, INavigationService navigationService, ICocktailsManager cocktailsManager) : base(pageDialogService, navigationService)
         {
             this.cocktailsManager = cocktailsManager;
             this.IsActiveChanged += new EventHandler(OnActivated);
-            RemoveFromFavoritesCommand = new DelegateCommand<Cocktail>(RemoveFromFavorites);
+            RemoveFromFavoritesCommand = new DelegateCommand<Cocktail>(async(param) => { await RemoveFromFavorites(param); });
         }
 
         private void OnActivated(object sender, EventArgs e)
@@ -44,7 +46,7 @@ namespace PocketBar.ViewModels
                 GetFavorites();
             }
         }
-        public async void GetFavorites()
+        public async Task GetFavorites()
         {
             try
             {
@@ -57,7 +59,7 @@ namespace PocketBar.ViewModels
                 await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
             }
         }
-        public async void RemoveFromFavorites(Cocktail cocktail)
+        public async Task RemoveFromFavorites(Cocktail cocktail)
         {
             try
             {
@@ -70,7 +72,7 @@ namespace PocketBar.ViewModels
                 await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
             }
         }
-        public async void GoToDrink(string drinkId)
+        public async Task GoToDrink(string drinkId)
         {
             try
             {

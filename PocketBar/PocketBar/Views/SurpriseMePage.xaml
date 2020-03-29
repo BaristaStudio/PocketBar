@@ -39,7 +39,13 @@
                             TextColor="LightGray"
                             FontSize="16"
                             VerticalOptions="CenterAndExpand"
-                            Margin="10,0,0,0"/>
+                            VerticalTextAlignment="Center">
+                            <Label.Margin>
+                                <OnPlatform x:TypeArguments="Thickness"
+                                            Android="10,0,0,0"
+                                            iOS="10,0,0,10"/>
+                            </Label.Margin>
+                         </Label>
                         <local:BorderlessEntry Placeholder="Search  by cocktail name..."
                                                TextColor="LightGray"
                                                PlaceholderColor="LightGray"
@@ -133,13 +139,12 @@
                                     </Image.GestureRecognizers>
                                 </Image>
                             </yummy:PancakeView>
-                            <StackLayout BackgroundColor="{StaticResource Default}"
-                                     Opacity="0.7"
-                                     Grid.Row="3"
-                                     Grid.Column="0"
-                                     Grid.ColumnSpan="2"
-                                     VerticalOptions="End"
-                                     Padding="15,5">
+                            <StackLayout Grid.Row="3"
+                                         Grid.Column="0"
+                                         Grid.ColumnSpan="2"
+                                         VerticalOptions="End"
+                                         Padding="15,5"
+                                         BackgroundColor="{StaticResource DefaultWithOpacity}">
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding GoToDrinkCommand}"
                                                       CommandParameter="{Binding RandomCocktail.IdDrink}"/>
@@ -204,8 +209,7 @@
 
                                 </Frame>
                             </StackLayout>
-                        <StackLayout BackgroundColor="{StaticResource Default}"
-                                     Opacity="0.5"
+                        <StackLayout BackgroundColor="{StaticResource DefaultWithOpacity}"
                                      Grid.Row="5"
                                      Grid.Column="2"
                                      Grid.ColumnSpan="2"
@@ -241,7 +245,9 @@
                                 <Image Source="glass"
                                        HorizontalOptions="Center"
                                        VerticalOptions="Center"
-                                       WidthRequest="50"/>
+                                       WidthRequest="50"
+                                       HeightRequest="40">
+                                </Image>
                                 </yummy:PancakeView>
                                 <Frame
                                         BackgroundColor="{StaticResource DarkBlue}"
@@ -262,8 +268,7 @@
 
                             </Frame>
                             </StackLayout>
-                        <StackLayout BackgroundColor="{StaticResource Default}"
-                                     Opacity="0.5"
+                        <StackLayout BackgroundColor="{StaticResource DefaultWithOpacity}"
                                      Grid.Row="6"
                                      Grid.Column="2"
                                      Grid.ColumnSpan="2"

@@ -24,6 +24,7 @@
                         iOS="FontAwesome5Brands-Regular"
                       />
             <Color x:Key="Default">#707070</Color>
+            <Color x:Key="DefaultWithOpacity">#99707070</Color>
             <Color x:Key="LightOrange">#EEB14F</Color>
             <Color x:Key="DarkOrange">#b39056</Color>
             <Color x:Key="LightBlue">#0099ff</Color>

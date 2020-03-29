@@ -1,4 +1,5 @@
-﻿using PocketBar.Models;
+﻿using PocketBar.Managers.Interfaces;
+using PocketBar.Models;
 using PocketBar.Services;
 using System;
 using System.Collections.Generic;
@@ -9,12 +10,12 @@ using System.Threading.Tasks;
 namespace PocketBar.Managers
 {
 
-	public class CategoriesManager
+	public class CategoriesManager : ICategoriesManager
 	{
-		private CocktailService cocktailService;
+		private ICocktailService cocktailService;
 		private List<Category> categories;
 
-		public CategoriesManager(CocktailService service)
+		public CategoriesManager(ICocktailService service)
 		{
 			this.cocktailService = service;
 		}

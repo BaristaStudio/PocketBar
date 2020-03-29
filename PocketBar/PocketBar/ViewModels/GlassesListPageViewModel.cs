@@ -1,5 +1,6 @@
 ﻿using PocketBar.Constants;
 using PocketBar.Managers;
+using PocketBar.Managers.Interfaces;
 using PocketBar.Models;
 using Prism.Commands;
 using Prism.Navigation;
@@ -9,21 +10,22 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PocketBar.ViewModels
 {
     class GlassesListPageViewModel : BaseViewModel
     {
-        private readonly GlassesManager _glassesManager;
+        private readonly IGlassesManager _glassesManager;
         public ObservableCollection<Glass> Glasses { get; set; }
         public DelegateCommand<string> GoToDrinksCommand { get; set; }
-        public GlassesListPageViewModel(PageDialogService pageDialogService, INavigationService navigationService, GlassesManager glassesManager): base(pageDialogService, navigationService)
+        public GlassesListPageViewModel(PageDialogService pageDialogService, INavigationService navigationService, IGlassesManager glassesManager): base(pageDialogService, navigationService)
         {
             _glassesManager = glassesManager;
-            GoToDrinksCommand = new DelegateCommand<string>(GoToDrinks);
+            GoToDrinksCommand = new DelegateCommand<string>(async(param) => { await GoToDrinks(param); });
             GetGlasses();
         }
-        public async void GetGlasses()
+        public async Task GetGlasses()
         {
             if(Glasses == null && await HasInternetConnection(true))
             {
@@ -42,7 +44,7 @@ namespace PocketBar.ViewModels
                 }
             }
         }
-        public async void GoToDrinks(string glassName)
+        public async Task GoToDrinks(string glassName)
         {
             var parameters = new NavigationParameters
             {
