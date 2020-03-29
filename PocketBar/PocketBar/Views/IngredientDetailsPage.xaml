@@ -57,7 +57,10 @@
                             <Label Text="{Binding Ingredient.ABV , StringFormat='ABV: {0}'}"/>
                         </Frame>
                     </StackLayout>
-                    <Frame HorizontalOptions="FillAndExpand" BackgroundColor="LightGray">
+                    <Frame HorizontalOptions="FillAndExpand" 
+                           BackgroundColor="LightGray"
+                           HasShadow="False"
+                           Margin="0,15">
                         <StackLayout>
                             <Label Text="Description:" Style="{StaticResource TitleStyle}" FontSize="Large"/>
                             <Label Text="{Binding Ingredient.Description}" Margin="16,0,13,0"/>

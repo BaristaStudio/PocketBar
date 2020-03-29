@@ -298,8 +298,8 @@
     <AndroidResource Include="Resources\drawable-hdpi\coupeGlass.jpg" />
     <AndroidResource Include="Resources\drawable-hdpi\masonJar.jpg" />
     <AndroidResource Include="Resources\drawable-hdpi\beerGlass.jpg" />
-    <Content Include="Properties\favorites.png" />
     <AndroidResource Include="Resources\drawable-hdpi\glassShowMe.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\favoritesUnfilled.png" />
     <Content Include="Resources\drawable-hdpi\nickNoraGlass.jpg" />
     <AndroidResource Include="Resources\drawable-hdpi\shotGlass.jpg" />
     <AndroidResource Include="Resources\drawable-hdpi\punchBowl.jpg" />
@@ -408,6 +408,9 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\favoritesUnfilled.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\favoritesUnfilled.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\favoritesUnfilled.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
