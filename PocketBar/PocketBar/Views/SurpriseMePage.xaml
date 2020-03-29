@@ -39,13 +39,8 @@
                             TextColor="LightGray"
                             FontSize="16"
                             VerticalOptions="CenterAndExpand"
-                            VerticalTextAlignment="Center">
-                            <Label.Margin>
-                                <OnPlatform x:TypeArguments="Thickness"
-                                            Android="10,0,0,0"
-                                            iOS="10,0,0,10"/>
-                            </Label.Margin>
-                         </Label>
+                            VerticalTextAlignment="Center"
+                            Margin="10,0,0,10"/>
                         <local:BorderlessEntry Placeholder="Search  by cocktail name..."
                                                TextColor="LightGray"
                                                PlaceholderColor="LightGray"

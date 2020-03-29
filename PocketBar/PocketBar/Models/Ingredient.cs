@@ -22,8 +22,7 @@ namespace PocketBar.Models
         private string _description { get; set; }
         public string Description
         {
-            get { return _description ?? string.Format( "It looks like we don't have a description available for this ingreident yet... " +
-                    "Click on the button below to explore some cocktails with {0}!", IngredientName); } 
+            get { return _description ?? ""; } 
         }
 
         [JsonProperty("strAlcohol")]
@@ -31,8 +30,8 @@ namespace PocketBar.Models
         public string Alcohol { get { return _alcohol == null ? "Non Alcoholic" : "Alcoholic"; ; } }
 
         [JsonProperty("strABV")]
-        private string _aBV { get; set; }
-        public string ABV {get{return _aBV ?? ""; }}
+        private string _ABV { get; set; }
+        public string ABV {get{return _ABV ?? ""; }}
 
 
 
