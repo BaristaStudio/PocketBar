@@ -63,17 +63,24 @@
                             <Label Text="{Binding Ingredient.ABV , StringFormat='ABV: {0}'}"/>
                         </Frame>
                     </StackLayout>
-                    <Frame HorizontalOptions="FillAndExpand" 
+                        <Frame HorizontalOptions="FillAndExpand" 
                            BackgroundColor="LightGray"
                            HasShadow="False"
                            Margin="0,15">
-                        <StackLayout>
-                            <Label Text="Description:" Style="{StaticResource TitleStyle}" FontSize="Large"/>
-                            <Label Text="{Binding Ingredient.Description}" Margin="16,0,13,0"/>
-                        </StackLayout>
-                    </Frame>
-
-                    <StackLayout Orientation="Horizontal" 
+                            <StackLayout>
+                                <Label Text="Description:" Style="{StaticResource TitleStyle}" FontSize="Large"/>
+                                <Label Text="{Binding Ingredient.Description}" Margin="16,0,13,0">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding Ingredient.Description}"
+                                                     Value="">
+                                            <Setter Property="Text" Value="{Binding Ingredient.IngredientName, StringFormat='It looks like we do not have a description available for this ingreident yet...Click on the button below to explore some cocktails with {0}!'}"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </StackLayout>
+                        </Frame>
+                        <StackLayout Orientation="Horizontal" 
                                          Spacing="0"
                                          HeightRequest="80"
                                          Margin="10,0,10,14" Grid.Row="2" >
