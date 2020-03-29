@@ -15,13 +15,19 @@
             <Style TargetType="Frame" x:Key="Tag">
                 <Setter Property="Padding" Value="10,0,10,0"/>
                 <Setter Property="BackgroundColor" Value="LightGray"/>
-                <Setter Property="CornerRadius" Value="50"/>
+                <Setter Property="CornerRadius">
+                    <OnPlatform x:TypeArguments="x:Single"
+                                Android="50"
+                                iOS="10"/>
+                </Setter>
+                <Setter Property="HasShadow" Value="False"/>
             </Style>
             <Style TargetType="Frame" x:Key="DarkTag">
                 <Setter Property="Padding" Value="3,5,0,5"/>
                 <Setter Property="BackgroundColor" Value="DimGray"/>
                 <Setter Property="CornerRadius" Value="5"/>
                 <Setter Property="Margin" Value="0,5,0,5"/>
+                <Setter Property="HasShadow" Value="False"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
