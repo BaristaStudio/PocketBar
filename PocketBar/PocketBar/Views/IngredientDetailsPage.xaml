@@ -4,12 +4,117 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="PocketBar.Views.IngredientDetailsPage">
+             x:Class="PocketBar.Views.IngredientDetailsPage"
+             xmlns:control="clr-namespace:PocketBar.Controls.Common"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             ios:Page.UseSafeArea="True"
+             x:Name="this">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Frame" x:Key="Tag">
+                <Setter Property="Padding" Value="10,0,10,0"/>
+                <Setter Property="BackgroundColor" Value="LightGray"/>
+                <Setter Property="CornerRadius" Value="50"/>
+            </Style>
+            <Style TargetType="Frame" x:Key="DarkTag">
+                <Setter Property="Padding" Value="3,5,0,5"/>
+                <Setter Property="BackgroundColor" Value="DimGray"/>
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="Margin" Value="0,5,0,5"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <AbsoluteLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+            <control:NavigationView 
+                    OnPressedBackCommand="{Binding OnPressedBackCommand}"
+                    Title="Ingredient Details"
+                    HasShareButton="False" Grid.Row="0"/>
+            <ScrollView AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1" Grid.Row="1">
+                <StackLayout>
+                    <Image Source="{Binding Ingredient.IngredientName, StringFormat='https://www.thecocktaildb.com/images/ingredients/{0}.png'}" HorizontalOptions="CenterAndExpand" Aspect="AspectFill"/>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Label Text="{Binding Ingredient.IngredientName}" Style="{StaticResource TitleStyle}" VerticalOptions="FillAndExpand"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="16,0,0,0" >
+                        <Frame Style="{StaticResource Tag}">
+                            <Label Text="{Binding Ingredient.Alcohol}"/>
+                        </Frame>
+                        <Frame Style="{StaticResource Tag}" IsVisible="True">
+                            <Frame.Triggers>
+                                <DataTrigger TargetType="Frame" Binding="{Binding Ingredient.ABV}" Value="">
+                                    <Setter Property="IsVisible" Value="False"/>
+                                </DataTrigger>
+                            </Frame.Triggers>
+                            <Label Text="{Binding Ingredient.ABV , StringFormat='ABV: {0}'}"/>
+                        </Frame>
+                    </StackLayout>
+                    <Frame HorizontalOptions="FillAndExpand" BackgroundColor="LightGray">
+                        <StackLayout>
+                            <Label Text="Description:" Style="{StaticResource TitleStyle}" FontSize="Large"/>
+                            <Label Text="{Binding Ingredient.Description}" Margin="16,0,13,0"/>
+                        </StackLayout>
+                    </Frame>
+
+                    <StackLayout Orientation="Horizontal" 
+                                         Spacing="0"
+                                         HeightRequest="80"
+                                         Margin="10,0,10,14" Grid.Row="2" >
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToDrinksCommand}" 
+                                                  CommandParameter="{Binding Ingredient.IngredientName}"/>
+                        </StackLayout.GestureRecognizers>
+                        <yummy:PancakeView
+                                       BackgroundColor="{StaticResource LightBlue}"
+                                       Padding="5"
+                                       CornerRadius="5,0,5,0"
+                                       Margin="0"
+                                       HasShadow="False">
+                            <Image Source="glassShowMe.png"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           WidthRequest="40"/>
+                        </yummy:PancakeView>
+                        <Frame
+                                       BackgroundColor="{StaticResource DarkBlue}"
+                                       Margin="0"
+                                       Padding="0"
+                                       VerticalOptions="FillAndExpand"
+                                       HorizontalOptions="FillAndExpand"
+                                       CornerRadius="0"
+                                       HasShadow="False">
+                            <Label             Text="{Binding Ingredient.IngredientName, StringFormat='See Cocktails with {0}'}"
+                                        TextColor="White"
+                                        FontSize="19"
+                                        FontAttributes="Bold"
+                                        FontFamily="Poppins"
+                                        HorizontalOptions="StartAndExpand"
+                                        VerticalOptions="CenterAndExpand"
+                                        Margin="15"/>
+
+                        </Frame>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+            <ContentView BackgroundColor="#222222" Opacity="0.5"
+                         AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         IsVisible="{Binding IsLoading}">
+            </ContentView>
+            <ActivityIndicator  IsRunning="{Binding IsLoading}"
+                                IsVisible="{Binding IsLoading}"
+                                Color="AliceBlue"
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
+                                AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"/>
+            </Grid>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

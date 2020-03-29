@@ -57,10 +57,7 @@ namespace PocketBar.ViewModels
 			{
 				var parameter = new NavigationParameters();
 				parameter.Add("ingredient", ingredientName);
-				parameter.Add("searchTerm", ingredientName);
-				parameter.Add("type", SearchType.Ingredient);
-				parameter.Add("title", String.Format("Showing Cocktails By Ingredient: {0}", ingredientName));
-				await NavigationService.NavigateAsync(new System.Uri(NavConstants.CocktailsListPage, UriKind.Relative), parameter);
+				await NavigationService.NavigateAsync(new System.Uri(NavConstants.IngredientDetailsPage, UriKind.Relative), parameter);
 
 			}
 			catch (Exception e)

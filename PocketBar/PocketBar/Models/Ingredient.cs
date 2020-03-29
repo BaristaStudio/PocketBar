@@ -19,16 +19,26 @@ namespace PocketBar.Models
         private string IngredientName2 { set { IngredientName = value; } }
 
         [JsonProperty("strDescription")]
-        public string Description { get; set; }
+        private string _description { get; set; }
+        public string Description
+        {
+            get { return this._description ?? "It looks like we don't have a description available for this ingreident yet... " +
+                    "Click on the button below to explore some cocktails with this ingredient!"; } 
+        }
 
-        [JsonProperty("strType")]
+
+            [JsonProperty("strType")]
         public string Type { get; set; }
 
         [JsonProperty("strAlcohol")]
-        public string Alcohol { get; set; }
+        private string _alcohol { get; set; }
+        public string Alcohol { get { return _alcohol == null ? "Non Alcoholic" : "Alcoholic"; ; } }
 
         [JsonProperty("strABV")]
-        public string ABV { get; set; }
+        private string _aBV { get; set; }
+        public string ABV {get{return _aBV ?? ""; }}
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
     }
