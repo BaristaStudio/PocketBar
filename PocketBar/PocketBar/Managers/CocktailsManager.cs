@@ -194,13 +194,13 @@ namespace PocketBar.Managers
 		{
 			try
 			{
+				var favorites = GetFavorites();
+				if (favorites != null && favorites.Count > 0 && favorites.Exists(f => f.IdDrink == id.ToString()))
+				{
+					return favorites.FirstOrDefault(f => f.IdDrink == id.ToString());
+				}
 				var cocktailResponse = await cocktailService.ApiService.GetCocktailByIdAsync(id);
 				var cocktail = cocktailResponse.Drinks.FirstOrDefault();
-				var favorites = GetFavorites();
-				if (favorites != null && favorites.Count > 0 && cocktail != null)
-				{
-					cocktail.IsFavorite = favorites.Exists(f => f.IdDrink == cocktail.IdDrink);
-				}
 				return cocktail;
 			}
 			catch (Exception e)

@@ -16,7 +16,6 @@ namespace PocketBar.ViewModels
     class CocktailDetailsPageViewModel : BaseViewModel
     {
         private readonly ICocktailsManager _cocktailsManager;
-        private readonly IIngredientsManager _ingredientsManager;
         const string FavoriteEmptyIcon = "favoritesUnfilled";
         const string FavoriteFilledIcon = "favoritesFilled";
         public string FavoriteIcon { get; set; } = FavoriteEmptyIcon;
@@ -24,10 +23,9 @@ namespace PocketBar.ViewModels
         public DelegateCommand ShareCocktailCommand { get; set; }
         public DelegateCommand MarkAsFavoriteCommand { get; set; }
         public DelegateCommand<string> GoToIngredientCommand { get; set; }
-        public CocktailDetailsPageViewModel(PageDialogService pageDialogService, INavigationService navigationService, ICocktailsManager cocktailsManager, IIngredientsManager ingredientsManager) : base(pageDialogService, navigationService)
+        public CocktailDetailsPageViewModel(PageDialogService pageDialogService, INavigationService navigationService, ICocktailsManager cocktailsManager) : base(pageDialogService, navigationService)
         {
             _cocktailsManager = cocktailsManager;
-            _ingredientsManager = ingredientsManager;
             ShareCocktailCommand = new DelegateCommand(async () => { await ShareCocktail(); });
             MarkAsFavoriteCommand = new DelegateCommand(async() => { await ToggleFavorite(); });
             GoToIngredientCommand = new DelegateCommand<string>(async(param) => { await GoToIngredient(param); });            
@@ -98,13 +96,9 @@ namespace PocketBar.ViewModels
         {
             try
             {
-                Ingredient ingredient = null;
-                if (await HasInternetConnection(true))
-                    ingredient = await _ingredientsManager.GetIngredientByName(ingredientName);
-
                 var parameters = new NavigationParameters
                 {
-                    { "ingredient", ingredient }
+                    { "ingredient", ingredientName }
                 };
                 await NavigationService.NavigateAsync(new Uri(Constants.NavConstants.IngredientDetailsPage, UriKind.Relative), parameters);
             } catch(Exception e)

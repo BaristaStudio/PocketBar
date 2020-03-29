@@ -22,13 +22,9 @@ namespace PocketBar.Models
         private string _description { get; set; }
         public string Description
         {
-            get { return this._description ?? "It looks like we don't have a description available for this ingreident yet... " +
-                    "Click on the button below to explore some cocktails with this ingredient!"; } 
+            get { return _description ?? string.Format( "It looks like we don't have a description available for this ingreident yet... " +
+                    "Click on the button below to explore some cocktails with {0}!", IngredientName); } 
         }
-
-
-            [JsonProperty("strType")]
-        public string Type { get; set; }
 
         [JsonProperty("strAlcohol")]
         private string _alcohol { get; set; }
