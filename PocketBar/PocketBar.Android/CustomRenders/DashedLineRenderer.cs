@@ -10,7 +10,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using PocketBar.Controls.CocktailDetails;
+using PocketBar.Controls.Common;
 using PocketBar.Droid.CustomRenders;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;

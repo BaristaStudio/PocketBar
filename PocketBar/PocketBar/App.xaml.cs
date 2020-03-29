@@ -1,5 +1,6 @@
 ﻿using PocketBar.Constants;
 using PocketBar.Managers;
+using PocketBar.Managers.Interfaces;
 using PocketBar.Services;
 using PocketBar.ViewModels;
 using PocketBar.Views;
@@ -34,11 +35,11 @@ namespace PocketBar
             containerRegistry.RegisterForNavigation<MyFavoritesPage, MyFavoritesPageViewModel>();
             containerRegistry.RegisterForNavigation<PlaygroundPage>();
 
-            containerRegistry.Register<CocktailService>();
-            containerRegistry.RegisterSingleton<IngredientsManager>();
-            containerRegistry.RegisterSingleton<GlassesManager>();
-            containerRegistry.RegisterSingleton<CocktailsManager>();
-            containerRegistry.RegisterSingleton<CategoriesManager>();
+            containerRegistry.Register<ICocktailService, CocktailService>();
+            containerRegistry.RegisterSingleton<IIngredientsManager,IngredientsManager>();
+            containerRegistry.RegisterSingleton<IGlassesManager,GlassesManager>();
+            containerRegistry.RegisterSingleton<ICocktailsManager, CocktailsManager>();
+            containerRegistry.RegisterSingleton<ICategoriesManager, CategoriesManager>();
         }
         protected override void OnStart()
         {

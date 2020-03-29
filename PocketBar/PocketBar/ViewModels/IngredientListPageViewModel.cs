@@ -1,5 +1,6 @@
 ﻿using PocketBar.Constants;
 using PocketBar.Managers;
+using PocketBar.Managers.Interfaces;
 using PocketBar.Models;
 using PocketBar.Services;
 using Prism;
@@ -13,6 +14,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PocketBar.ViewModels
 {
@@ -20,16 +22,16 @@ namespace PocketBar.ViewModels
 	{
 		public ObservableCollection<Ingredient> Ingredients { get; set; }
 
-		private IngredientsManager ingredientsManager;
+		private IIngredientsManager ingredientsManager;
 		public DelegateCommand<string> GoToIngredientCommand { get; set; }
 
-		public IngredientListPageViewModel(PageDialogService pageDialogService, INavigationService navigationService,IngredientsManager ingredientsManager) : base(pageDialogService, navigationService)
+		public IngredientListPageViewModel(PageDialogService pageDialogService, INavigationService navigationService,IIngredientsManager ingredientsManager) : base(pageDialogService, navigationService)
 		{
 			this.ingredientsManager = ingredientsManager;
-			this.GoToIngredientCommand = new DelegateCommand<string>(GoToIngredient);
+			this.GoToIngredientCommand = new DelegateCommand<string>(async(param) => { await GoToIngredient(param); });
 			GetIngredients();
 		}
-		public async void GetIngredients()
+		public async Task GetIngredients()
 		{
 			if (Ingredients == null && await HasInternetConnection(true))
 			{
@@ -49,7 +51,7 @@ namespace PocketBar.ViewModels
 			}
 
 		}
-		public async void GoToIngredient(string ingredientName)
+		public async Task GoToIngredient(string ingredientName)
 		{
 			try
 			{

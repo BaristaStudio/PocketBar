@@ -1,4 +1,5 @@
 ﻿using MonkeyCache.FileStore;
+using PocketBar.Managers.Interfaces;
 using PocketBar.Models;
 using PocketBar.Services;
 using System;
@@ -9,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace PocketBar.Managers
 {
-	public class CocktailsManager
+	public class CocktailsManager : ICocktailsManager
 	{
-		private CocktailService cocktailService;
+		private ICocktailService cocktailService;
 		private List<Cocktail> cocktails;
 		private List<Cocktail> alcoholicCocktails;
 		private List<Cocktail> nonAlcoholicCocktails;
@@ -21,7 +22,7 @@ namespace PocketBar.Managers
 		private const string OptionalAlcoholFilter = "optional_alcohol";
 
 		private const string FavoritesListKey = "cocktails";
-		public CocktailsManager(CocktailService service)
+		public CocktailsManager(ICocktailService service)
 		{
 			this.cocktailService = service;
 			this.cocktails = new List<Cocktail>();
@@ -52,6 +53,7 @@ namespace PocketBar.Managers
 			}
 			return cocktails;
 		}
+
 		public async Task<List<Cocktail>> FindCocktails(string term)
 		{
 				try
@@ -137,6 +139,7 @@ namespace PocketBar.Managers
 				throw e;
 			}
 		}
+
 		public async Task<Cocktail> GetRandomAlcoholicCocktail()
 		{
 			if (alcoholicCocktails == null || alcoholicCocktails.Count == 0)
@@ -161,6 +164,7 @@ namespace PocketBar.Managers
 			}
 			return cocktail;
 		}
+
 		public async Task<Cocktail> GetRandomNonAlcoholicCocktail()
 		{
 			if (nonAlcoholicCocktails == null || nonAlcoholicCocktails.Count == 0)
@@ -204,15 +208,18 @@ namespace PocketBar.Managers
 				throw e;
 			}
 		}
+
 		public List<Cocktail> GetFavorites()
 		{
 			return Barrel.Current.Get<List<Cocktail>>(FavoritesListKey);
 		}
+
 		public bool IsFavorite(int drinkId)
 		{
 			var favorites = GetFavorites();
 			return favorites?.FirstOrDefault(x => x.IdDrink == drinkId.ToString()) != null;
 		}
+
 		public void MarkAsFavorite(Cocktail cocktail)
 		{
 			var cocktails = GetFavorites();
@@ -222,6 +229,7 @@ namespace PocketBar.Managers
 			cocktail.IsFavorite = true;
 			AddToBarrel(cocktails);
 		}
+
 		public void RemoveFromFavorites(Cocktail cocktail)
 		{
 			var cocktails = GetFavorites();
@@ -231,6 +239,7 @@ namespace PocketBar.Managers
 			cocktail.IsFavorite = false;
 			AddToBarrel(cocktails);
 		}
+
 		void AddToBarrel(List<Cocktail> cocktails)
 		{
 			if (Barrel.Current.Exists(FavoritesListKey))

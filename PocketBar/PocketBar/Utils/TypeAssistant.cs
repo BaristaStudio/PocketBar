@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace PocketBar.Utils
 {
 	public class TypeAssistant
     {
-        public delegate void TextChangedEventHandler();
-        public event TextChangedEventHandler OnFinishedTyping;
+        public event EventHandler OnFinishedTyping;
         public int WaitingMilliSeconds { get; set; }
         System.Threading.Timer waitingTimer;
 
@@ -17,7 +17,7 @@ namespace PocketBar.Utils
             WaitingMilliSeconds = waitingMilliSeconds;
             waitingTimer = new Timer(p =>
             {
-                OnFinishedTyping();
+                OnFinishedTyping(this,EventArgs.Empty);
             });
         }
         public void TextChanged()

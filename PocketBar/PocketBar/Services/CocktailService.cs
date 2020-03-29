@@ -5,10 +5,10 @@ using System.Text;
 
 namespace PocketBar.Services
 {
-	public class CocktailService
+	public class CocktailService : ICocktailService
 	{
-		private ICocktailAPIService _apiService; 
-		public ICocktailAPIService ApiService
+		private ITheCocktailDBAPIService _apiService; 
+		public ITheCocktailDBAPIService ApiService
 		{
 			get
 			{
@@ -18,7 +18,7 @@ namespace PocketBar.Services
 
 		public CocktailService()
 		{
-			_apiService = RestService.For<ICocktailAPIService>(Config.CocktailAPIURL);
+			_apiService = RestService.For<ITheCocktailDBAPIService>(Config.CocktailAPIURL);
 		}
 
 	}

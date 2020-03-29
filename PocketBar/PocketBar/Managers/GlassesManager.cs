@@ -1,4 +1,5 @@
-﻿using PocketBar.Models;
+﻿using PocketBar.Managers.Interfaces;
+using PocketBar.Models;
 using PocketBar.Services;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace PocketBar.Managers
 {
-	public class GlassesManager
+	public class GlassesManager : IGlassesManager
 	{
-		private CocktailService cocktailService;
+		private ICocktailService cocktailService;
 		private List<Glass> glasses;
 
-		public GlassesManager(CocktailService service)
+		public GlassesManager(ICocktailService service)
 		{
 			this.cocktailService = service;
 		}

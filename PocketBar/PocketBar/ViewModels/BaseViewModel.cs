@@ -13,11 +13,12 @@ using Xamarin.Essentials;
 
 namespace PocketBar.ViewModels
 {
-    public abstract class BaseViewModel : INotifyPropertyChanged, IActiveAware
+    public abstract class BaseViewModel : INotifyPropertyChanged, IActiveAware, INavigatedAware, IInitialize
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler IsActiveChanged;
         public bool IsEmpty { get; set; }
+        public bool IsRefreshing { get; set; } = false;
 
         private bool _isActive;
         public bool IsActive
@@ -34,7 +35,7 @@ namespace PocketBar.ViewModels
         {
             this.PageDialogService = pageDialogService;
             this.NavigationService = navigationService;
-            OnPressedBackCommand = new DelegateCommand(GoBack);
+            OnPressedBackCommand = new DelegateCommand(async() => { await GoBack(); });
         }
 
         public async Task<bool> HasInternetConnection(bool sendMessage = false)
@@ -54,14 +55,29 @@ namespace PocketBar.ViewModels
             }
         }
 
-        public Task ShowMessage(string title, string message, string cancel, string accept = null)
+        public async Task ShowMessage(string title, string message, string cancel, string accept = null)
         {
-           return PageDialogService.DisplayAlertAsync(title, message, accept, cancel);
+           await PageDialogService.DisplayAlertAsync(title, message, accept, cancel);
         }
 
-        public async void GoBack()
+        public async Task GoBack()
         {
             await NavigationService.GoBackAsync();
+        }
+
+        public virtual void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            // do nothing, this is meant to be overriden
+        }
+
+        public virtual void OnNavigatedTo(INavigationParameters parameters)
+        {
+            // do nothing, this is meant to be overriden
+        }
+
+        public virtual void Initialize(INavigationParameters parameters)
+        {
+            // do nothing, this is meant to be overriden
         }
     }
 }

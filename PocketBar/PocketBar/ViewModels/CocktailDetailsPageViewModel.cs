@@ -1,6 +1,7 @@
 ﻿using Plugin.Share;
 using Plugin.Share.Abstractions;
 using PocketBar.Managers;
+using PocketBar.Managers.Interfaces;
 using PocketBar.Models;
 using Prism.Commands;
 using Prism.Navigation;
@@ -8,35 +9,36 @@ using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PocketBar.ViewModels
 {
-    class CocktailDetailsPageViewModel : BaseViewModel, IInitialize
+    class CocktailDetailsPageViewModel : BaseViewModel
     {
-        private readonly CocktailsManager _cocktailsManager;
-        private readonly IngredientsManager _ingredientsManager;
-        const string FavoriteEmptyIcon = "favorites";
+        private readonly ICocktailsManager _cocktailsManager;
+        private readonly IIngredientsManager _ingredientsManager;
+        const string FavoriteEmptyIcon = "favoritesUnfilled";
         const string FavoriteFilledIcon = "favoritesFilled";
         public string FavoriteIcon { get; set; } = FavoriteEmptyIcon;
-        public Cocktail Cocktail {get; set; }
+        public Cocktail Cocktail { get; set; } = new Cocktail();
         public DelegateCommand ShareCocktailCommand { get; set; }
         public DelegateCommand MarkAsFavoriteCommand { get; set; }
         public DelegateCommand<string> GoToIngredientCommand { get; set; }
-        public CocktailDetailsPageViewModel(PageDialogService pageDialogService, INavigationService navigationService, CocktailsManager cocktailsManager, IngredientsManager ingredientsManager) : base(pageDialogService, navigationService)
+        public CocktailDetailsPageViewModel(PageDialogService pageDialogService, INavigationService navigationService, ICocktailsManager cocktailsManager, IIngredientsManager ingredientsManager) : base(pageDialogService, navigationService)
         {
             _cocktailsManager = cocktailsManager;
             _ingredientsManager = ingredientsManager;
-            ShareCocktailCommand = new DelegateCommand(ShareCocktail);
-            MarkAsFavoriteCommand = new DelegateCommand(ToggleFavorite);
-            GoToIngredientCommand = new DelegateCommand<string>(GoToIngredient);            
+            ShareCocktailCommand = new DelegateCommand(async () => { await ShareCocktail(); });
+            MarkAsFavoriteCommand = new DelegateCommand(async() => { await ToggleFavorite(); });
+            GoToIngredientCommand = new DelegateCommand<string>(async(param) => { await GoToIngredient(param); });            
         }
-        public async void Initialize(INavigationParameters parameters)
+        public override void Initialize(INavigationParameters parameters)
         {
             try
             {
                 if (!parameters.ContainsKey("DrinkId"))
                 {
-                    await ShowMessage(Constants.ErrorMessages.ErrorOccured, Constants.ErrorMessages.MissingParameter, Constants.ErrorMessages.Ok);
+                    ShowMessage(Constants.ErrorMessages.ErrorOccured, Constants.ErrorMessages.MissingParameter, Constants.ErrorMessages.Ok);
                     return;
                 }
                 IsLoading = true;
@@ -45,19 +47,36 @@ namespace PocketBar.ViewModels
                 {
                     Cocktail = parameters["Cocktail"] as Cocktail;
                 }
-                else if(await HasInternetConnection(true))
+                else
                 {
-                    Cocktail = await _cocktailsManager.GetCocktail(drinkId);
+                    GetCocktail(drinkId);
                 }
                 FavoriteIcon = Cocktail.IsFavorite ? FavoriteFilledIcon : FavoriteEmptyIcon;
                 IsLoading = false;
             } catch(Exception e)
             {
                 IsLoading = false;
-                await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
+                ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
             }
         }
-        async void ToggleFavorite()
+        async Task GetCocktail(int drinkId)
+        {
+            if(await HasInternetConnection(true))
+            {
+                try
+                {
+                    IsLoading = true;
+                    Cocktail = await _cocktailsManager.GetCocktail(drinkId);
+                    IsLoading = false;
+                }
+                catch (Exception e)
+                {
+                    IsLoading = false;
+                    await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
+                }
+            }
+        }
+        async Task ToggleFavorite()
         {
             try
             {
@@ -75,7 +94,7 @@ namespace PocketBar.ViewModels
                 await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
             }
         }
-        async void GoToIngredient(string ingredientName)
+        async Task GoToIngredient(string ingredientName)
         {
             try
             {
@@ -93,7 +112,7 @@ namespace PocketBar.ViewModels
                 await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
             }
         }
-        async void ShareCocktail()
+        async Task ShareCocktail()
         {
             try
             {
