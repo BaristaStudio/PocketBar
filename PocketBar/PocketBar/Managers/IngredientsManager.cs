@@ -1,4 +1,5 @@
-﻿using PocketBar.Models;
+﻿using PocketBar.Managers.Interfaces;
+using PocketBar.Models;
 using PocketBar.Services;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace PocketBar.Managers
 {
-	public class IngredientsManager
+	public class IngredientsManager : IIngredientsManager
 	{
-		private CocktailService cocktailService;
+		private ICocktailService cocktailService;
 		private List<Ingredient> ingredients;
 
-		public IngredientsManager(CocktailService service)
+		public IngredientsManager(ICocktailService service)
 		{
 			this.cocktailService = service;
 		}
@@ -52,6 +53,7 @@ namespace PocketBar.Managers
 				throw e;
 			}
 		}
+
 		public async Task<Ingredient> GetIngredient(int id)
 		{
 			try
@@ -64,6 +66,7 @@ namespace PocketBar.Managers
 				throw e;
 			}
 		}
+
 		public async Task<Ingredient> GetIngredientByName(string ingredientName)
 		{
 			try
@@ -76,6 +79,7 @@ namespace PocketBar.Managers
 				throw e;
 			}
 		}
+
 		public async Task<List<Cocktail>> GetCocktailsByIngredient(string ingredient)
 		{
 			try
@@ -88,6 +92,7 @@ namespace PocketBar.Managers
 				throw e;
 			}
 		}
+
 		public async Task<Cocktail> GetRandomCocktailByIngredient(string ingredient)
 		{
 			try

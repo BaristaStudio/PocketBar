@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CoreAnimation;
 using CoreGraphics;
 using Foundation;
-using PocketBar.Controls.CocktailDetails;
+using PocketBar.Controls.Common;
 using PocketBar.iOS.CustomRenders;
 using UIKit;
 using Xamarin.Forms;
@@ -18,17 +19,22 @@ namespace PocketBar.iOS.CustomRenders
         public override void Draw(CGRect rect)
         {
             base.Draw(rect);
-            var path = new UIBezierPath();
-            path.MoveTo(new CGPoint(Bounds.Size.Width / 2, 0));
-            path.AddLineTo(new CGPoint(Bounds.Size.Width / 2, Bounds.Size.Height));
-            path.LineWidth = 6;
 
-            var dashes = new[] { 0, path.LineWidth * 2 };
-            path.SetLineDash(dashes, 0, dashes.Length, 0);
-            path.LineCapStyle = CGLineCap.Round;
-
-            (UIColor.White).SetStroke();
-            path.Stroke();
+            var dashedLayer = new CAShapeLayer();
+            var shapeRect = new CGRect(0, 0, Bounds.Size.Width, Bounds.Size.Height);
+            dashedLayer.Bounds = shapeRect;
+            dashedLayer.Position = new CGPoint(Bounds.Size.Width / 2, Bounds.Size.Height / 2);
+            dashedLayer.FillColor = UIColor.Clear.CGColor;
+            dashedLayer.StrokeColor = UIColor.Gray.CGColor;
+            dashedLayer.LineWidth = 2;
+            dashedLayer.LineJoin = CAShapeLayer.JoinRound;
+            NSNumber[] patternArray = { 5, 5 };
+            dashedLayer.LineDashPattern = patternArray;
+            var path = new CGPath();
+            path.MoveToPoint(CGPoint.Empty);
+            path.AddLineToPoint(new CGPoint(Bounds.Size.Width, 0));
+            dashedLayer.Path = path;
+            Layer.AddSublayer(dashedLayer);
         }
     }
 }

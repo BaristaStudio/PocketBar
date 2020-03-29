@@ -1,5 +1,6 @@
 using PocketBar.Constants;
 using PocketBar.Managers;
+using PocketBar.Managers.Interfaces;
 using PocketBar.Models;
 using Prism.Commands;
 using Prism.Navigation;
@@ -9,15 +10,16 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PocketBar.ViewModels
 {
-	class CocktailsListPageViewModel: BaseViewModel, IInitialize, INavigatedAware
+	class CocktailsListPageViewModel: BaseViewModel
 	{
-		private CategoriesManager categoriesManager;
-		private GlassesManager glassesManager;
-		private IngredientsManager ingredientsManager;
-		private CocktailsManager cocktailsManager;
+		private ICategoriesManager categoriesManager;
+		private IGlassesManager glassesManager;
+		private IIngredientsManager ingredientsManager;
+		private ICocktailsManager cocktailsManager;
 		public ObservableCollection<Cocktail> Cocktails { get; set; }
 		public Cocktail _cocktailSelected { get; set; }
 		public Cocktail CocktailSelected
@@ -37,7 +39,7 @@ namespace PocketBar.ViewModels
 		public DelegateCommand<Cocktail> ToggleFavoriteCommand { get; set; }
 
 
-		public CocktailsListPageViewModel(PageDialogService pageDialogService, INavigationService navigationService,CategoriesManager categoriesManager, GlassesManager glassesManager, IngredientsManager ingredientsManager, CocktailsManager cocktailsManager) : base(pageDialogService, navigationService)
+		public CocktailsListPageViewModel(PageDialogService pageDialogService, INavigationService navigationService,ICategoriesManager categoriesManager, IGlassesManager glassesManager, IIngredientsManager ingredientsManager, ICocktailsManager cocktailsManager) : base(pageDialogService, navigationService)
         {
 
 			this.categoriesManager = categoriesManager;
@@ -45,10 +47,10 @@ namespace PocketBar.ViewModels
             this.ingredientsManager = ingredientsManager;
 			this.cocktailsManager = cocktailsManager;
 
-			ToggleFavoriteCommand = new DelegateCommand<Cocktail>(ToggleFavorite);
+			ToggleFavoriteCommand = new DelegateCommand<Cocktail>(async(param) => { await ToggleFavorite(param); });
 		}
 
-		public async void GoToDrink(string drinkId)
+		public async Task GoToDrink(string drinkId)
 		{
 			try
 			{
@@ -63,7 +65,7 @@ namespace PocketBar.ViewModels
 			}
 		}
 
-		public async void GetCocktailsByCategory(string Category)
+		public async Task GetCocktailsByCategory(string Category)
 		{
 			if (await HasInternetConnection(true))
 			{
@@ -84,7 +86,7 @@ namespace PocketBar.ViewModels
 
 		}
 
-		public async void GetCocktailsByGlass(string Glass)
+		public async Task GetCocktailsByGlass(string Glass)
 		{
 			if (await HasInternetConnection(true))
 			{
@@ -105,7 +107,7 @@ namespace PocketBar.ViewModels
 
 		}
 
-		async void ToggleFavorite(Cocktail cocktail)
+		async Task ToggleFavorite(Cocktail cocktail)
 		{
 			try
 			{
@@ -124,7 +126,7 @@ namespace PocketBar.ViewModels
 			}
 		}
 
-		public async void GetCocktailsByIngredient(string Ingredient)
+		public async Task GetCocktailsByIngredient(string Ingredient)
 		{
 			if (await this.HasInternetConnection(true))
 			{
@@ -145,7 +147,7 @@ namespace PocketBar.ViewModels
 
 		}
 
-		public async void Initialize(INavigationParameters parameters)
+		public override void Initialize(INavigationParameters parameters)
 		{
 			try
 			{
@@ -158,7 +160,7 @@ namespace PocketBar.ViewModels
 				}
 				else
 				{
-					await ShowMessage(ErrorMessages.ErrorOccured, ErrorMessages.MissingInformation, ErrorMessages.Ok);
+					ShowMessage(ErrorMessages.ErrorOccured, ErrorMessages.MissingInformation, ErrorMessages.Ok);
 					return;
 				}
 
@@ -168,7 +170,7 @@ namespace PocketBar.ViewModels
 				}
 				else
 				{
-					await ShowMessage(ErrorMessages.ErrorOccured, ErrorMessages.MissingInformation, ErrorMessages.Ok);
+				    ShowMessage(ErrorMessages.ErrorOccured, ErrorMessages.MissingInformation, ErrorMessages.Ok);
 					return;
 				}
 
@@ -178,7 +180,7 @@ namespace PocketBar.ViewModels
 				}
 				else
 				{
-					await ShowMessage(ErrorMessages.ErrorOccured, ErrorMessages.MissingInformation, ErrorMessages.Ok);
+					ShowMessage(ErrorMessages.ErrorOccured, ErrorMessages.MissingInformation, ErrorMessages.Ok);
 					return;
 				}
 
@@ -199,16 +201,16 @@ namespace PocketBar.ViewModels
 				}
 			}catch(Exception e)
 			{
-				await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
+				 ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
 			}
 		}
 
-		public void OnNavigatedFrom(INavigationParameters parameters)
+		public override void OnNavigatedFrom(INavigationParameters parameters)
 		{
 			// do nothing, we do not need this;
 		}
 
-		public void OnNavigatedTo(INavigationParameters parameters)
+		public override void OnNavigatedTo(INavigationParameters parameters)
 		{
 			if(Cocktails != null && Cocktails.Count > 0)
 			{

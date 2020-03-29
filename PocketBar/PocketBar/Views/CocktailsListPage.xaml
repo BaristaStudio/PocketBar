@@ -64,17 +64,14 @@
                                     <yummy:PancakeView CornerRadius="0,0,6,0"  Grid.Row="0"
                                            Grid.Column="0"
                                            Grid.ColumnSpan="2">
-                                        <StackLayout BackgroundColor="{StaticResource Default}"
-                                         Opacity="0.7"
-                                          
-                                           VerticalOptions="End"
-                                           Padding="15,5">
-
+                                        <StackLayout BackgroundColor="{StaticResource DefaultWithOpacity}"
+                                                     VerticalOptions="End"
+                                                     Padding="15,5">
                                             <Label Text="{Binding DrinkName}"
-                                           TextColor="White"
-                                           FontFamily="Poppins"
-                                           FontAttributes="Bold"
-                                           FontSize="14"/>
+                                                   TextColor="White"
+                                                   FontFamily="Poppins"
+                                                   FontAttributes="Bold"
+                                                   FontSize="14"/>
                                         </StackLayout>
                                     </yummy:PancakeView>
                                 </Grid>

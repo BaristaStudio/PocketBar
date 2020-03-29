@@ -38,7 +38,8 @@
                                 <ViewCell.ContextActions>
                                     <MenuItem Command="{Binding Path=BindingContext.RemoveFromFavoritesCommand, Source={x:Reference this}}"
                                               CommandParameter="{Binding .}"
-                                              Text="Remove From Favorites"/>
+                                              Text="Remove From Favorites"
+                                              IsDestructive="True"/>
                                 </ViewCell.ContextActions>
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -59,13 +60,13 @@
                                                Aspect="Fill"/>
                                     </yummy:PancakeView>
 
-                                    <yummy:PancakeView CornerRadius="0,0,6,0"  Grid.Row="0"
-                                           Grid.Column="0"
-                                           Grid.ColumnSpan="2">
-                                        <StackLayout BackgroundColor="{StaticResource Default}"
-                                                     Opacity="0.7"
-                                                   VerticalOptions="End"
-                                                   Padding="15,5">
+                                    <yummy:PancakeView CornerRadius="0,0,6,0"
+                                                       Grid.Row="0"
+                                                       Grid.Column="0"
+                                                       Grid.ColumnSpan="2">
+                                        <StackLayout BackgroundColor="{StaticResource DefaultWithOpacity}"
+                                                     VerticalOptions="End"
+                                                     Padding="15,5">
                                             <Label Text="{Binding DrinkName}"
                                                    TextColor="White"
                                                    FontFamily="Poppins"
@@ -76,12 +77,10 @@
                                                 <Label Text="{Binding Glass}"
                                                        TextColor="White"
                                                        FontFamily="Poppins"
-                                                       FontAttributes="None"
-                                                       FontSize="12"
-                                                       VerticalOptions="Center"/>
+                                                       FontSize="14"
+                                                       HorizontalOptions="Start"/>
                                                 <Image Source="glass"
-                                                       HorizontalOptions="Start"
-                                                       VerticalOptions="Center"/>
+                                                       HorizontalOptions="Start"/>
                                             </StackLayout>
                                         </StackLayout>
                                     </yummy:PancakeView>

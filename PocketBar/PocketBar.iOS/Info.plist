@@ -28,8 +28,6 @@
 	<string>com.companyname.PocketBar</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
 	<string>PocketBar</string>
 	<key>XSAppIconAssets</key>
@@ -40,5 +38,7 @@
 		<string>fa-regular-400.ttf</string>
 		<string>fa-brands-400.ttf</string>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
 </dict>
 </plist>
