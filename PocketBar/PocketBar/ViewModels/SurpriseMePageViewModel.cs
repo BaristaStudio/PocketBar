@@ -97,17 +97,47 @@ namespace PocketBar.ViewModels
 
         public async Task GetRandomCocktail()
         {
-            RandomCocktail = await cocktailsManager.GetRandomCocktail();
+            if(await HasInternetConnection(true))
+            {
+                try
+                {
+                    RandomCocktail = await cocktailsManager.GetRandomCocktail();
+                }
+                catch (Exception e)
+                {
+                    await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
+                }
+            }
         }
 
         public async Task GetRandomIngredient()
         {
-            RandomIngredient = await ingredientsManager.GetRandomIngredient();
+            if (await HasInternetConnection(false))
+            {
+                try
+                {
+                    RandomIngredient = await ingredientsManager.GetRandomIngredient();
+                }
+                catch (Exception e)
+                {
+                    await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
+                }
+            }
         }
 
         public async Task GetRandomGlass()
         {
-            RandomGlass = await glassesManager.GetRandomGlass();
+            if (await HasInternetConnection(false))
+            {
+                try
+                {
+                    RandomGlass = await glassesManager.GetRandomGlass();
+                }
+                catch (Exception e)
+                {
+                    await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
+                }
+            }
         }
 
         public async Task GoToAlcoholicDrink()

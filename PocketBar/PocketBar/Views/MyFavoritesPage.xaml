@@ -38,7 +38,8 @@
                                 <ViewCell.ContextActions>
                                     <MenuItem Command="{Binding Path=BindingContext.RemoveFromFavoritesCommand, Source={x:Reference this}}"
                                               CommandParameter="{Binding .}"
-                                              Text="Remove From Favorites"/>
+                                              Text="Remove From Favorites"
+                                              IsDestructive="True"/>
                                 </ViewCell.ContextActions>
                                 <Grid>
                                     <Grid.RowDefinitions>

@@ -83,8 +83,8 @@
                                 <Setter Property="IsVisible" Value="True"/>
                             </MultiTrigger>
                         </ScrollView.Triggers>
-                        <Grid    Margin="20,0,20,0"
-                             Padding="0">
+                        <Grid Margin="20,0,20,0"
+                              Padding="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -236,12 +236,11 @@
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding GoToCocktailWithGlassCommand}"/>
                             </StackLayout.GestureRecognizers>
-                            <yummy:PancakeView
-                                           BackgroundColor="{StaticResource LightBlue}"
-                                           Padding="5"
-                                           CornerRadius="5,0,5,0"
-                                           Margin="0"
-                                           HasShadow="False">
+                            <yummy:PancakeView BackgroundColor="{StaticResource LightBlue}"
+                                               Padding="5"
+                                               CornerRadius="5,0,5,0"
+                                               Margin="0"
+                                               HasShadow="False">
                                 <Image Source="glass"
                                        HorizontalOptions="Center"
                                        VerticalOptions="Center"
@@ -285,21 +284,23 @@
                         </Grid>
                     </ScrollView>
                     <ListView ItemsSource="{Binding FilteredCocktails}"
-                          CachingStrategy="RecycleElement"
-                          IsVisible="False"
-                          HasUnevenRows="True"
-                          x:Name="CocktailsListView">
+                              CachingStrategy="RecycleElement"
+                              IsVisible="False"
+                              HasUnevenRows="True"
+                              x:Name="CocktailsListView"
+                              Footer="">
                         <ListView.Triggers>
                             <MultiTrigger TargetType="ListView">
                                 <MultiTrigger.Conditions>
                                     <BindingCondition Binding="{Binding IsFiltered}"
-                                                  Value="True"/>
+                                                      Value="True"/>
                                     <BindingCondition Binding="{Binding IsLoading}"
-                                                  Value="False"/>
+                                                      Value="False"/>
                                     <BindingCondition Binding="{Binding IsEmpty}"
-                                                  Value="False"/>
+                                                      Value="False"/>
                                 </MultiTrigger.Conditions>
-                                <Setter Property="IsVisible" Value="True"/>
+                                <Setter Property="IsVisible"
+                                        Value="True"/>
                             </MultiTrigger>
                         </ListView.Triggers>
                         <ListView.ItemTemplate>
@@ -311,14 +312,14 @@
                                                               CommandParameter="{Binding IdDrink}"/>
                                     </StackLayout.GestureRecognizers>
                                         <Label FontFamily="Poppins"
-                                       FontSize="16"
-                                       FontAttributes="Bold"
-                                       TextColor="Black"
-                                       Text="{Binding DrinkName}"/>
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="Black"
+                                               Text="{Binding DrinkName}"/>
                                         <Label FontFamily="Poppins"
-                                       FontSize="14"
-                                       TextColor="Black"
-                                       Text="{Binding Glass}"/>
+                                               FontSize="14"
+                                               TextColor="Black"
+                                               Text="{Binding Glass}"/>
                                     </StackLayout>
                                 </ViewCell>
                             </DataTemplate>
@@ -331,11 +332,12 @@
                             <MultiTrigger TargetType="StackLayout">
                                 <MultiTrigger.Conditions>
                                     <BindingCondition Binding="{Binding IsFiltered}"
-                                                  Value="True"/>
+                                                      Value="True"/>
                                     <BindingCondition Binding="{Binding IsEmpty}"
-                                                  Value="True"/>
+                                                      Value="True"/>
                                 </MultiTrigger.Conditions>
-                                <Setter Property="IsVisible" Value="True"/>
+                                <Setter Property="IsVisible"
+                                        Value="True"/>
                             </MultiTrigger>
                         </StackLayout.Triggers>
                         <Label Text="Nothing to see here"
@@ -361,15 +363,15 @@
                 </StackLayout>
         </RefreshView>
         <ContentView BackgroundColor="#222222" Opacity="0.5"
-                         AbsoluteLayout.LayoutFlags="All"
-                         AbsoluteLayout.LayoutBounds="0,0,1,1"
-                         IsVisible="{Binding IsLoading}">
+                     AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     IsVisible="{Binding IsLoading}">
         </ContentView>
         <ActivityIndicator  IsRunning="{Binding IsLoading}"
-                                IsVisible="{Binding IsLoading}"
-                                Color="AliceBlue"
-                                AbsoluteLayout.LayoutFlags="PositionProportional"
-                                AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"/>
+                            IsVisible="{Binding IsLoading}"
+                            Color="AliceBlue"
+                            AbsoluteLayout.LayoutFlags="PositionProportional"
+                            AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"/>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

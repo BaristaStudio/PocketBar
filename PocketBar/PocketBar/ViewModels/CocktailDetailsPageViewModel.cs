@@ -20,7 +20,7 @@ namespace PocketBar.ViewModels
         const string FavoriteEmptyIcon = "favoritesUnfilled";
         const string FavoriteFilledIcon = "favoritesFilled";
         public string FavoriteIcon { get; set; } = FavoriteEmptyIcon;
-        public Cocktail Cocktail {get; set; }
+        public Cocktail Cocktail { get; set; } = new Cocktail();
         public DelegateCommand ShareCocktailCommand { get; set; }
         public DelegateCommand MarkAsFavoriteCommand { get; set; }
         public DelegateCommand<string> GoToIngredientCommand { get; set; }
@@ -49,7 +49,7 @@ namespace PocketBar.ViewModels
                 }
                 else
                 {
-
+                    GetCocktail(drinkId);
                 }
                 FavoriteIcon = Cocktail.IsFavorite ? FavoriteFilledIcon : FavoriteEmptyIcon;
                 IsLoading = false;
@@ -63,7 +63,17 @@ namespace PocketBar.ViewModels
         {
             if(await HasInternetConnection(true))
             {
-                Cocktail = await _cocktailsManager.GetCocktail(drinkId);
+                try
+                {
+                    IsLoading = true;
+                    Cocktail = await _cocktailsManager.GetCocktail(drinkId);
+                    IsLoading = false;
+                }
+                catch (Exception e)
+                {
+                    IsLoading = false;
+                    await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
+                }
             }
         }
         async Task ToggleFavorite()

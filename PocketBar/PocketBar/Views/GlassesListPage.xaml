@@ -35,7 +35,8 @@
                     Margin="0"
                     RowHeight="200"
                     x:Name="GlassesList"
-                    SeparatorVisibility="None">
+                    SeparatorVisibility="None"
+                    CachingStrategy="RecycleElement">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
