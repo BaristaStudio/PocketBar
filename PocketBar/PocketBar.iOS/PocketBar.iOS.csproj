@@ -383,4 +383,37 @@
   <ItemGroup>
     <BundleResource Include="Resources\glassShowMe.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\beer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cocktail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cocoa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\coffeeTea.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\homemadeLiqueur.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\milkFloatShake.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ordinaryDrink.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\otherUnknown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\punchPartyDrink.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\shot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\softDrinkSoda.png" />
+  </ItemGroup>
 </Project>
