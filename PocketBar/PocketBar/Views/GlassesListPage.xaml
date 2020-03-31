@@ -20,7 +20,7 @@
                 <Setter Property="VerticalOptions" Value="End" />
                 <Setter Property="Padding" Value="0" />
             </Style>
-            <utils:GlassImageConverter x:Key="imageConverter"/>
+            <utils:NameToImageConverter x:Key="imageConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -48,7 +48,7 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
-                                        <Image Source="{Binding GlassName,Converter={StaticResource imageConverter}}" Aspect="AspectFill" HorizontalOptions="FillAndExpand">
+                                        <Image Source="{Binding GlassName,Converter={StaticResource imageConverter}, ConverterParameter=.jpg}" Aspect="AspectFill" HorizontalOptions="FillAndExpand">
                                             <Image.GestureRecognizers>
                                                 <TapGestureRecognizer 
                                                     Command="{Binding Path=Parent.BindingContext.GoToDrinksCommand, Source={x:Reference GlassesList}}" 
