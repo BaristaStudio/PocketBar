@@ -23,7 +23,7 @@ namespace PocketBar.ViewModels
         {
             _glassesManager = glassesManager;
             GoToDrinksCommand = new DelegateCommand<string>(async(param) => { await GoToDrinks(param); });
-            GetGlasses();
+            GetGlasses().GetAwaiter();
         }
         public async Task GetGlasses()
         {

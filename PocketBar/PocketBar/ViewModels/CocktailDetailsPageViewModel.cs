@@ -30,13 +30,13 @@ namespace PocketBar.ViewModels
             MarkAsFavoriteCommand = new DelegateCommand(async() => { await ToggleFavorite(); });
             GoToIngredientCommand = new DelegateCommand<string>(async(param) => { await GoToIngredient(param); });            
         }
-        public override void Initialize(INavigationParameters parameters)
+        public override async void Initialize(INavigationParameters parameters)
         {
             try
             {
                 if (!parameters.ContainsKey("DrinkId"))
                 {
-                    ShowMessage(Constants.ErrorMessages.ErrorOccured, Constants.ErrorMessages.MissingParameter, Constants.ErrorMessages.Ok);
+                    await ShowMessage(Constants.ErrorMessages.ErrorOccured, Constants.ErrorMessages.MissingParameter, Constants.ErrorMessages.Ok);
                     return;
                 }
                 IsLoading = true;
@@ -47,14 +47,14 @@ namespace PocketBar.ViewModels
                 }
                 else
                 {
-                    GetCocktail(drinkId);
+                    await GetCocktail(drinkId);
                 }
                 FavoriteIcon = Cocktail.IsFavorite ? FavoriteFilledIcon : FavoriteEmptyIcon;
                 IsLoading = false;
             } catch(Exception e)
             {
                 IsLoading = false;
-                ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
+                await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
             }
         }
         async Task GetCocktail(int drinkId)
