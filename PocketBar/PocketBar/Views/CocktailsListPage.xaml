@@ -28,7 +28,7 @@
                     FontSize="18"/>
                 <ListView ItemsSource="{Binding Cocktails}" 
                           x:Name="DrinksList" 
-                          RowHeight="230" 
+                          RowHeight="250" 
                           SeparatorVisibility="None" 
                           SelectedItem="{Binding CocktailSelected, Mode=TwoWay}"
                           CachingStrategy="RecycleElement">
@@ -42,7 +42,7 @@
                                               IsDestructive="{Binding IsFavorite}">
                                     </MenuItem>
                                 </ViewCell.ContextActions>
-                                <Grid>
+                                <Grid RowSpacing="35">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
@@ -57,8 +57,7 @@
                                                Grid.Column="0">
                                         <Image Source="{Binding DrinkThumb}" 
                                                HorizontalOptions="FillAndExpand"
-                                               HeightRequest="200"
-                                               Aspect="Fill"/>
+                                               Aspect="AspectFill"/>
                                     </yummy:PancakeView>
 
                                     <yummy:PancakeView CornerRadius="0,0,6,0"  Grid.Row="0"
