@@ -65,7 +65,7 @@
                                                            Grid.Column="0">
                                             <Image Source="{Binding DrinkThumb}" 
                                                    HorizontalOptions="FillAndExpand"
-                                                   HeightRequest="200"
+                                                   HeightRequest="220"
                                                    Aspect="AspectFill"/>
                                         </yummy:PancakeView>
                                         <yummy:PancakeView CornerRadius="0,0,6,0"  Grid.Row="0"
