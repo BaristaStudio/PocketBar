@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:rf="clr-namespace:RedCorners.Forms;assembly=RedCorners.Forms"
              mc:Ignorable="d"
              x:Class="PocketBar.Views.CategoriesPage"
              xmlns:utils="clr-namespace:PocketBar.Utils"
@@ -25,24 +26,36 @@
                 <Label Text="Categories" 
                        Style="{StaticResource TitleStyle}" 
                        Margin="16,15,0,10"/>
-                <CollectionView ItemsSource="{Binding Categories}" x:Name="CategoriesList" Margin="16,10,20,0">
+                <CollectionView ItemsSource="{Binding Categories}"
+                                x:Name="CategoriesList"
+                                Margin="16,10,16,0">
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="20" VerticalItemSpacing="30"/>
+                        <GridItemsLayout Orientation="Vertical"
+                                         Span="2"
+                                         HorizontalItemSpacing="10"
+                                         VerticalItemSpacing="30"
+                                         />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame HasShadow="True">
+                            <StackLayout Padding="5,0">
+                            <rf:Frame2 HasShadow="True"
+                                       BackgroundColor="White"
+                                       Margin="5"
+                                       CornerRadius="5"
+                                       ShadowColor="LightGray">
+                                <Frame.GestureRecognizers>
+                                   <TapGestureRecognizer Command="{Binding Path=Parent.BindingContext.GoToDrinksCommand, Source={x:Reference CategoriesList}}"
+                                                         CommandParameter="{Binding CategoryName}"/>
+                                </Frame.GestureRecognizers>
                                 <StackLayout>
-                                    <Image Source="{Binding CategoryName, Converter={StaticResource imageConverter}, ConverterParameter=.png}" HeightRequest="100" VerticalOptions="Center">
-                                            <Image.GestureRecognizers>
-                                                <TapGestureRecognizer 
-                                                    Command="{Binding Path=Parent.BindingContext.GoToDrinksCommand, Source={x:Reference CategoriesList}}"
-                                                    CommandParameter="{Binding CategoryName}"/>
-                                            </Image.GestureRecognizers>
-                                        </Image>
+                                    <Image Source="{Binding CategoryName, Converter={StaticResource imageConverter}, ConverterParameter=.png}"
+                                           HeightRequest="100"
+                                           VerticalOptions="Center"/>
                                     <Label Text="{Binding CategoryName}" Style="{StaticResource category}" VerticalOptions="EndAndExpand"/>
                                 </StackLayout>
-                            </Frame>
+                            </rf:Frame2>
+                            </StackLayout> 
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

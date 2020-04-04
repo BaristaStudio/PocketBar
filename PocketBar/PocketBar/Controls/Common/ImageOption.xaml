@@ -10,7 +10,7 @@
     <ContentView.Content>
         <rf:Frame2 HasShadow="True"
                    BackgroundColor="White"
-                   Margin="5,5"
+                   Margin="5"
                    CornerRadius="5"
                    BindingContext="{x:Reference this}"
                    ShadowColor="LightGray">
@@ -31,6 +31,7 @@
                        FontAttributes="Bold"
                        FontSize="14"
                        HorizontalOptions="CenterAndExpand"
+                       HorizontalTextAlignment="Center"
                        TextColor="{StaticResource Default}"
                        />
             </StackLayout>
