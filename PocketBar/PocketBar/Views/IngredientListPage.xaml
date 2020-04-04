@@ -22,7 +22,6 @@
                           HasUnevenRows="True"
                           SeparatorVisibility="None"
                           Margin="20,0,20,20"
-                          CachingStrategy="RecycleElement"
                           x:Name="IngredientsListView">
                     <ListView.ItemTemplate>
                         <DataTemplate>
