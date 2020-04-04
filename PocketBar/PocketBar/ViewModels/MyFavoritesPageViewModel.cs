@@ -19,24 +19,14 @@ namespace PocketBar.ViewModels
         private ICocktailsManager cocktailsManager;
         public ObservableCollection<Cocktail> FavoriteCocktails { get; set; }
         public DelegateCommand<Cocktail> RemoveFromFavoritesCommand { get; set; }
-        public Cocktail _cocktailSelected { get; set; }
-        public Cocktail CocktailSelected
-        {
-            get
-            {
-                return null;
-            }
-            set
-            {
-                    _cocktailSelected = value;
-                    GoToDrink(_cocktailSelected.IdDrink);
-            }
-        }
+
+        public DelegateCommand<string> GoToDrinkCommand { get; set; }
         public MyFavoritesPageViewModel(PageDialogService pageDialogService, INavigationService navigationService, ICocktailsManager cocktailsManager) : base(pageDialogService, navigationService)
         {
             this.cocktailsManager = cocktailsManager;
-            this.IsActiveChanged += new EventHandler(OnActivated);
+            IsActiveChanged += new EventHandler(OnActivated);
             RemoveFromFavoritesCommand = new DelegateCommand<Cocktail>(async(param) => { await RemoveFromFavorites(param); });
+            GoToDrinkCommand = new DelegateCommand<string>(async (param) => { await GoToDrink(param); });
         }
 
         private void OnActivated(object sender, EventArgs e)
@@ -56,7 +46,7 @@ namespace PocketBar.ViewModels
             }
             catch (Exception e)
             {
-                await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
+                await ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
             }
         }
         public async Task RemoveFromFavorites(Cocktail cocktail)
@@ -69,7 +59,7 @@ namespace PocketBar.ViewModels
             }
             catch (Exception e)
             {
-                await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
+                await ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
             }
         }
         public async Task GoToDrink(string drinkId)
@@ -83,7 +73,7 @@ namespace PocketBar.ViewModels
             }
             catch (Exception e)
             {
-                await this.ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
+                await ShowMessage(ErrorMessages.ErrorOccured, e.Message, ErrorMessages.Ok);
             }
         }
     }

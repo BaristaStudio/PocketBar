@@ -30,50 +30,59 @@
                           x:Name="DrinksList" 
                           RowHeight="250" 
                           SeparatorVisibility="None" 
-                          SelectedItem="{Binding CocktailSelected, Mode=TwoWay}"
                           CachingStrategy="RecycleElement">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <ViewCell.ContextActions>
-                                    <MenuItem Command="{Binding Path=BindingContext.ToggleFavoriteCommand, Source={x:Reference this}}"
-                                              CommandParameter="{Binding .}"
-                                              Text="{Binding IsFavorite, Converter={StaticResource BoolTextConverter}, ConverterParameter='Remove From Favorites|Mark As Favorite'}"
-                                              IsDestructive="{Binding IsFavorite}">
-                                    </MenuItem>
-                                </ViewCell.ContextActions>
-                                <Grid RowSpacing="35">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <yummy:PancakeView CornerRadius="6" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="4"
-                                               Grid.Column="0">
-                                        <Image Source="{Binding DrinkThumb}" 
-                                               HorizontalOptions="FillAndExpand"
-                                               Aspect="AspectFill"/>
-                                    </yummy:PancakeView>
-
-                                    <yummy:PancakeView CornerRadius="0,0,6,0"  Grid.Row="0"
+                                <SwipeView>
+                                    <SwipeView.GestureRecognizers>
+                                        <TapGestureRecognizer   Command="{Binding Path=BindingContext.GoToDrinkCommand, Source={x:Reference this}}"
+                                                                CommandParameter="{Binding IdDrink}"
+                                                                NumberOfTapsRequired="1" />     
+                                    </SwipeView.GestureRecognizers>
+                                    <SwipeView.RightItems>
+                                        <SwipeItem  Command="{Binding Path=BindingContext.ToggleFavoriteCommand, Source={x:Reference this}}"
+                                                    Text="{Binding IsFavorite, Converter={StaticResource BoolTextConverter}, ConverterParameter='Unfavorite|Favorite'}"
+                                                    CommandParameter="{Binding .}"
+                                                    IconImageSource="{Binding IsFavorite, Converter={StaticResource BoolTextConverter}, ConverterParameter='favoritesFilled|favoritesUnfilled'}"
+                                                    BackgroundColor="White"
+                                                    IsDestructive="{Binding IsFavorite}"
+                                                    />
+                                    </SwipeView.RightItems>
+                                    <Grid RowSpacing="35">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <yummy:PancakeView CornerRadius="6" 
+                                                           HorizontalOptions="FillAndExpand" Grid.ColumnSpan="4"
+                                                           Grid.Column="0">
+                                            <Image Source="{Binding DrinkThumb}" 
+                                                   HorizontalOptions="FillAndExpand"
+                                                   HeightRequest="220"
+                                                   Aspect="AspectFill"/>
+                                        </yummy:PancakeView>
+                                        <yummy:PancakeView CornerRadius="0,0,6,0"  Grid.Row="0"
                                            Grid.Column="0"
                                            Grid.ColumnSpan="2">
-                                        <StackLayout BackgroundColor="{StaticResource DefaultWithOpacity}"
+                                            <StackLayout BackgroundColor="{StaticResource DefaultWithOpacity}"
                                                      VerticalOptions="End"
                                                      Padding="15,5">
-                                            <Label Text="{Binding DrinkName}"
+                                                <Label Text="{Binding DrinkName}"
                                                    TextColor="White"
                                                    FontFamily="Poppins"
                                                    FontAttributes="Bold"
                                                    FontSize="14"/>
-                                        </StackLayout>
-                                    </yummy:PancakeView>
-                                </Grid>
+                                            </StackLayout>
+                                        </yummy:PancakeView>
+                                    </Grid>
+                                </SwipeView>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>

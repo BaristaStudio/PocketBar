@@ -1,4 +1,5 @@
 ﻿using PocketBar.Constants;
+using PocketBar.Controls.Common;
 using PocketBar.Managers;
 using PocketBar.Managers.Interfaces;
 using PocketBar.Models;
@@ -36,8 +37,8 @@ namespace PocketBar.ViewModels
 
         public ObservableCollection<Cocktail> FilteredCocktails { get; set; }
 
-        public DelegateCommand GoToAlcoholicDrinkCommand { get; set; }
-        public DelegateCommand GoToNonAlcoholicDrinkCommand { get; set; }
+        public DelegateCommand<ImageOption> GoToAlcoholicDrinkCommand { get; set; }
+        public DelegateCommand<ImageOption> GoToNonAlcoholicDrinkCommand { get; set; }
         public DelegateCommand GoToCocktailWithIngredientCommand { get; set; }
         public DelegateCommand GoToCocktailWithGlassCommand { get; set; }
         public DelegateCommand<string> GoToDrinkCommand { get; set; }
@@ -52,8 +53,8 @@ namespace PocketBar.ViewModels
             typeAssistant = new TypeAssistant(500);
             typeAssistant.OnFinishedTyping += OnSearch;
             IsFiltered = false;
-            GoToAlcoholicDrinkCommand = new DelegateCommand(async() => {await GoToAlcoholicDrink();});
-            GoToNonAlcoholicDrinkCommand = new DelegateCommand(async() => {await GoToNonAlcoholicDrink(); });
+            GoToAlcoholicDrinkCommand = new DelegateCommand<ImageOption>(async (param) => { await GoToAlcoholicDrink(); });
+            GoToNonAlcoholicDrinkCommand = new DelegateCommand<ImageOption>(async(param) => {await GoToNonAlcoholicDrink(); });
             SearchCommand = new DelegateCommand(SearchTermChanged);
             RefreshDataCommand = new DelegateCommand(async() => {await GetData(); });
             GoToDrinkCommand = new DelegateCommand<string>(async(param) => {await GoToDrink(param); });
