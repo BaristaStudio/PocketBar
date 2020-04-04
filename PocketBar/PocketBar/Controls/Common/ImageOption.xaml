@@ -15,12 +15,13 @@
                    BindingContext="{x:Reference this}"
                    ShadowColor="LightGray">
             <Frame.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding OptionSelectedCommand}"/>
+                <TapGestureRecognizer Command="{Binding OptionSelectedCommand}"
+                                      CommandParameter="{Binding .}"/>
             </Frame.GestureRecognizers>
             <StackLayout
                 Margin="5"
                 VerticalOptions="CenterAndExpand">
-                <Image Source="{Binding ImageSrc}" 
+                <Image Source="{Binding ImageSource}" 
                        HorizontalOptions="FillAndExpand"
                        VerticalOptions="FillAndExpand"
                        HeightRequest="85"
