@@ -21,22 +21,10 @@ namespace PocketBar.ViewModels
 		private IIngredientsManager ingredientsManager;
 		private ICocktailsManager cocktailsManager;
 		public ObservableCollection<Cocktail> Cocktails { get; set; }
-		public Cocktail _cocktailSelected { get; set; }
-		public Cocktail CocktailSelected
-		{
-			get
-			{
-				return null;
-			}
-			set
-			{
-					_cocktailSelected = value;
-					GoToDrink(_cocktailSelected.IdDrink);
-			}
-		}
 		public string Title { get; set; }
 
 		public DelegateCommand<Cocktail> ToggleFavoriteCommand { get; set; }
+		public DelegateCommand<string> GoToDrinkCommand { get; set; }
 
 
 		public CocktailsListPageViewModel(PageDialogService pageDialogService, INavigationService navigationService,ICategoriesManager categoriesManager, IGlassesManager glassesManager, IIngredientsManager ingredientsManager, ICocktailsManager cocktailsManager) : base(pageDialogService, navigationService)
@@ -48,6 +36,7 @@ namespace PocketBar.ViewModels
 			this.cocktailsManager = cocktailsManager;
 
 			ToggleFavoriteCommand = new DelegateCommand<Cocktail>(async(param) => { await ToggleFavorite(param); });
+			GoToDrinkCommand = new DelegateCommand<string>(async(param) => { await GoToDrink(param); });
 		}
 
 		public async Task GoToDrink(string drinkId)
@@ -117,11 +106,18 @@ namespace PocketBar.ViewModels
 				}
 				else
 				{
-					cocktailsManager.MarkAsFavorite(cocktail);
+					if (await HasInternetConnection(true))
+					{
+						IsLoading = true;
+						cocktail = await cocktailsManager.GetCocktail(int.Parse(cocktail.IdDrink));
+						cocktailsManager.MarkAsFavorite(cocktail);
+						IsLoading = false;
+					}
 				}
 			}
 			catch (Exception e)
 			{
+				IsLoading = false;
 				await ShowMessage(Constants.ErrorMessages.ErrorOccured, e.Message, Constants.ErrorMessages.Ok);
 			}
 		}

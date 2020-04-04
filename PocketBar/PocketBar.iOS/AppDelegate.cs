@@ -7,6 +7,7 @@ using Lottie.Forms.iOS.Renderers;
 using Prism;
 using Prism.Ioc;
 using UIKit;
+using Xamarin.Forms;
 
 namespace PocketBar.iOS
 {
@@ -25,7 +26,8 @@ namespace PocketBar.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            global::Xamarin.Forms.Forms.Init();
+            Forms.SetFlags("SwipeView_Experimental");
+            Forms.Init();
             AnimationViewRenderer.Init();
             LoadApplication(new App(new iOSInitializer()));
 
