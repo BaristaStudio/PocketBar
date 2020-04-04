@@ -21,7 +21,7 @@
             <StackLayout
                 Margin="5"
                 VerticalOptions="CenterAndExpand">
-                <Image Source="{Binding ImageSource}" 
+                <Image Source="{Binding ImageSrc}" 
                        HorizontalOptions="FillAndExpand"
                        VerticalOptions="FillAndExpand"
                        HeightRequest="85"

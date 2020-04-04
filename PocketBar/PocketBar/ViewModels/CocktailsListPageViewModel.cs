@@ -109,8 +109,9 @@ namespace PocketBar.ViewModels
 					if (await HasInternetConnection(true))
 					{
 						IsLoading = true;
-						cocktail = await cocktailsManager.GetCocktail(int.Parse(cocktail.IdDrink));
-						cocktailsManager.MarkAsFavorite(cocktail);
+						var fullCocktail = await cocktailsManager.GetCocktail(int.Parse(cocktail.IdDrink));
+						cocktailsManager.MarkAsFavorite(fullCocktail);
+						cocktail.IsFavorite = true;
 						IsLoading = false;
 					}
 				}
