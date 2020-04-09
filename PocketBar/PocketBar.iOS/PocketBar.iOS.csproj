@@ -172,6 +172,9 @@
     <PackageReference Include="Prism.Unity.Forms">
       <Version>7.2.0.1422</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Forms">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.396" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.1" />
   </ItemGroup>
@@ -415,5 +418,11 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\softDrinkSoda.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\errorImage.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\loadingImage.gif" />
   </ItemGroup>
 </Project>

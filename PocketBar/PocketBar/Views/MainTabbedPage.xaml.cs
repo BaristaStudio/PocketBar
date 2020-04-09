@@ -15,7 +15,7 @@ namespace PocketBar.Views
 		public MainTabbedPage()
 		{
 			InitializeComponent();
-			CurrentPage = Children[3];
+			CurrentPage = Children[2];
 		}
 	}
 }

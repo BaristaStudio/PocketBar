@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using FFImageLoading.Forms.Platform;
 using Foundation;
 using Lottie.Forms.iOS.Renderers;
 using Prism;
@@ -29,6 +29,8 @@ namespace PocketBar.iOS
             Forms.SetFlags("SwipeView_Experimental");
             Forms.Init();
             AnimationViewRenderer.Init();
+            CachedImageRenderer.Init();
+            CachedImageRenderer.InitImageSourceHandler();
             LoadApplication(new App(new iOSInitializer()));
 
             return base.FinishedLaunching(app, options);

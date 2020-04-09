@@ -7,6 +7,7 @@
              x:Class="PocketBar.Views.CocktailDetailsPage"
              xmlns:control="clr-namespace:PocketBar.Controls.Common"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              ios:Page.UseSafeArea="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -40,8 +41,13 @@
                     
                     <ScrollView>
                         <StackLayout>
-                            <Image Source="{Binding Cocktail.DrinkThumb}" HorizontalOptions="Fill" Aspect="AspectFill"/>
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <ffimageloading:CachedImage Source="{Binding Cocktail.DrinkThumb}" 
+                                                    ErrorPlaceholder="errorImage.gif"
+                                                    LoadingPriority="Highest"
+                                                    DownsampleToViewSize="True"
+                                                    Aspect="AspectFill" 
+                                                    HorizontalOptions="Fill"/>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                 <Label Text="{Binding Cocktail.DrinkName}" Style="{StaticResource TitleStyle}" VerticalOptions="FillAndExpand"/>
                                 <Image Source="{Binding FavoriteIcon}"
                                        HorizontalOptions="End">

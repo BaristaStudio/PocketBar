@@ -27,5 +27,7 @@
     </style>
     <style name="MyTheme.Splash" parent="Theme.AppCompat.Light.NoActionBar">
       <item name="android:windowBackground">@drawable/splash_background</item>
+      <item name="colorPrimary">#ffffff</item>
+      <item name="colorPrimaryDark">#ffffff</item>
     </style>
 </resources>

@@ -48,11 +48,11 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
-                                        <Image Source="{Binding GlassName,Converter={StaticResource imageConverter}, ConverterParameter=.jpg}" Aspect="AspectFill" HorizontalOptions="FillAndExpand">
+                                        <Image  Source="{Binding GlassName,Converter={StaticResource imageConverter}, ConverterParameter=.jpg}" Aspect="AspectFill" HorizontalOptions="FillAndExpand">
                                             <Image.GestureRecognizers>
                                                 <TapGestureRecognizer 
                                                     Command="{Binding Path=Parent.BindingContext.GoToDrinksCommand, Source={x:Reference GlassesList}}" 
-                                                    CommandParameter="{Binding GlassName}"/>   
+                                                    CommandParameter="{Binding GlassName}"/>
                                             </Image.GestureRecognizers>
                                         </Image>
                                         <Frame BackgroundColor="{StaticResource DefaultWithOpacity}"

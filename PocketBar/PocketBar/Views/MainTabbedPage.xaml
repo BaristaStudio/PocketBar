@@ -18,8 +18,8 @@
     <TabbedPage.Children>
         <local:GlassesListPage IconImageSource="glasses"/>
         <local:CategoriesPage IconImageSource="categories"/>
-        <local:MyFavoritesPage IconImageSource="favorites"/>
         <local:SurpriseMePage IconImageSource="surprise"/>
+        <local:MyFavoritesPage IconImageSource="favorites"/>
         <local:IngredientListPage IconImageSource="ingredients"/>
     </TabbedPage.Children>
 </TabbedPage>

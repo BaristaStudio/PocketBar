@@ -11,6 +11,7 @@
              xmlns:local="clr-namespace:PocketBar.Controls.Common"
              xmlns:utils="clr-namespace:PocketBar.Utils"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -124,15 +125,18 @@
                                                Grid.Row="3" 
                                                Grid.ColumnSpan="4"
                                                Grid.Column="0">
-                                <Image Source="{Binding RandomCocktail.DrinkThumb}" 
-                                       HorizontalOptions="FillAndExpand"
-                                       HeightRequest="200"
-                                       Aspect="Fill">   
-                                    <Image.GestureRecognizers>
+                                <ffimageloading:CachedImage Source="{Binding RandomCocktail.DrinkThumb}" 
+                                                    ErrorPlaceholder="errorImage.gif"
+                                                    LoadingPriority="Highest"
+                                                    DownsampleToViewSize="True"
+                                                    Aspect="AspectFill" 
+                                                    HeightRequest="200"
+                                                    HorizontalOptions="FillAndExpand">
+                                    <ffimageloading:CachedImage.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding GoToDrinkCommand}"
                                                               CommandParameter="{Binding RandomCocktail.IdDrink}"/>
-                                    </Image.GestureRecognizers>
-                                </Image>
+                                    </ffimageloading:CachedImage.GestureRecognizers>
+                                </ffimageloading:CachedImage>
                             </yummy:PancakeView>
                             <StackLayout Grid.Row="3"
                                          Grid.Column="0"
