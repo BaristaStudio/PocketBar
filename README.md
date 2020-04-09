@@ -10,11 +10,12 @@ Among other things, it allows a user to:
 
 ## The App
 A picture is worth a thousand words...
-### iOS
-![PocketBar Demo iOS](Demos/iOS/pocketBar.gif)
 
 ### Android
 ![PocketBar Demo Android](Demos/Android/pocketBar.gif)
+
+### iOS
+![PocketBar Demo iOS](Demos/iOS/pocketBar.gif)
 
 ## Project Mockup
 Interactive Mockup Available through: https://xd.adobe.com/view/a91b5676-6ee6-4ed5-6489-3f99f2298cb7-df2a/
@@ -28,7 +29,7 @@ As mentioned before, PocketBar was built using the Xamarin Forms framework in co
 PocketBar is a BaristaStudio product, an organization conformed by:
 
 * Francine Lucca, ID: 1069215
-* Orlando Nuñez, ID: 
+* Orlando Nuñez, ID: 1070842
 * Franklin Quezada, ID: 1070595
 
 ## Libraries and Dependencies
