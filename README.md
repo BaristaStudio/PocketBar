@@ -34,14 +34,14 @@ PocketBar is a BaristaStudio product, an organization conformed by:
 
 ## Libraries and Dependencies
 To Support the Application, PocketBar takes advantage of the following NugetPackages:
-*Xamarin.Forms
-*Prism.Unity.Forms
-*Newtonsoft.JSON
-*PropertChanged.Fody
-*Refit
-*MonkeyCache.FileStore
-*Plugin.Share
-*RedCorners.Forms
-*Xamarin.Forms.PancakeView
-*Com.Airbnb.Xamarin.Forms.Lottie
+* Xamarin.Forms
+* Prism.Unity.Forms
+* Newtonsoft.JSON
+* PropertChanged.Fody
+* Refit
+* MonkeyCache.FileStore
+* Plugin.Share
+* RedCorners.Forms
+* Xamarin.Forms.PancakeView
+* Com.Airbnb.Xamarin.Forms.Lottie
 
