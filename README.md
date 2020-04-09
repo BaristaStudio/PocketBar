@@ -1,7 +1,6 @@
 # PocketBar
 
 ## What is PocketBar?
-Es un app que extrae información de TheCocktailDB (https://www.thecocktaildb.com/api.php) y la presenta al usuario permitiéndole navegar y encontrar cócteles de su elección
 Pocket Bar is an app built in Xamarin Forms that extracts cocktail information from TheCocktailDB (https://www.thecocktaildb.com/api.php)  and presents it to the user in a fun, interactive way.
 Among other things, it allows a user to:
 * List cocktails By Name, Category, Glass Type, Ingredient or Random.
@@ -12,8 +11,10 @@ Among other things, it allows a user to:
 ## The App
 A picture is worth a thousand words...
 ### iOS
+![PocketBar Demo iOS](Demos/iOS/pocketBar.gif)
 
 ### Android
+![PocketBar Demo Android](Demos/Android/pocketBar.gif)
 
 ## Project Mockup
 Interactive Mockup Available through: https://xd.adobe.com/view/a91b5676-6ee6-4ed5-6489-3f99f2298cb7-df2a/
