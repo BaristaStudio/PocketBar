@@ -8,6 +8,7 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              ios:Page.UseSafeArea="True"
              x:Name="this">
     <ContentPage.Content>
@@ -62,10 +63,12 @@
                                         </Grid.ColumnDefinitions>
                                         <yummy:PancakeView CornerRadius="6" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="4"
                                                Grid.Column="0">
-                                            <Image Source="{Binding DrinkThumb}" 
-                                               HorizontalOptions="FillAndExpand"
-                                               HeightRequest="200"
-                                               Aspect="Fill"/>
+                                            <ffimageloading:CachedImage Source="{Binding DrinkThumb}" 
+                                                    ErrorPlaceholder="errorImage.gif"
+                                                    LoadingPriority="Highest"
+                                                    DownsampleToViewSize="True"
+                                                    Aspect="AspectFill" 
+                                                    HorizontalOptions="FillAndExpand"/>
                                         </yummy:PancakeView>
 
                                         <yummy:PancakeView CornerRadius="0,0,6,0"

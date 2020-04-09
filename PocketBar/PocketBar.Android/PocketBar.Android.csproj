@@ -61,6 +61,9 @@
     <PackageReference Include="Plugin.Share">
       <Version>7.1.1</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Forms">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.396" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.1" />
   </ItemGroup>
@@ -306,6 +309,8 @@
     <AndroidResource Include="Resources\drawable-hdpi\coffeeTea.png" />
     <AndroidResource Include="Resources\drawable-hdpi\homemadeLiqueur.png" />
     <AndroidResource Include="Resources\drawable-hdpi\milkFloatShake.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\loadingImage.gif" />
+    <AndroidResource Include="Resources\drawable-hdpi\errorImage.gif" />
     <Content Include="Resources\drawable-hdpi\nickNoraGlass.jpg" />
     <AndroidResource Include="Resources\drawable-hdpi\shotGlass.jpg" />
     <AndroidResource Include="Resources\drawable-hdpi\punchBowl.jpg" />
@@ -455,6 +460,12 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\punchPartyDrink.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\shot.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\softDrinkSoda.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\loadingImage.gif" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\loadingImage.gif" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\loadingImage.gif" />
+    <AndroidResource Include="Resources\drawable-xhdpi\errorImage.gif" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\errorImage.gif" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\errorImage.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

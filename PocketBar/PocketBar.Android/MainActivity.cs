@@ -7,6 +7,7 @@ using Prism;
 using Prism.Ioc;
 using Lottie.Forms.Droid;
 using Xamarin.Forms;
+using FFImageLoading.Forms.Platform;
 
 namespace PocketBar.Droid
 {
@@ -23,6 +24,8 @@ namespace PocketBar.Droid
             Forms.SetFlags("SwipeView_Experimental");
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
+            CachedImageRenderer.Init(true);
+            CachedImageRenderer.InitImageViewHandler();
             AnimationViewRenderer.Init();
             LoadApplication(new App(new AndroidInitializer()));
         }
